@@ -1,0 +1,965 @@
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"ExampleTasks.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.taskLedBlink,"ax",%progbits
+  20              		.align	2
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	taskLedBlink, %function
+  24              	taskLedBlink:
+  25              	.LFB69:
+  26              		.file 1 "ExampleTasks.c"
+   1:ExampleTasks.c **** /* ========================================
+   2:ExampleTasks.c ****  *
+   3:ExampleTasks.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:ExampleTasks.c ****  * All Rights Reserved
+   5:ExampleTasks.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:ExampleTasks.c ****  *
+   7:ExampleTasks.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:ExampleTasks.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:ExampleTasks.c ****  *
+  10:ExampleTasks.c ****  * ========================================
+  11:ExampleTasks.c **** */
+  12:ExampleTasks.c **** 
+  13:ExampleTasks.c **** 
+  14:ExampleTasks.c **** #include "ExampleTasks.h"
+  15:ExampleTasks.c **** #include <time.h>
+  16:ExampleTasks.c **** #include <stdlib.h>
+  17:ExampleTasks.c **** 
+  18:ExampleTasks.c **** #define MIN(a,b) (((a)<(b))?(a):(b))
+  19:ExampleTasks.c **** 
+  20:ExampleTasks.c **** static volatile int pushButtonInterruptCounter = 0;
+  21:ExampleTasks.c **** 
+  22:ExampleTasks.c **** static void ledControlFunction();
+  23:ExampleTasks.c **** static void taskLedBlink( void *pvParameters );
+  24:ExampleTasks.c **** static void taskPushButtonInterrupt( void *pvParameters );
+  25:ExampleTasks.c **** static void taskUserCodeGenerator( void *pvParameters );
+  26:ExampleTasks.c **** 
+  27:ExampleTasks.c **** CY_ISR(pushButtonInterrupt){
+  28:ExampleTasks.c ****     
+  29:ExampleTasks.c ****     
+  30:ExampleTasks.c ****     if(pushButtonInterruptCounter % 2 == 0 )
+  31:ExampleTasks.c ****     {
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 2
+
+
+  32:ExampleTasks.c ****         
+  33:ExampleTasks.c ****         pushButtonInterruptCounter = 1;
+  34:ExampleTasks.c ****     }
+  35:ExampleTasks.c ****     else
+  36:ExampleTasks.c ****     {
+  37:ExampleTasks.c ****         pushButtonInterruptCounter = 0;    
+  38:ExampleTasks.c ****     }
+  39:ExampleTasks.c ****     
+  40:ExampleTasks.c **** }
+  41:ExampleTasks.c **** 
+  42:ExampleTasks.c **** static void taskLedBlink( void *pvParameters )
+  43:ExampleTasks.c **** {
+  27              		.loc 1 43 0
+  28              		.cfi_startproc
+  29              		@ Volatile: function does not return.
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  37              	.LVL1:
+  38              	.L2:
+  44:ExampleTasks.c **** 	
+  45:ExampleTasks.c ****     (void)pvParameters;
+  46:ExampleTasks.c ****     
+  47:ExampleTasks.c **** 	for( ;; )
+  48:ExampleTasks.c **** 	{
+  49:ExampleTasks.c **** 		ledControlFunction();
+  50:ExampleTasks.c ****         vTaskDelay(1);
+  39              		.loc 1 50 0 discriminator 1
+  40 0002 0120     		movs	r0, #1
+  41 0004 FFF7FEFF 		bl	vTaskDelay
+  42              	.LVL2:
+  43 0008 FBE7     		b	.L2
+  44              		.cfi_endproc
+  45              	.LFE69:
+  46              		.size	taskLedBlink, .-taskLedBlink
+  47 000a 00BF     		.section	.text.pushButtonInterrupt,"ax",%progbits
+  48              		.align	2
+  49              		.global	pushButtonInterrupt
+  50              		.thumb
+  51              		.thumb_func
+  52              		.type	pushButtonInterrupt, %function
+  53              	pushButtonInterrupt:
+  54              	.LFB68:
+  27:ExampleTasks.c ****     
+  55              		.loc 1 27 0
+  56              		.cfi_startproc
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  30:ExampleTasks.c ****     {
+  60              		.loc 1 30 0
+  61 0000 064B     		ldr	r3, .L7
+  62 0002 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 3
+
+
+  63 0004 13F0010F 		tst	r3, #1
+  64 0008 03D1     		bne	.L5
+  33:ExampleTasks.c ****     }
+  65              		.loc 1 33 0
+  66 000a 0122     		movs	r2, #1
+  67 000c 034B     		ldr	r3, .L7
+  68 000e 1A60     		str	r2, [r3]
+  69 0010 7047     		bx	lr
+  70              	.L5:
+  37:ExampleTasks.c ****     }
+  71              		.loc 1 37 0
+  72 0012 0022     		movs	r2, #0
+  73 0014 014B     		ldr	r3, .L7
+  74 0016 1A60     		str	r2, [r3]
+  75 0018 7047     		bx	lr
+  76              	.L8:
+  77 001a 00BF     		.align	2
+  78              	.L7:
+  79 001c 00000000 		.word	.LANCHOR0
+  80              		.cfi_endproc
+  81              	.LFE68:
+  82              		.size	pushButtonInterrupt, .-pushButtonInterrupt
+  83              		.section	.text.startTaskLedBlink,"ax",%progbits
+  84              		.align	2
+  85              		.global	startTaskLedBlink
+  86              		.thumb
+  87              		.thumb_func
+  88              		.type	startTaskLedBlink, %function
+  89              	startTaskLedBlink:
+  90              	.LFB72:
+  51:ExampleTasks.c **** 	}
+  52:ExampleTasks.c **** 	
+  53:ExampleTasks.c **** 	/* Tasks must not attempt to return from their implementing
+  54:ExampleTasks.c **** 		function or otherwise exit.  In newer FreeRTOS port
+  55:ExampleTasks.c **** 		attempting to do so will result in an configASSERT() being
+  56:ExampleTasks.c **** 		called if it is defined.  If it is necessary for a task to
+  57:ExampleTasks.c **** 		exit then have the task call vTaskDelete( NULL ) to ensure
+  58:ExampleTasks.c **** 	its exit is clean. */
+  59:ExampleTasks.c **** 	vTaskDelete( NULL );
+  60:ExampleTasks.c **** }
+  61:ExampleTasks.c **** 
+  62:ExampleTasks.c **** static void taskPushButtonInterrupt( void *pvParameters )
+  63:ExampleTasks.c **** {
+  64:ExampleTasks.c **** 	
+  65:ExampleTasks.c ****     (void)pvParameters;
+  66:ExampleTasks.c ****     
+  67:ExampleTasks.c ****     for( ;; )
+  68:ExampleTasks.c **** 	{
+  69:ExampleTasks.c ****         
+  70:ExampleTasks.c ****         vTaskDelay(1);
+  71:ExampleTasks.c **** 		        
+  72:ExampleTasks.c ****     }
+  73:ExampleTasks.c **** 		
+  74:ExampleTasks.c **** 	vTaskDelete( NULL );
+  75:ExampleTasks.c **** }
+  76:ExampleTasks.c **** 
+  77:ExampleTasks.c **** static void ledControlFunction()
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 4
+
+
+  78:ExampleTasks.c **** {
+  79:ExampleTasks.c **** 
+  80:ExampleTasks.c **** }
+  81:ExampleTasks.c **** 
+  82:ExampleTasks.c **** void startTaskLedBlink()
+  83:ExampleTasks.c **** {
+  91              		.loc 1 83 0
+  92              		.cfi_startproc
+  93              		@ args = 0, pretend = 0, frame = 8
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95 0000 00B5     		push	{lr}
+  96              		.cfi_def_cfa_offset 4
+  97              		.cfi_offset 14, -4
+  98 0002 85B0     		sub	sp, sp, #20
+  99              		.cfi_def_cfa_offset 24
+  84:ExampleTasks.c ****     
+  85:ExampleTasks.c ****     TaskHandle_t xHandle = NULL;
+ 100              		.loc 1 85 0
+ 101 0004 0022     		movs	r2, #0
+ 102 0006 04AB     		add	r3, sp, #16
+ 103 0008 43F8042D 		str	r2, [r3, #-4]!
+  86:ExampleTasks.c ****  	/* Create the task, storing the handle. */ 
+  87:ExampleTasks.c **** 	xTaskCreate(
+ 104              		.loc 1 87 0
+ 105 000c 0193     		str	r3, [sp, #4]
+ 106 000e 0092     		str	r2, [sp]
+ 107 0010 0123     		movs	r3, #1
+ 108 0012 8022     		movs	r2, #128
+ 109 0014 0349     		ldr	r1, .L11
+ 110 0016 0448     		ldr	r0, .L11+4
+ 111 0018 FFF7FEFF 		bl	xTaskCreate
+ 112              	.LVL3:
+  88:ExampleTasks.c **** 		taskLedBlink,               /* Function that implements the task. */ 
+  89:ExampleTasks.c **** 		"LedBlink",                 /* Text name for the task. */ 
+  90:ExampleTasks.c **** 		128,                        /* Stack size in words, not bytes. */ 
+  91:ExampleTasks.c **** 		( void * ) 1,               /* Parameter passed into the task. */ 
+  92:ExampleTasks.c **** 		tskIDLE_PRIORITY,           /* Priority at which the task is created. */ 
+  93:ExampleTasks.c **** 	&xHandle );                     /* Used to pass out the created task's handle. */
+  94:ExampleTasks.c ****     
+  95:ExampleTasks.c ****   
+  96:ExampleTasks.c **** }
+ 113              		.loc 1 96 0
+ 114 001c 05B0     		add	sp, sp, #20
+ 115              		.cfi_def_cfa_offset 4
+ 116              		@ sp needed
+ 117 001e 5DF804FB 		ldr	pc, [sp], #4
+ 118              	.L12:
+ 119 0022 00BF     		.align	2
+ 120              	.L11:
+ 121 0024 00000000 		.word	.LC0
+ 122 0028 00000000 		.word	taskLedBlink
+ 123              		.cfi_endproc
+ 124              	.LFE72:
+ 125              		.size	startTaskLedBlink, .-startTaskLedBlink
+ 126              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 127              		.align	2
+ 128              	.LC0:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 5
+
+
+ 129 0000 4C656442 		.ascii	"LedBlink\000"
+ 129      6C696E6B 
+ 129      00
+ 130              		.bss
+ 131              		.align	2
+ 132              		.set	.LANCHOR0,. + 0
+ 133              		.type	pushButtonInterruptCounter, %object
+ 134              		.size	pushButtonInterruptCounter, 4
+ 135              	pushButtonInterruptCounter:
+ 136 0000 00000000 		.space	4
+ 137              		.text
+ 138              	.Letext0:
+ 139              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 140              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 141              		.file 4 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\portable\\GCC\\ARM_CM3/portmacro.h"
+ 142              		.file 5 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\include/task.h"
+ 143              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
+ 144              		.section	.debug_info,"",%progbits
+ 145              	.Ldebug_info0:
+ 146 0000 A0010000 		.4byte	0x1a0
+ 147 0004 0400     		.2byte	0x4
+ 148 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 149 000a 04       		.byte	0x4
+ 150 000b 01       		.uleb128 0x1
+ 151 000c 1C000000 		.4byte	.LASF22
+ 152 0010 0C       		.byte	0xc
+ 153 0011 29010000 		.4byte	.LASF23
+ 154 0015 76010000 		.4byte	.LASF24
+ 155 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 156 001d 00000000 		.4byte	0
+ 157 0021 00000000 		.4byte	.Ldebug_line0
+ 158 0025 02       		.uleb128 0x2
+ 159 0026 01       		.byte	0x1
+ 160 0027 06       		.byte	0x6
+ 161 0028 FC010000 		.4byte	.LASF0
+ 162 002c 02       		.uleb128 0x2
+ 163 002d 01       		.byte	0x1
+ 164 002e 08       		.byte	0x8
+ 165 002f DC000000 		.4byte	.LASF1
+ 166 0033 02       		.uleb128 0x2
+ 167 0034 02       		.byte	0x2
+ 168 0035 05       		.byte	0x5
+ 169 0036 AA010000 		.4byte	.LASF2
+ 170 003a 02       		.uleb128 0x2
+ 171 003b 02       		.byte	0x2
+ 172 003c 07       		.byte	0x7
+ 173 003d BC000000 		.4byte	.LASF3
+ 174 0041 03       		.uleb128 0x3
+ 175 0042 00000000 		.4byte	.LASF9
+ 176 0046 02       		.byte	0x2
+ 177 0047 3F       		.byte	0x3f
+ 178 0048 4C000000 		.4byte	0x4c
+ 179 004c 02       		.uleb128 0x2
+ 180 004d 04       		.byte	0x4
+ 181 004e 05       		.byte	0x5
+ 182 004f C1010000 		.4byte	.LASF4
+ 183 0053 02       		.uleb128 0x2
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 6
+
+
+ 184 0054 04       		.byte	0x4
+ 185 0055 07       		.byte	0x7
+ 186 0056 AA000000 		.4byte	.LASF5
+ 187 005a 02       		.uleb128 0x2
+ 188 005b 08       		.byte	0x8
+ 189 005c 05       		.byte	0x5
+ 190 005d 56010000 		.4byte	.LASF6
+ 191 0061 02       		.uleb128 0x2
+ 192 0062 08       		.byte	0x8
+ 193 0063 07       		.byte	0x7
+ 194 0064 12010000 		.4byte	.LASF7
+ 195 0068 04       		.uleb128 0x4
+ 196 0069 04       		.byte	0x4
+ 197 006a 05       		.byte	0x5
+ 198 006b 696E7400 		.ascii	"int\000"
+ 199 006f 02       		.uleb128 0x2
+ 200 0070 04       		.byte	0x4
+ 201 0071 07       		.byte	0x7
+ 202 0072 05010000 		.4byte	.LASF8
+ 203 0076 03       		.uleb128 0x3
+ 204 0077 45010000 		.4byte	.LASF10
+ 205 007b 03       		.byte	0x3
+ 206 007c 2C       		.byte	0x2c
+ 207 007d 41000000 		.4byte	0x41
+ 208 0081 02       		.uleb128 0x2
+ 209 0082 04       		.byte	0x4
+ 210 0083 04       		.byte	0x4
+ 211 0084 0A000000 		.4byte	.LASF11
+ 212 0088 02       		.uleb128 0x2
+ 213 0089 08       		.byte	0x8
+ 214 008a 04       		.byte	0x4
+ 215 008b EA000000 		.4byte	.LASF12
+ 216 008f 02       		.uleb128 0x2
+ 217 0090 01       		.byte	0x1
+ 218 0091 08       		.byte	0x8
+ 219 0092 64010000 		.4byte	.LASF13
+ 220 0096 02       		.uleb128 0x2
+ 221 0097 08       		.byte	0x8
+ 222 0098 04       		.byte	0x4
+ 223 0099 F0010000 		.4byte	.LASF14
+ 224 009d 02       		.uleb128 0x2
+ 225 009e 04       		.byte	0x4
+ 226 009f 07       		.byte	0x7
+ 227 00a0 4D010000 		.4byte	.LASF15
+ 228 00a4 05       		.uleb128 0x5
+ 229 00a5 04       		.byte	0x4
+ 230 00a6 03       		.uleb128 0x3
+ 231 00a7 10000000 		.4byte	.LASF16
+ 232 00ab 04       		.byte	0x4
+ 233 00ac 3C       		.byte	0x3c
+ 234 00ad 53000000 		.4byte	0x53
+ 235 00b1 03       		.uleb128 0x3
+ 236 00b2 B4010000 		.4byte	.LASF17
+ 237 00b6 05       		.byte	0x5
+ 238 00b7 57       		.byte	0x57
+ 239 00b8 BC000000 		.4byte	0xbc
+ 240 00bc 06       		.uleb128 0x6
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 7
+
+
+ 241 00bd 04       		.byte	0x4
+ 242 00be C2000000 		.4byte	0xc2
+ 243 00c2 07       		.uleb128 0x7
+ 244 00c3 F1000000 		.4byte	.LASF25
+ 245 00c7 08       		.uleb128 0x8
+ 246 00c8 38010000 		.4byte	.LASF26
+ 247 00cc 01       		.byte	0x1
+ 248 00cd 2A       		.byte	0x2a
+ 249 00ce 00000000 		.4byte	.LFB69
+ 250 00d2 0A000000 		.4byte	.LFE69-.LFB69
+ 251 00d6 01       		.uleb128 0x1
+ 252 00d7 9C       		.byte	0x9c
+ 253 00d8 FB000000 		.4byte	0xfb
+ 254 00dc 09       		.uleb128 0x9
+ 255 00dd 69010000 		.4byte	.LASF27
+ 256 00e1 01       		.byte	0x1
+ 257 00e2 2A       		.byte	0x2a
+ 258 00e3 A4000000 		.4byte	0xa4
+ 259 00e7 00000000 		.4byte	.LLST0
+ 260 00eb 0A       		.uleb128 0xa
+ 261 00ec 08000000 		.4byte	.LVL2
+ 262 00f0 8B010000 		.4byte	0x18b
+ 263 00f4 0B       		.uleb128 0xb
+ 264 00f5 01       		.uleb128 0x1
+ 265 00f6 50       		.byte	0x50
+ 266 00f7 01       		.uleb128 0x1
+ 267 00f8 31       		.byte	0x31
+ 268 00f9 00       		.byte	0
+ 269 00fa 00       		.byte	0
+ 270 00fb 0C       		.uleb128 0xc
+ 271 00fc 08020000 		.4byte	.LASF28
+ 272 0100 01       		.byte	0x1
+ 273 0101 1B       		.byte	0x1b
+ 274 0102 00000000 		.4byte	.LFB68
+ 275 0106 20000000 		.4byte	.LFE68-.LFB68
+ 276 010a 01       		.uleb128 0x1
+ 277 010b 9C       		.byte	0x9c
+ 278 010c 0D       		.uleb128 0xd
+ 279 010d 1C020000 		.4byte	.LASF29
+ 280 0111 01       		.byte	0x1
+ 281 0112 52       		.byte	0x52
+ 282 0113 00000000 		.4byte	.LFB72
+ 283 0117 2C000000 		.4byte	.LFE72-.LFB72
+ 284 011b 01       		.uleb128 0x1
+ 285 011c 9C       		.byte	0x9c
+ 286 011d 64010000 		.4byte	0x164
+ 287 0121 0E       		.uleb128 0xe
+ 288 0122 3A020000 		.4byte	.LASF18
+ 289 0126 01       		.byte	0x1
+ 290 0127 55       		.byte	0x55
+ 291 0128 B1000000 		.4byte	0xb1
+ 292 012c 02       		.uleb128 0x2
+ 293 012d 91       		.byte	0x91
+ 294 012e 74       		.sleb128 -12
+ 295 012f 0A       		.uleb128 0xa
+ 296 0130 1C000000 		.4byte	.LVL3
+ 297 0134 97010000 		.4byte	0x197
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 8
+
+
+ 298 0138 0B       		.uleb128 0xb
+ 299 0139 01       		.uleb128 0x1
+ 300 013a 50       		.byte	0x50
+ 301 013b 05       		.uleb128 0x5
+ 302 013c 03       		.byte	0x3
+ 303 013d 00000000 		.4byte	taskLedBlink
+ 304 0141 0B       		.uleb128 0xb
+ 305 0142 01       		.uleb128 0x1
+ 306 0143 51       		.byte	0x51
+ 307 0144 05       		.uleb128 0x5
+ 308 0145 03       		.byte	0x3
+ 309 0146 00000000 		.4byte	.LC0
+ 310 014a 0B       		.uleb128 0xb
+ 311 014b 01       		.uleb128 0x1
+ 312 014c 52       		.byte	0x52
+ 313 014d 02       		.uleb128 0x2
+ 314 014e 08       		.byte	0x8
+ 315 014f 80       		.byte	0x80
+ 316 0150 0B       		.uleb128 0xb
+ 317 0151 01       		.uleb128 0x1
+ 318 0152 53       		.byte	0x53
+ 319 0153 01       		.uleb128 0x1
+ 320 0154 31       		.byte	0x31
+ 321 0155 0B       		.uleb128 0xb
+ 322 0156 02       		.uleb128 0x2
+ 323 0157 7D       		.byte	0x7d
+ 324 0158 00       		.sleb128 0
+ 325 0159 01       		.uleb128 0x1
+ 326 015a 30       		.byte	0x30
+ 327 015b 0B       		.uleb128 0xb
+ 328 015c 02       		.uleb128 0x2
+ 329 015d 7D       		.byte	0x7d
+ 330 015e 04       		.sleb128 4
+ 331 015f 02       		.uleb128 0x2
+ 332 0160 91       		.byte	0x91
+ 333 0161 74       		.sleb128 -12
+ 334 0162 00       		.byte	0
+ 335 0163 00       		.byte	0
+ 336 0164 0E       		.uleb128 0xe
+ 337 0165 D5010000 		.4byte	.LASF19
+ 338 0169 01       		.byte	0x1
+ 339 016a 14       		.byte	0x14
+ 340 016b 75010000 		.4byte	0x175
+ 341 016f 05       		.uleb128 0x5
+ 342 0170 03       		.byte	0x3
+ 343 0171 00000000 		.4byte	pushButtonInterruptCounter
+ 344 0175 0F       		.uleb128 0xf
+ 345 0176 68000000 		.4byte	0x68
+ 346 017a 10       		.uleb128 0x10
+ 347 017b CF000000 		.4byte	.LASF30
+ 348 017f 06       		.byte	0x6
+ 349 0180 1207     		.2byte	0x712
+ 350 0182 86010000 		.4byte	0x186
+ 351 0186 0F       		.uleb128 0xf
+ 352 0187 76000000 		.4byte	0x76
+ 353 018b 11       		.uleb128 0x11
+ 354 018c CA010000 		.4byte	.LASF20
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 9
+
+
+ 355 0190 CA010000 		.4byte	.LASF20
+ 356 0194 05       		.byte	0x5
+ 357 0195 1A03     		.2byte	0x31a
+ 358 0197 11       		.uleb128 0x11
+ 359 0198 2E020000 		.4byte	.LASF21
+ 360 019c 2E020000 		.4byte	.LASF21
+ 361 01a0 05       		.byte	0x5
+ 362 01a1 6301     		.2byte	0x163
+ 363 01a3 00       		.byte	0
+ 364              		.section	.debug_abbrev,"",%progbits
+ 365              	.Ldebug_abbrev0:
+ 366 0000 01       		.uleb128 0x1
+ 367 0001 11       		.uleb128 0x11
+ 368 0002 01       		.byte	0x1
+ 369 0003 25       		.uleb128 0x25
+ 370 0004 0E       		.uleb128 0xe
+ 371 0005 13       		.uleb128 0x13
+ 372 0006 0B       		.uleb128 0xb
+ 373 0007 03       		.uleb128 0x3
+ 374 0008 0E       		.uleb128 0xe
+ 375 0009 1B       		.uleb128 0x1b
+ 376 000a 0E       		.uleb128 0xe
+ 377 000b 55       		.uleb128 0x55
+ 378 000c 17       		.uleb128 0x17
+ 379 000d 11       		.uleb128 0x11
+ 380 000e 01       		.uleb128 0x1
+ 381 000f 10       		.uleb128 0x10
+ 382 0010 17       		.uleb128 0x17
+ 383 0011 00       		.byte	0
+ 384 0012 00       		.byte	0
+ 385 0013 02       		.uleb128 0x2
+ 386 0014 24       		.uleb128 0x24
+ 387 0015 00       		.byte	0
+ 388 0016 0B       		.uleb128 0xb
+ 389 0017 0B       		.uleb128 0xb
+ 390 0018 3E       		.uleb128 0x3e
+ 391 0019 0B       		.uleb128 0xb
+ 392 001a 03       		.uleb128 0x3
+ 393 001b 0E       		.uleb128 0xe
+ 394 001c 00       		.byte	0
+ 395 001d 00       		.byte	0
+ 396 001e 03       		.uleb128 0x3
+ 397 001f 16       		.uleb128 0x16
+ 398 0020 00       		.byte	0
+ 399 0021 03       		.uleb128 0x3
+ 400 0022 0E       		.uleb128 0xe
+ 401 0023 3A       		.uleb128 0x3a
+ 402 0024 0B       		.uleb128 0xb
+ 403 0025 3B       		.uleb128 0x3b
+ 404 0026 0B       		.uleb128 0xb
+ 405 0027 49       		.uleb128 0x49
+ 406 0028 13       		.uleb128 0x13
+ 407 0029 00       		.byte	0
+ 408 002a 00       		.byte	0
+ 409 002b 04       		.uleb128 0x4
+ 410 002c 24       		.uleb128 0x24
+ 411 002d 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 10
+
+
+ 412 002e 0B       		.uleb128 0xb
+ 413 002f 0B       		.uleb128 0xb
+ 414 0030 3E       		.uleb128 0x3e
+ 415 0031 0B       		.uleb128 0xb
+ 416 0032 03       		.uleb128 0x3
+ 417 0033 08       		.uleb128 0x8
+ 418 0034 00       		.byte	0
+ 419 0035 00       		.byte	0
+ 420 0036 05       		.uleb128 0x5
+ 421 0037 0F       		.uleb128 0xf
+ 422 0038 00       		.byte	0
+ 423 0039 0B       		.uleb128 0xb
+ 424 003a 0B       		.uleb128 0xb
+ 425 003b 00       		.byte	0
+ 426 003c 00       		.byte	0
+ 427 003d 06       		.uleb128 0x6
+ 428 003e 0F       		.uleb128 0xf
+ 429 003f 00       		.byte	0
+ 430 0040 0B       		.uleb128 0xb
+ 431 0041 0B       		.uleb128 0xb
+ 432 0042 49       		.uleb128 0x49
+ 433 0043 13       		.uleb128 0x13
+ 434 0044 00       		.byte	0
+ 435 0045 00       		.byte	0
+ 436 0046 07       		.uleb128 0x7
+ 437 0047 13       		.uleb128 0x13
+ 438 0048 00       		.byte	0
+ 439 0049 03       		.uleb128 0x3
+ 440 004a 0E       		.uleb128 0xe
+ 441 004b 3C       		.uleb128 0x3c
+ 442 004c 19       		.uleb128 0x19
+ 443 004d 00       		.byte	0
+ 444 004e 00       		.byte	0
+ 445 004f 08       		.uleb128 0x8
+ 446 0050 2E       		.uleb128 0x2e
+ 447 0051 01       		.byte	0x1
+ 448 0052 03       		.uleb128 0x3
+ 449 0053 0E       		.uleb128 0xe
+ 450 0054 3A       		.uleb128 0x3a
+ 451 0055 0B       		.uleb128 0xb
+ 452 0056 3B       		.uleb128 0x3b
+ 453 0057 0B       		.uleb128 0xb
+ 454 0058 27       		.uleb128 0x27
+ 455 0059 19       		.uleb128 0x19
+ 456 005a 8701     		.uleb128 0x87
+ 457 005c 19       		.uleb128 0x19
+ 458 005d 11       		.uleb128 0x11
+ 459 005e 01       		.uleb128 0x1
+ 460 005f 12       		.uleb128 0x12
+ 461 0060 06       		.uleb128 0x6
+ 462 0061 40       		.uleb128 0x40
+ 463 0062 18       		.uleb128 0x18
+ 464 0063 9742     		.uleb128 0x2117
+ 465 0065 19       		.uleb128 0x19
+ 466 0066 01       		.uleb128 0x1
+ 467 0067 13       		.uleb128 0x13
+ 468 0068 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 11
+
+
+ 469 0069 00       		.byte	0
+ 470 006a 09       		.uleb128 0x9
+ 471 006b 05       		.uleb128 0x5
+ 472 006c 00       		.byte	0
+ 473 006d 03       		.uleb128 0x3
+ 474 006e 0E       		.uleb128 0xe
+ 475 006f 3A       		.uleb128 0x3a
+ 476 0070 0B       		.uleb128 0xb
+ 477 0071 3B       		.uleb128 0x3b
+ 478 0072 0B       		.uleb128 0xb
+ 479 0073 49       		.uleb128 0x49
+ 480 0074 13       		.uleb128 0x13
+ 481 0075 02       		.uleb128 0x2
+ 482 0076 17       		.uleb128 0x17
+ 483 0077 00       		.byte	0
+ 484 0078 00       		.byte	0
+ 485 0079 0A       		.uleb128 0xa
+ 486 007a 898201   		.uleb128 0x4109
+ 487 007d 01       		.byte	0x1
+ 488 007e 11       		.uleb128 0x11
+ 489 007f 01       		.uleb128 0x1
+ 490 0080 31       		.uleb128 0x31
+ 491 0081 13       		.uleb128 0x13
+ 492 0082 00       		.byte	0
+ 493 0083 00       		.byte	0
+ 494 0084 0B       		.uleb128 0xb
+ 495 0085 8A8201   		.uleb128 0x410a
+ 496 0088 00       		.byte	0
+ 497 0089 02       		.uleb128 0x2
+ 498 008a 18       		.uleb128 0x18
+ 499 008b 9142     		.uleb128 0x2111
+ 500 008d 18       		.uleb128 0x18
+ 501 008e 00       		.byte	0
+ 502 008f 00       		.byte	0
+ 503 0090 0C       		.uleb128 0xc
+ 504 0091 2E       		.uleb128 0x2e
+ 505 0092 00       		.byte	0
+ 506 0093 3F       		.uleb128 0x3f
+ 507 0094 19       		.uleb128 0x19
+ 508 0095 03       		.uleb128 0x3
+ 509 0096 0E       		.uleb128 0xe
+ 510 0097 3A       		.uleb128 0x3a
+ 511 0098 0B       		.uleb128 0xb
+ 512 0099 3B       		.uleb128 0x3b
+ 513 009a 0B       		.uleb128 0xb
+ 514 009b 27       		.uleb128 0x27
+ 515 009c 19       		.uleb128 0x19
+ 516 009d 11       		.uleb128 0x11
+ 517 009e 01       		.uleb128 0x1
+ 518 009f 12       		.uleb128 0x12
+ 519 00a0 06       		.uleb128 0x6
+ 520 00a1 40       		.uleb128 0x40
+ 521 00a2 18       		.uleb128 0x18
+ 522 00a3 9742     		.uleb128 0x2117
+ 523 00a5 19       		.uleb128 0x19
+ 524 00a6 00       		.byte	0
+ 525 00a7 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 12
+
+
+ 526 00a8 0D       		.uleb128 0xd
+ 527 00a9 2E       		.uleb128 0x2e
+ 528 00aa 01       		.byte	0x1
+ 529 00ab 3F       		.uleb128 0x3f
+ 530 00ac 19       		.uleb128 0x19
+ 531 00ad 03       		.uleb128 0x3
+ 532 00ae 0E       		.uleb128 0xe
+ 533 00af 3A       		.uleb128 0x3a
+ 534 00b0 0B       		.uleb128 0xb
+ 535 00b1 3B       		.uleb128 0x3b
+ 536 00b2 0B       		.uleb128 0xb
+ 537 00b3 11       		.uleb128 0x11
+ 538 00b4 01       		.uleb128 0x1
+ 539 00b5 12       		.uleb128 0x12
+ 540 00b6 06       		.uleb128 0x6
+ 541 00b7 40       		.uleb128 0x40
+ 542 00b8 18       		.uleb128 0x18
+ 543 00b9 9742     		.uleb128 0x2117
+ 544 00bb 19       		.uleb128 0x19
+ 545 00bc 01       		.uleb128 0x1
+ 546 00bd 13       		.uleb128 0x13
+ 547 00be 00       		.byte	0
+ 548 00bf 00       		.byte	0
+ 549 00c0 0E       		.uleb128 0xe
+ 550 00c1 34       		.uleb128 0x34
+ 551 00c2 00       		.byte	0
+ 552 00c3 03       		.uleb128 0x3
+ 553 00c4 0E       		.uleb128 0xe
+ 554 00c5 3A       		.uleb128 0x3a
+ 555 00c6 0B       		.uleb128 0xb
+ 556 00c7 3B       		.uleb128 0x3b
+ 557 00c8 0B       		.uleb128 0xb
+ 558 00c9 49       		.uleb128 0x49
+ 559 00ca 13       		.uleb128 0x13
+ 560 00cb 02       		.uleb128 0x2
+ 561 00cc 18       		.uleb128 0x18
+ 562 00cd 00       		.byte	0
+ 563 00ce 00       		.byte	0
+ 564 00cf 0F       		.uleb128 0xf
+ 565 00d0 35       		.uleb128 0x35
+ 566 00d1 00       		.byte	0
+ 567 00d2 49       		.uleb128 0x49
+ 568 00d3 13       		.uleb128 0x13
+ 569 00d4 00       		.byte	0
+ 570 00d5 00       		.byte	0
+ 571 00d6 10       		.uleb128 0x10
+ 572 00d7 34       		.uleb128 0x34
+ 573 00d8 00       		.byte	0
+ 574 00d9 03       		.uleb128 0x3
+ 575 00da 0E       		.uleb128 0xe
+ 576 00db 3A       		.uleb128 0x3a
+ 577 00dc 0B       		.uleb128 0xb
+ 578 00dd 3B       		.uleb128 0x3b
+ 579 00de 05       		.uleb128 0x5
+ 580 00df 49       		.uleb128 0x49
+ 581 00e0 13       		.uleb128 0x13
+ 582 00e1 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 13
+
+
+ 583 00e2 19       		.uleb128 0x19
+ 584 00e3 3C       		.uleb128 0x3c
+ 585 00e4 19       		.uleb128 0x19
+ 586 00e5 00       		.byte	0
+ 587 00e6 00       		.byte	0
+ 588 00e7 11       		.uleb128 0x11
+ 589 00e8 2E       		.uleb128 0x2e
+ 590 00e9 00       		.byte	0
+ 591 00ea 3F       		.uleb128 0x3f
+ 592 00eb 19       		.uleb128 0x19
+ 593 00ec 3C       		.uleb128 0x3c
+ 594 00ed 19       		.uleb128 0x19
+ 595 00ee 6E       		.uleb128 0x6e
+ 596 00ef 0E       		.uleb128 0xe
+ 597 00f0 03       		.uleb128 0x3
+ 598 00f1 0E       		.uleb128 0xe
+ 599 00f2 3A       		.uleb128 0x3a
+ 600 00f3 0B       		.uleb128 0xb
+ 601 00f4 3B       		.uleb128 0x3b
+ 602 00f5 05       		.uleb128 0x5
+ 603 00f6 00       		.byte	0
+ 604 00f7 00       		.byte	0
+ 605 00f8 00       		.byte	0
+ 606              		.section	.debug_loc,"",%progbits
+ 607              	.Ldebug_loc0:
+ 608              	.LLST0:
+ 609 0000 00000000 		.4byte	.LVL0
+ 610 0004 02000000 		.4byte	.LVL1
+ 611 0008 0100     		.2byte	0x1
+ 612 000a 50       		.byte	0x50
+ 613 000b 02000000 		.4byte	.LVL1
+ 614 000f 0A000000 		.4byte	.LFE69
+ 615 0013 0400     		.2byte	0x4
+ 616 0015 F3       		.byte	0xf3
+ 617 0016 01       		.uleb128 0x1
+ 618 0017 50       		.byte	0x50
+ 619 0018 9F       		.byte	0x9f
+ 620 0019 00000000 		.4byte	0
+ 621 001d 00000000 		.4byte	0
+ 622              		.section	.debug_aranges,"",%progbits
+ 623 0000 2C000000 		.4byte	0x2c
+ 624 0004 0200     		.2byte	0x2
+ 625 0006 00000000 		.4byte	.Ldebug_info0
+ 626 000a 04       		.byte	0x4
+ 627 000b 00       		.byte	0
+ 628 000c 0000     		.2byte	0
+ 629 000e 0000     		.2byte	0
+ 630 0010 00000000 		.4byte	.LFB69
+ 631 0014 0A000000 		.4byte	.LFE69-.LFB69
+ 632 0018 00000000 		.4byte	.LFB68
+ 633 001c 20000000 		.4byte	.LFE68-.LFB68
+ 634 0020 00000000 		.4byte	.LFB72
+ 635 0024 2C000000 		.4byte	.LFE72-.LFB72
+ 636 0028 00000000 		.4byte	0
+ 637 002c 00000000 		.4byte	0
+ 638              		.section	.debug_ranges,"",%progbits
+ 639              	.Ldebug_ranges0:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 14
+
+
+ 640 0000 00000000 		.4byte	.LFB69
+ 641 0004 0A000000 		.4byte	.LFE69
+ 642 0008 00000000 		.4byte	.LFB68
+ 643 000c 20000000 		.4byte	.LFE68
+ 644 0010 00000000 		.4byte	.LFB72
+ 645 0014 2C000000 		.4byte	.LFE72
+ 646 0018 00000000 		.4byte	0
+ 647 001c 00000000 		.4byte	0
+ 648              		.section	.debug_line,"",%progbits
+ 649              	.Ldebug_line0:
+ 650 0000 02020000 		.section	.debug_str,"MS",%progbits,1
+ 650      0200C101 
+ 650      00000201 
+ 650      FB0E0D00 
+ 650      01010101 
+ 651              	.LASF9:
+ 652 0000 5F5F696E 		.ascii	"__int32_t\000"
+ 652      7433325F 
+ 652      7400
+ 653              	.LASF11:
+ 654 000a 666C6F61 		.ascii	"float\000"
+ 654      7400
+ 655              	.LASF16:
+ 656 0010 55426173 		.ascii	"UBaseType_t\000"
+ 656      65547970 
+ 656      655F7400 
+ 657              	.LASF22:
+ 658 001c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 658      43313120 
+ 658      352E342E 
+ 658      31203230 
+ 658      31363036 
+ 659 004f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 659      20726576 
+ 659      6973696F 
+ 659      6E203233 
+ 659      37373135 
+ 660 0082 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 660      66756E63 
+ 660      74696F6E 
+ 660      2D736563 
+ 660      74696F6E 
+ 661              	.LASF5:
+ 662 00aa 6C6F6E67 		.ascii	"long unsigned int\000"
+ 662      20756E73 
+ 662      69676E65 
+ 662      6420696E 
+ 662      7400
+ 663              	.LASF3:
+ 664 00bc 73686F72 		.ascii	"short unsigned int\000"
+ 664      7420756E 
+ 664      7369676E 
+ 664      65642069 
+ 664      6E7400
+ 665              	.LASF30:
+ 666 00cf 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 666      52784275 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 15
+
+
+ 666      66666572 
+ 666      00
+ 667              	.LASF1:
+ 668 00dc 756E7369 		.ascii	"unsigned char\000"
+ 668      676E6564 
+ 668      20636861 
+ 668      7200
+ 669              	.LASF12:
+ 670 00ea 646F7562 		.ascii	"double\000"
+ 670      6C6500
+ 671              	.LASF25:
+ 672 00f1 74736B54 		.ascii	"tskTaskControlBlock\000"
+ 672      61736B43 
+ 672      6F6E7472 
+ 672      6F6C426C 
+ 672      6F636B00 
+ 673              	.LASF8:
+ 674 0105 756E7369 		.ascii	"unsigned int\000"
+ 674      676E6564 
+ 674      20696E74 
+ 674      00
+ 675              	.LASF7:
+ 676 0112 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 676      206C6F6E 
+ 676      6720756E 
+ 676      7369676E 
+ 676      65642069 
+ 677              	.LASF23:
+ 678 0129 4578616D 		.ascii	"ExampleTasks.c\000"
+ 678      706C6554 
+ 678      61736B73 
+ 678      2E6300
+ 679              	.LASF26:
+ 680 0138 7461736B 		.ascii	"taskLedBlink\000"
+ 680      4C656442 
+ 680      6C696E6B 
+ 680      00
+ 681              	.LASF10:
+ 682 0145 696E7433 		.ascii	"int32_t\000"
+ 682      325F7400 
+ 683              	.LASF15:
+ 684 014d 73697A65 		.ascii	"sizetype\000"
+ 684      74797065 
+ 684      00
+ 685              	.LASF6:
+ 686 0156 6C6F6E67 		.ascii	"long long int\000"
+ 686      206C6F6E 
+ 686      6720696E 
+ 686      7400
+ 687              	.LASF13:
+ 688 0164 63686172 		.ascii	"char\000"
+ 688      00
+ 689              	.LASF27:
+ 690 0169 70765061 		.ascii	"pvParameters\000"
+ 690      72616D65 
+ 690      74657273 
+ 690      00
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 16
+
+
+ 691              	.LASF24:
+ 692 0176 453A5C47 		.ascii	"E:\\GIT Hub Project\\protocov\\Protocov\\Protocov.c"
+ 692      49542048 
+ 692      75622050 
+ 692      726F6A65 
+ 692      63745C70 
+ 693 01a5 7964736E 		.ascii	"ydsn\000"
+ 693      00
+ 694              	.LASF2:
+ 695 01aa 73686F72 		.ascii	"short int\000"
+ 695      7420696E 
+ 695      7400
+ 696              	.LASF17:
+ 697 01b4 5461736B 		.ascii	"TaskHandle_t\000"
+ 697      48616E64 
+ 697      6C655F74 
+ 697      00
+ 698              	.LASF4:
+ 699 01c1 6C6F6E67 		.ascii	"long int\000"
+ 699      20696E74 
+ 699      00
+ 700              	.LASF20:
+ 701 01ca 76546173 		.ascii	"vTaskDelay\000"
+ 701      6B44656C 
+ 701      617900
+ 702              	.LASF19:
+ 703 01d5 70757368 		.ascii	"pushButtonInterruptCounter\000"
+ 703      42757474 
+ 703      6F6E496E 
+ 703      74657272 
+ 703      75707443 
+ 704              	.LASF14:
+ 705 01f0 6C6F6E67 		.ascii	"long double\000"
+ 705      20646F75 
+ 705      626C6500 
+ 706              	.LASF0:
+ 707 01fc 7369676E 		.ascii	"signed char\000"
+ 707      65642063 
+ 707      68617200 
+ 708              	.LASF28:
+ 709 0208 70757368 		.ascii	"pushButtonInterrupt\000"
+ 709      42757474 
+ 709      6F6E496E 
+ 709      74657272 
+ 709      75707400 
+ 710              	.LASF29:
+ 711 021c 73746172 		.ascii	"startTaskLedBlink\000"
+ 711      74546173 
+ 711      6B4C6564 
+ 711      426C696E 
+ 711      6B00
+ 712              	.LASF21:
+ 713 022e 78546173 		.ascii	"xTaskCreate\000"
+ 713      6B437265 
+ 713      61746500 
+ 714              	.LASF18:
+ 715 023a 7848616E 		.ascii	"xHandle\000"
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxpyzal.s 			page 17
+
+
+ 715      646C6500 
+ 716              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

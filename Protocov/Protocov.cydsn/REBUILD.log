@@ -1,0 +1,17 @@
+--------------- Rebuild Started: 10/28/2023 13:43:43 Project: VehicleBatteryVoltage.c, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I..\..\..\FreeRTOS\FreeRTOS-Kernel\include -I..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3 -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/VehicleBatteryVoltage.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -c VehicleBatteryVoltage.c -o .\CortexM3\ARM_GCC_541\Debug\VehicleBatteryVoltage.o
+VehicleBatteryVoltage.c: In function 'TaskVehicleBatteryVoltage':
+VehicleBatteryVoltage.c:33:29: error: too few arguments to function 'VehicleBattVoltageAdc_GetResult16'
+         battVoltage_count = VehicleBattVoltageAdc_GetResult16();
+                             ^
+In file included from Generated_Source\PSoC5/project.h:55:0,
+                 from VehicleBatteryVoltage.h:15,
+                 from VehicleBatteryVoltage.c:13:
+Generated_Source\PSoC5/VehicleBattVoltageAdc.h:53:7: note: declared here
+ int16 VehicleBattVoltageAdc_GetResult16(uint16 chan);
+       ^
+VehicleBatteryVoltage.c:27:23: warning: variable 'battVoltage_mV' set but not used [-Wunused-but-set-variable]
+     volatile uint16_t battVoltage_mV = 0;
+                       ^
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Rebuild Failed: 10/28/2023 13:43:43 ---------------

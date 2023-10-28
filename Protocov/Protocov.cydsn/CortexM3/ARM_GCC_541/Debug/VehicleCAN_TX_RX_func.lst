@@ -1,0 +1,2427 @@
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"VehicleCAN_TX_RX_func.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.VehicleCAN_SendMsg,"ax",%progbits
+  20              		.align	2
+  21              		.global	VehicleCAN_SendMsg
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	VehicleCAN_SendMsg, %function
+  25              	VehicleCAN_SendMsg:
+  26              	.LFB68:
+  27              		.file 1 "Generated_Source\\PSoC5\\VehicleCAN_TX_RX_func.c"
+   1:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * File Name: VehicleCAN_TX_RX_func.c
+   3:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Version 3.0
+   4:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+   5:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Description:
+   6:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  There are functions process "Full" Receive and Transmit mailboxes:
+   7:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *     - VehicleCAN_SendMsg0-7();
+   8:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *     - VehicleCAN_ReceiveMsg0-15();
+   9:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  Transmission of message, and receive routine for "Basic" mailboxes:
+  10:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *     - VehicleCAN_SendMsg();
+  11:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *     - VehicleCAN_TxCancel();
+  12:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *     - VehicleCAN_ReceiveMsg();
+  13:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+  14:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  Note:
+  15:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *   None
+  16:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+  17:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** ********************************************************************************
+  18:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  19:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * You may use this file only in accordance with the license, terms, conditions,
+  20:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  21:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * the software package with which this file was provided.
+  22:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *******************************************************************************/
+  23:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  24:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #include "VehicleCAN.h"
+  25:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #include "cyapicallbacks.h"
+  26:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  27:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** /* `#START TX_RX_FUNCTION` */
+  28:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****    #include "CanbusMessageRead.h"
+  29:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  30:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****   CANBusRXMessage_t canbusRecMgsBuffer[20];
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 2
+
+
+  31:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****   uint8_t recMsgBufferFillLevel = 0; 
+  32:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  33:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** /* `#END` */
+  34:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  35:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  36:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** /*******************************************************************************
+  37:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * FUNCTION NAME:   VehicleCAN_SendMsg
+  38:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** ********************************************************************************
+  39:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+  40:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Summary:
+  41:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  This function is Send Message from one of Basic mailboxes. The function loops
+  42:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  through the transmit message buffer designed as Basic CAN mailboxes for the
+  43:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  first free available and sends from it. The number of retries is limited.
+  44:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+  45:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Parameters:
+  46:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  message: The pointer to a structure that contains all required data to send
+  47:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *           messages.
+  48:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+  49:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Return:
+  50:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  Indication if message has been sent.
+  51:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *   Define                             Description
+  52:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *    CYRET_SUCCESS                      The function passed successfully
+  53:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *    VehicleCAN_FAIL              The function failed
+  54:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+  55:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *******************************************************************************/
+  56:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** uint8 VehicleCAN_SendMsg(const VehicleCAN_TX_MSG *message) 
+  57:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** {
+  28              		.loc 1 57 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  34              		.cfi_def_cfa_offset 20
+  35              		.cfi_offset 4, -20
+  36              		.cfi_offset 5, -16
+  37              		.cfi_offset 6, -12
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40              	.LVL1:
+  58:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 i, j, shift;
+  59:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 retry = 0u;
+  60:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 result = VehicleCAN_FAIL;
+  41              		.loc 1 60 0
+  42 0002 0122     		movs	r2, #1
+  59:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 result = VehicleCAN_FAIL;
+  43              		.loc 1 59 0
+  44 0004 0027     		movs	r7, #0
+  61:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint32 regTemp;
+  62:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  63:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     while (retry < VehicleCAN_RETRY_NUMBER)
+  45              		.loc 1 63 0
+  46 0006 5AE0     		b	.L2
+  47              	.LVL2:
+  48              	.L16:
+  64:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+  65:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         shift = 1u;    /* Start from first mailbox */
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 3
+
+
+  66:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         for (i = 0u; i < VehicleCAN_NUMBER_OF_TX_MAILBOXES; i++)
+  67:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         {
+  68:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             /* Find Basic TX mailboxes */
+  69:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_MAILBOX_TYPE & shift) == 0u)
+  70:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+  71:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* Find free mailbox */
+  72:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #if (CY_PSOC3 || CY_PSOC5)
+  73:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     if ((VehicleCAN_BUF_SR_REG.byte[2] & shift) == 0u)
+  49              		.loc 1 73 0
+  50 0008 2F4B     		ldr	r3, .L22
+  51 000a 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+  52 000c 3342     		tst	r3, r6
+  53 000e 49D1     		bne	.L3
+  54              	.LVL3:
+  74:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #else  /* CY_PSOC4 */
+  75:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     if ((VehicleCAN_BUF_SR_REG &
+  76:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         (uint32) ((uint32) shift << VehicleCAN_TWO_BYTE_OFFSET)) == 0u)
+  77:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* CY_PSOC3 || CY_PSOC5 */
+  78:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     {
+  79:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         regTemp = 0u;
+  80:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  81:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         /* Set message parameters */
+  82:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         if (message->rtr != VehicleCAN_STANDARD_MESSAGE)
+  55              		.loc 1 82 0
+  56 0010 0379     		ldrb	r3, [r0, #4]	@ zero_extendqisi2
+  57 0012 0BB1     		cbz	r3, .L4
+  83:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+  84:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             regTemp = VehicleCAN_TX_RTR_MASK;    /* RTR message Enable */
+  58              		.loc 1 84 0
+  59 0014 4FF40013 		mov	r3, #2097152
+  60              	.L4:
+  61              	.LVL4:
+  85:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+  86:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  87:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         if (message->ide == VehicleCAN_STANDARD_MESSAGE)
+  62              		.loc 1 87 0
+  63 0018 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
+  64              	.LVL5:
+  65 001a 32B9     		cbnz	r2, .L5
+  88:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+  89:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             VehicleCAN_SET_TX_ID_STANDARD_MSG(i, message->id);
+  66              		.loc 1 89 0
+  67 001c 2B4A     		ldr	r2, .L22+4
+  68 001e 02EB0412 		add	r2, r2, r4, lsl #4
+  69 0022 0168     		ldr	r1, [r0]
+  70 0024 4905     		lsls	r1, r1, #21
+  71 0026 5160     		str	r1, [r2, #4]
+  72 0028 07E0     		b	.L6
+  73              	.L5:
+  90:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+  91:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         else
+  92:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+  93:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             regTemp |= VehicleCAN_TX_IDE_MASK;
+  74              		.loc 1 93 0
+  75 002a 43F48013 		orr	r3, r3, #1048576
+  76              	.LVL6:
+  94:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             VehicleCAN_SET_TX_ID_EXTENDED_MSG(i, message->id);
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 4
+
+
+  77              		.loc 1 94 0
+  78 002e 274A     		ldr	r2, .L22+4
+  79 0030 02EB0412 		add	r2, r2, r4, lsl #4
+  80 0034 0168     		ldr	r1, [r0]
+  81 0036 C900     		lsls	r1, r1, #3
+  82 0038 5160     		str	r1, [r2, #4]
+  83              	.L6:
+  95:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+  96:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+  97:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         if (message->dlc < VehicleCAN_TX_DLC_MAX_VALUE)
+  84              		.loc 1 97 0
+  85 003a 90F806E0 		ldrb	lr, [r0, #6]	@ zero_extendqisi2
+  86 003e BEF1070F 		cmp	lr, #7
+  87 0042 02D8     		bhi	.L7
+  98:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+  99:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             regTemp |= ((uint32) message->dlc) << VehicleCAN_TWO_BYTE_OFFSET;
+  88              		.loc 1 99 0
+  89 0044 43EA0E4E 		orr	lr, r3, lr, lsl #16
+  90              	.LVL7:
+  91 0048 01E0     		b	.L8
+  92              	.LVL8:
+  93              	.L7:
+ 100:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+ 101:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         else
+ 102:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+ 103:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             regTemp |= VehicleCAN_TX_DLC_UPPER_VALUE;
+  94              		.loc 1 103 0
+  95 004a 43F4002E 		orr	lr, r3, #524288
+  96              	.LVL9:
+  97              	.L8:
+ 104:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+ 105:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 106:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         if (message->irq != VehicleCAN_TRANSMIT_INT_DISABLE)
+  98              		.loc 1 106 0
+  99 004e C379     		ldrb	r3, [r0, #7]	@ zero_extendqisi2
+ 100 0050 0BB1     		cbz	r3, .L9
+ 107:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+ 108:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             regTemp |= VehicleCAN_TX_INT_ENABLE_MASK;    /* Transmit Interrupt Enab
+ 101              		.loc 1 108 0
+ 102 0052 4EF0040E 		orr	lr, lr, #4
+ 103              	.LVL10:
+ 104              	.L9:
+ 109:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+ 110:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 111:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         for (j = 0u; (j < message->dlc) && (j < VehicleCAN_TX_DLC_MAX_VALUE); j++)
+ 105              		.loc 1 111 0
+ 106 0056 0023     		movs	r3, #0
+ 107 0058 0FE0     		b	.L10
+ 108              	.LVL11:
+ 109              	.L14:
+ 112:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+ 113:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             #if (CY_PSOC3 || CY_PSOC5)
+ 114:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                                 VehicleCAN_TX_DATA_BYTE(i, j) = message->msg->byte[j];
+ 110              		.loc 1 114 0
+ 111 005a 1C4A     		ldr	r2, .L22+4
+ 112 005c 02EB0411 		add	r1, r2, r4, lsl #4
+ 113 0060 032B     		cmp	r3, #3
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 5
+
+
+ 114 0062 02D9     		bls	.L11
+ 115              		.loc 1 114 0 is_stmt 0 discriminator 1
+ 116 0064 C3F10B02 		rsb	r2, r3, #11
+ 117 0068 01E0     		b	.L12
+ 118              	.L11:
+ 119              		.loc 1 114 0 discriminator 2
+ 120 006a C3F10302 		rsb	r2, r3, #3
+ 121              	.L12:
+ 122              		.loc 1 114 0 discriminator 4
+ 123 006e 8568     		ldr	r5, [r0, #8]
+ 124 0070 ED5C     		ldrb	r5, [r5, r3]	@ zero_extendqisi2
+ 125 0072 0A44     		add	r2, r2, r1
+ 126 0074 1572     		strb	r5, [r2, #8]
+ 111:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+ 127              		.loc 1 111 0 is_stmt 1 discriminator 4
+ 128 0076 0133     		adds	r3, r3, #1
+ 129              	.LVL12:
+ 130 0078 DBB2     		uxtb	r3, r3
+ 131              	.LVL13:
+ 132              	.L10:
+ 111:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+ 133              		.loc 1 111 0 is_stmt 0 discriminator 2
+ 134 007a 8279     		ldrb	r2, [r0, #6]	@ zero_extendqisi2
+ 135 007c 9342     		cmp	r3, r2
+ 136 007e 01D2     		bcs	.L13
+ 111:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         {
+ 137              		.loc 1 111 0 discriminator 3
+ 138 0080 072B     		cmp	r3, #7
+ 139 0082 EAD9     		bls	.L14
+ 140              	.L13:
+ 115:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             #else /* CY_PSOC4 */
+ 116:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                                 VehicleCAN_TX_DATA_BYTE(i, j, message->msg->byte[j]);
+ 117:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             #endif /* CY_PSOC3 || CY_PSOC5 */
+ 118:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         }
+ 119:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 120:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         /* Disable isr */
+ 121:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     CyIntDisable(VehicleCAN_ISR_NUMBER);
+ 141              		.loc 1 121 0 is_stmt 1
+ 142 0084 4FF48031 		mov	r1, #65536
+ 143 0088 114B     		ldr	r3, .L22+8
+ 144              	.LVL14:
+ 145 008a 1960     		str	r1, [r3]
+ 122:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 123:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         /* WPN[23] and WPN[3] set to 1 for write to CAN Control reg */
+ 124:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         CY_SET_REG32(VehicleCAN_TX_CMD_PTR(i), (regTemp | VehicleCAN_TX_WPN_SET));
+ 146              		.loc 1 124 0
+ 147 008c 2201     		lsls	r2, r4, #4
+ 148 008e 0F4D     		ldr	r5, .L22+4
+ 149 0090 4EF40003 		orr	r3, lr, #8388608
+ 150 0094 43F00803 		orr	r3, r3, #8
+ 151 0098 5351     		str	r3, [r2, r5]
+ 125:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 126:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         #if (CY_PSOC3 || CY_PSOC5)
+ 127:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             CY_SET_REG32(VehicleCAN_TX_CMD_PTR(i), VehicleCAN_SEND_MESSAGE);
+ 152              		.loc 1 127 0
+ 153 009a 0123     		movs	r3, #1
+ 154 009c 5351     		str	r3, [r2, r5]
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 6
+
+
+ 128:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         #else /* CY_PSOC4 */
+ 129:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             if (message->sst != VehicleCAN_STANDARD_MESSAGE)
+ 130:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             {
+ 131:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                                 /* Single Shot Transmission */
+ 132:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                                 VehicleCAN_TX_CMD_REG(i) |= VehicleCAN_SEND_MESSAGE |
+ 133:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                                 VehicleCAN_TX_ABORT_MASK;
+ 134:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             }
+ 135:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             else
+ 136:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             {
+ 137:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                                 VehicleCAN_TX_CMD_REG(i) |= VehicleCAN_SEND_MESSAGE;
+ 138:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                             }
+ 139:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 140:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 141:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         /* Enable isr */
+ 142:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     CyIntEnable(VehicleCAN_ISR_NUMBER);
+ 155              		.loc 1 142 0
+ 156 009e 0D4B     		ldr	r3, .L22+12
+ 157 00a0 1960     		str	r1, [r3]
+ 158              	.LVL15:
+ 143:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 144:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                         result = CYRET_SUCCESS;
+ 159              		.loc 1 144 0
+ 160 00a2 0022     		movs	r2, #0
+ 161              	.LVL16:
+ 162              	.L3:
+ 145:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     }
+ 146:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 147:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             shift <<= 1u;
+ 163              		.loc 1 147 0
+ 164 00a4 7600     		lsls	r6, r6, #1
+ 165              	.LVL17:
+ 166 00a6 F6B2     		uxtb	r6, r6
+ 167              	.LVL18:
+ 148:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if (result == CYRET_SUCCESS)
+ 168              		.loc 1 148 0
+ 169 00a8 32B1     		cbz	r2, .L15
+  66:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         {
+ 170              		.loc 1 66 0 discriminator 2
+ 171 00aa 0134     		adds	r4, r4, #1
+ 172              	.LVL19:
+ 173 00ac E4B2     		uxtb	r4, r4
+ 174              	.LVL20:
+ 175 00ae 01E0     		b	.L18
+ 176              	.LVL21:
+ 177              	.L20:
+ 178 00b0 0126     		movs	r6, #1
+ 179 00b2 0024     		movs	r4, #0
+ 180              	.L18:
+ 181              	.LVL22:
+  66:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         {
+ 182              		.loc 1 66 0 is_stmt 0 discriminator 1
+ 183 00b4 072C     		cmp	r4, #7
+ 184 00b6 A7D9     		bls	.L16
+ 185              	.L15:
+ 149:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 150:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 break;
+ 151:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 7
+
+
+ 152:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         }
+ 153:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         if (result == CYRET_SUCCESS)
+ 186              		.loc 1 153 0 is_stmt 1
+ 187 00b8 1AB1     		cbz	r2, .L17
+ 154:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         {
+ 155:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             break;
+ 156:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         }
+ 157:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         else
+ 158:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         {
+ 159:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             retry++;
+ 188              		.loc 1 159 0
+ 189 00ba 0137     		adds	r7, r7, #1
+ 190              	.LVL23:
+ 191 00bc FFB2     		uxtb	r7, r7
+ 192              	.LVL24:
+ 193              	.L2:
+  63:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 194              		.loc 1 63 0
+ 195 00be 022F     		cmp	r7, #2
+ 196 00c0 F6D9     		bls	.L20
+ 197              	.L17:
+ 160:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         }
+ 161:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 162:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 163:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     return (result);
+ 164:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** }
+ 198              		.loc 1 164 0
+ 199 00c2 1046     		mov	r0, r2
+ 200              	.LVL25:
+ 201 00c4 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 202              	.LVL26:
+ 203              	.L23:
+ 204 00c6 00BF     		.align	2
+ 205              	.L22:
+ 206 00c8 08A00040 		.word	1073782792
+ 207 00cc 20A00040 		.word	1073782816
+ 208 00d0 80E100E0 		.word	-536813184
+ 209 00d4 00E100E0 		.word	-536813312
+ 210              		.cfi_endproc
+ 211              	.LFE68:
+ 212              		.size	VehicleCAN_SendMsg, .-VehicleCAN_SendMsg
+ 213              		.section	.text.VehicleCAN_TxCancel,"ax",%progbits
+ 214              		.align	2
+ 215              		.global	VehicleCAN_TxCancel
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.type	VehicleCAN_TxCancel, %function
+ 219              	VehicleCAN_TxCancel:
+ 220              	.LFB69:
+ 165:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 166:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 167:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** /*******************************************************************************
+ 168:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * FUNCTION NAME:   VehicleCAN_TxCancel
+ 169:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** ********************************************************************************
+ 170:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 171:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Summary:
+ 172:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  This function cancels transmission of a message that has been queued to be
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 8
+
+
+ 173:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  transmitted. Values between 0 and 7 are valid.
+ 174:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 175:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Parameters:
+ 176:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  bufferId: The mailbox number.
+ 177:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 178:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Return:
+ 179:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  None.
+ 180:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 181:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *******************************************************************************/
+ 182:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** void VehicleCAN_TxCancel(uint8 bufferId) 
+ 183:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** {
+ 221              		.loc 1 183 0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 0
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225              		@ link register save eliminated.
+ 226              	.LVL27:
+ 184:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     if (bufferId < VehicleCAN_NUMBER_OF_TX_MAILBOXES)
+ 227              		.loc 1 184 0
+ 228 0000 0728     		cmp	r0, #7
+ 229 0002 07D8     		bhi	.L24
+ 185:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 186:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         VehicleCAN_TX_ABORT_MESSAGE(bufferId);
+ 230              		.loc 1 186 0
+ 231 0004 0001     		lsls	r0, r0, #4
+ 232              	.LVL28:
+ 233 0006 044A     		ldr	r2, .L26
+ 234 0008 835C     		ldrb	r3, [r0, r2]	@ zero_extendqisi2
+ 235 000a 03F0FC03 		and	r3, r3, #252
+ 236 000e 43F00203 		orr	r3, r3, #2
+ 237 0012 8354     		strb	r3, [r0, r2]
+ 238              	.L24:
+ 239 0014 7047     		bx	lr
+ 240              	.L27:
+ 241 0016 00BF     		.align	2
+ 242              	.L26:
+ 243 0018 20A00040 		.word	1073782816
+ 244              		.cfi_endproc
+ 245              	.LFE69:
+ 246              		.size	VehicleCAN_TxCancel, .-VehicleCAN_TxCancel
+ 247              		.section	.text.VehicleCAN_ReceiveMsg,"ax",%progbits
+ 248              		.align	2
+ 249              		.global	VehicleCAN_ReceiveMsg
+ 250              		.thumb
+ 251              		.thumb_func
+ 252              		.type	VehicleCAN_ReceiveMsg, %function
+ 253              	VehicleCAN_ReceiveMsg:
+ 254              	.LFB70:
+ 187:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 188:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** }
+ 189:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 190:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 191:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX0_FUNC_ENABLE)
+ 192:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 193:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg0
+ 194:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 195:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 9
+
+
+ 196:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 197:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 0. The function checks
+ 198:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 0 doesn't already have un-transmitted messages waiting for
+ 199:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 200:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 201:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 202:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 203:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 204:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 205:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 206:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 207:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 208:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 209:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 210:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 211:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 212:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg0(void) 
+ 213:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 214:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 215:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 216:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 217:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[0u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 218:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 219:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(0u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 220:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 221:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 222:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 223:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 224:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 225:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 226:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_0_TRASMITTED` */
+ 227:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 228:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 229:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 230:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_0_CALLBACK
+ 231:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_0_Callback();
+ 232:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_0_CALLBACK */
+ 233:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 234:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(0u),
+ 235:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(0u)) | VehicleCAN_SEND_MESSAGE);
+ 236:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 237:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 238:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 239:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 240:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX0_FUNC_ENABLE */
+ 241:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 242:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 243:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX1_FUNC_ENABLE)
+ 244:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 245:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg1
+ 246:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 247:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 248:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 249:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 1. The function checks
+ 250:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 1 doesn't already have un-transmitted messages waiting for
+ 251:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 252:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 10
+
+
+ 253:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 254:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 255:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 256:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 257:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 258:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 259:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 260:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 261:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 262:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 263:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 264:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg1(void) 
+ 265:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 266:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 267:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 268:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 269:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[1u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 270:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 271:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(1u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 272:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 273:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 274:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 275:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 276:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 277:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 278:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_1_TRASMITTED` */
+ 279:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 280:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 281:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 282:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_1_CALLBACK
+ 283:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_1_Callback();
+ 284:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_1_CALLBACK */
+ 285:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 286:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(1u),
+ 287:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(1u)) | VehicleCAN_SEND_MESSAGE);
+ 288:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 289:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 290:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 291:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 292:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX1_FUNC_ENABLE */
+ 293:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 294:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 295:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX2_FUNC_ENABLE)
+ 296:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 297:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg2
+ 298:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 299:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 300:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 301:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 2. The function checks
+ 302:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 2 doesn't already have un-transmitted messages waiting for
+ 303:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 304:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 305:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 306:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 307:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 308:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 309:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 11
+
+
+ 310:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 311:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 312:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 313:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 314:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 315:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 316:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg2(void) 
+ 317:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 318:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 319:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 320:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 321:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[2u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 322:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 323:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(2u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 324:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 325:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 326:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 327:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 328:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 329:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 330:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_2_TRASMITTED` */
+ 331:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 332:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 333:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 334:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_2_CALLBACK
+ 335:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_2_Callback();
+ 336:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_2_CALLBACK */
+ 337:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 338:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(2u),
+ 339:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(2u)) | VehicleCAN_SEND_MESSAGE);
+ 340:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 341:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 342:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 343:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 344:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX2_FUNC_ENABLE */
+ 345:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 346:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 347:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX3_FUNC_ENABLE)
+ 348:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 349:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg3
+ 350:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 351:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 352:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 353:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 3. The function checks
+ 354:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 3 doesn't already have un-transmitted messages waiting for
+ 355:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 356:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 357:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 358:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 359:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 360:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 361:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 362:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 363:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 364:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 365:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 366:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 12
+
+
+ 367:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 368:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg3(void) 
+ 369:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 370:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 371:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 372:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 373:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[3u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 374:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 375:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(3u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 376:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 377:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 378:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 379:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 380:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 381:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 382:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_3_TRASMITTED` */
+ 383:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 384:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 385:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 386:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_3_CALLBACK
+ 387:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_3_Callback();
+ 388:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_3_CALLBACK */
+ 389:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 390:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(3u),
+ 391:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(3u)) | VehicleCAN_SEND_MESSAGE);
+ 392:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 393:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 394:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 395:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 396:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX3_FUNC_ENABLE */
+ 397:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 398:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 399:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX4_FUNC_ENABLE)
+ 400:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 401:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg4
+ 402:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 403:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 404:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 405:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 4. The function checks
+ 406:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 4 doesn't already have un-transmitted messages waiting for
+ 407:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 408:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 409:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 410:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 411:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 412:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 413:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 414:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 415:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 416:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 417:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 418:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 419:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 420:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg4(void) 
+ 421:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 422:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 423:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 13
+
+
+ 424:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 425:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[4u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 426:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 427:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(4u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 428:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 429:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 430:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 431:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 432:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 433:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 434:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_4_TRASMITTED` */
+ 435:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 436:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 437:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 438:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_4_CALLBACK
+ 439:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_4_Callback();
+ 440:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_4_CALLBACK */
+ 441:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 442:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(4u),
+ 443:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(4u)) | VehicleCAN_SEND_MESSAGE);
+ 444:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 445:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 446:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 447:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 448:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX4_FUNC_ENABLE */
+ 449:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 450:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 451:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX5_FUNC_ENABLE)
+ 452:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 453:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg5
+ 454:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 455:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 456:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 457:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 5. The function checks
+ 458:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 5 doesn't already have un-transmitted messages waiting for
+ 459:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 460:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 461:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 462:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 463:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 464:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 465:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 466:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 467:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 468:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 469:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 470:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 471:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 472:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg5(void) 
+ 473:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 474:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 475:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 476:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 477:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[5u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 478:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 479:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(5u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 480:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 14
+
+
+ 481:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 482:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 483:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 484:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 485:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 486:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_5_TRASMITTED` */
+ 487:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 488:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 489:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 490:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_5_CALLBACK
+ 491:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_5_Callback();
+ 492:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_5_CALLBACK */
+ 493:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 494:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(5u),
+ 495:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(5u)) | VehicleCAN_SEND_MESSAGE);
+ 496:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 497:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 498:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 499:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 500:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX5_FUNC_ENABLE */
+ 501:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 502:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 503:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX6_FUNC_ENABLE)
+ 504:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 505:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg6
+ 506:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 507:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 508:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 509:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 6. The function checks
+ 510:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 6 doesn't already have un-transmitted messages waiting for
+ 511:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 512:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 513:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 514:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 515:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 516:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 517:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 518:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 519:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 520:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 521:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 522:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 523:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 524:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg6(void) 
+ 525:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 526:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 527:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 528:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 529:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[6u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 530:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 531:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(6u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 532:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 533:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 534:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 535:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 536:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 537:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 15
+
+
+ 538:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_6_TRASMITTED` */
+ 539:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 540:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 541:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 542:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_6_CALLBACK
+ 543:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_6_Callback();
+ 544:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_6_CALLBACK */
+ 545:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 546:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(6u),
+ 547:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(6u)) | VehicleCAN_SEND_MESSAGE);
+ 548:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 549:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 550:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 551:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 552:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX6_FUNC_ENABLE */
+ 553:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 554:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 555:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #if (VehicleCAN_TX7_FUNC_ENABLE)
+ 556:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     /*******************************************************************************
+ 557:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * FUNCTION NAME:   VehicleCAN_SendMsg7)
+ 558:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     ********************************************************************************
+ 559:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 560:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Summary:
+ 561:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 7. The function checks
+ 562:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  if mailbox 7 doesn't already have un-transmitted messages waiting for
+ 563:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  arbitration. If not initiate transmission of the message.
+ 564:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Generated only for the Transmit mailbox designed as Full.
+ 565:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 566:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Parameters:
+ 567:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  None.
+ 568:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 569:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     * Return:
+ 570:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *  Indication if Message has been sent.
+ 571:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *   Define                             Description
+ 572:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    CYRET_SUCCESS                      The function passed successfully
+ 573:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *    VehicleCAN_FAIL              The function failed
+ 574:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *
+ 575:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     *******************************************************************************/
+ 576:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     uint8 VehicleCAN_SendMsg7(void) 
+ 577:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     {
+ 578:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         uint8 result = CYRET_SUCCESS;
+ 579:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 580:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
+ 581:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX[7u].txcmd.byte[0u] & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 582:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
+ 583:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if ((VehicleCAN_TX_CMD_REG(7u) & VehicleCAN_TX_REQUEST_PENDING) != 0u)
+ 584:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
+ 585:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 586:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 result = VehicleCAN_FAIL;
+ 587:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 588:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             else
+ 589:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 590:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#START MESSAGE_7_TRASMITTED` */
+ 591:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 592:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 /* `#END` */
+ 593:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 594:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #ifdef VehicleCAN_SEND_MSG_7_CALLBACK
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 16
+
+
+ 595:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                     VehicleCAN_SendMsg_7_Callback();
+ 596:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 #endif /* VehicleCAN_SEND_MSG_7_CALLBACK */
+ 597:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 598:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_SET_REG32(VehicleCAN_TX_CMD_PTR(7u),
+ 599:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 CY_GET_REG32(VehicleCAN_TX_CMD_PTR(7u)) | VehicleCAN_SEND_MESSAGE);
+ 600:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 601:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 602:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         return (result);
+ 603:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     }
+ 604:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** #endif /* VehicleCAN_TX7_FUNC_ENABLE */
+ 605:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 606:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 607:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** /*******************************************************************************
+ 608:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * FUNCTION NAME:   VehicleCAN_ReceiveMsg
+ 609:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** ********************************************************************************
+ 610:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 611:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Summary:
+ 612:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  This function is the entry point to Receive Message Interrupt for Basic
+ 613:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  mailboxes. Clears the Receive particular Message interrupt flag. Generated
+ 614:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  only if one of the Receive mailboxes is designed as Basic.
+ 615:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 616:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Parameters:
+ 617:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  rxMailbox: The mailbox number that trig Receive Message Interrupt.
+ 618:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 619:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Return:
+ 620:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  None.
+ 621:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 622:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** * Reentrant:
+ 623:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *  Depends on the Customer code.
+ 624:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *
+ 625:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** *******************************************************************************/
+ 626:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** void VehicleCAN_ReceiveMsg(uint8 rxMailbox) 
+ 627:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** {
+ 255              		.loc 1 627 0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 16
+ 258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259              	.LVL29:
+ 260 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 261              		.cfi_def_cfa_offset 24
+ 262              		.cfi_offset 4, -24
+ 263              		.cfi_offset 5, -20
+ 264              		.cfi_offset 6, -16
+ 265              		.cfi_offset 7, -12
+ 266              		.cfi_offset 8, -8
+ 267              		.cfi_offset 14, -4
+ 268 0004 84B0     		sub	sp, sp, #16
+ 269              		.cfi_def_cfa_offset 40
+ 628:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     #if (CY_PSOC3 || CY_PSOC5)
+ 629:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         if ((VehicleCAN_RX[rxMailbox].rxcmd.byte[0u] & VehicleCAN_RX_ACK_MSG) != 0u)
+ 270              		.loc 1 629 0
+ 271 0006 4401     		lsls	r4, r0, #5
+ 272 0008 1D4B     		ldr	r3, .L32
+ 273 000a E518     		adds	r5, r4, r3
+ 274 000c E25C     		ldrb	r2, [r4, r3]	@ zero_extendqisi2
+ 275 000e 12F0010F 		tst	r2, #1
+ 276 0012 31D0     		beq	.L28
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 17
+
+
+ 277              	.LBB2:
+ 630:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     #else  /* CY_PSOC4 */
+ 631:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         if ((VehicleCAN_RX_CMD_REG(rxMailbox) & VehicleCAN_RX_ACK_MSG) != 0u)
+ 632:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****     #endif /* CY_PSOC3 || CY_PSOC5 */
+ 633:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         {
+ 634:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             /* `#START MESSAGE_BASIC_RECEIVED` */
+ 635:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 636:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             CANBusRXMessage_t temp;
+ 637:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             temp.rxdata = VehicleCAN_RX[rxMailbox].rxdata;
+ 278              		.loc 1 637 0
+ 279 0014 01AA     		add	r2, sp, #4
+ 280 0016 2946     		mov	r1, r5
+ 281 0018 51F8080F 		ldr	r0, [r1, #8]!	@ unaligned
+ 282              	.LVL30:
+ 283 001c 4968     		ldr	r1, [r1, #4]	@ unaligned
+ 284 001e 03C2     		stmia	r2!, {r0, r1}
+ 638:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             temp.rxid = VehicleCAN_RX[rxMailbox].rxid;
+ 285              		.loc 1 638 0
+ 286 0020 6868     		ldr	r0, [r5, #4]	@ unaligned
+ 287 0022 0090     		str	r0, [sp]	@ unaligned
+ 639:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             temp.dlc = VehicleCAN_GET_DLC(rxMailbox);
+ 288              		.loc 1 639 0
+ 289 0024 AA78     		ldrb	r2, [r5, #2]	@ zero_extendqisi2
+ 290 0026 02F00F02 		and	r2, r2, #15
+ 291 002a 8DF80C20 		strb	r2, [sp, #12]
+ 640:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             
+ 641:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             
+ 642:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             if( temp.dlc > 0 && temp.rxid.byte > 0 )
+ 292              		.loc 1 642 0
+ 293 002e FAB1     		cbz	r2, .L30
+ 643:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             {
+ 644:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 
+ 645:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 canbusRecMgsBuffer[recMsgBufferFillLevel]  = temp;
+ 294              		.loc 1 645 0
+ 295 0030 DFF850C0 		ldr	ip, .L32+4
+ 296 0034 9CF80050 		ldrb	r5, [ip]	@ zero_extendqisi2
+ 297 0038 DFF84C80 		ldr	r8, .L32+8
+ 298 003c 05EB4507 		add	r7, r5, r5, lsl #1
+ 299 0040 05EB8707 		add	r7, r5, r7, lsl #2
+ 300 0044 08EB070E 		add	lr, r8, r7
+ 301 0048 6E46     		mov	r6, sp
+ 302 004a 07CE     		ldmia	r6!, {r0, r1, r2}
+ 303 004c 48F80700 		str	r0, [r8, r7]	@ unaligned
+ 304 0050 CEF80410 		str	r1, [lr, #4]	@ unaligned
+ 305 0054 CEF80820 		str	r2, [lr, #8]	@ unaligned
+ 306 0058 3278     		ldrb	r2, [r6]	@ zero_extendqisi2
+ 307 005a 8EF80C20 		strb	r2, [lr, #12]
+ 646:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 recMsgBufferFillLevel++;
+ 308              		.loc 1 646 0
+ 309 005e 0135     		adds	r5, r5, #1
+ 310 0060 EDB2     		uxtb	r5, r5
+ 311 0062 8CF80050 		strb	r5, [ip]
+ 647:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 
+ 648:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 if( recMsgBufferFillLevel >= sizeof(canbusRecMgsBuffer) / sizeof(CANBusRXMessage_t 
+ 312              		.loc 1 648 0
+ 313 0066 132D     		cmp	r5, #19
+ 314 0068 02D9     		bls	.L30
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 18
+
+
+ 649:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 {
+ 650:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                    recMsgBufferFillLevel = 0; 
+ 315              		.loc 1 650 0
+ 316 006a 0021     		movs	r1, #0
+ 317 006c 8CF80010 		strb	r1, [ip]
+ 318              	.L30:
+ 651:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 }
+ 652:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 
+ 653:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             }
+ 654:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             
+ 655:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             /* `#END` */
+ 656:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 657:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             #ifdef VehicleCAN_RECEIVE_MSG_CALLBACK
+ 658:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 VehicleCAN_ReceiveMsg_Callback();
+ 659:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             #endif /* VehicleCAN_RECEIVE_MSG_CALLBACK */
+ 660:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** 
+ 661:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             #if (CY_PSOC3 || CY_PSOC5)
+ 662:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 VehicleCAN_RX[rxMailbox].rxcmd.byte[0u] |= VehicleCAN_RX_ACK_MSG;
+ 319              		.loc 1 662 0
+ 320 0070 E25C     		ldrb	r2, [r4, r3]	@ zero_extendqisi2
+ 321 0072 42F00102 		orr	r2, r2, #1
+ 322 0076 E254     		strb	r2, [r4, r3]
+ 323              	.L28:
+ 324              	.LBE2:
+ 663:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             #else  /* CY_PSOC4 */
+ 664:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****                 VehicleCAN_RX_CMD_REG(rxMailbox) |= VehicleCAN_RX_ACK_MSG;
+ 665:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****             #endif /* CY_PSOC3 || CY_PSOC5 */
+ 666:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c ****         }
+ 667:Generated_Source\PSoC5/VehicleCAN_TX_RX_func.c **** }
+ 325              		.loc 1 667 0
+ 326 0078 04B0     		add	sp, sp, #16
+ 327              		.cfi_def_cfa_offset 24
+ 328              		@ sp needed
+ 329 007a BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 330              	.L33:
+ 331 007e 00BF     		.align	2
+ 332              	.L32:
+ 333 0080 A0A00040 		.word	1073782944
+ 334 0084 00000000 		.word	.LANCHOR0
+ 335 0088 00000000 		.word	canbusRecMgsBuffer
+ 336              		.cfi_endproc
+ 337              	.LFE70:
+ 338              		.size	VehicleCAN_ReceiveMsg, .-VehicleCAN_ReceiveMsg
+ 339              		.global	recMsgBufferFillLevel
+ 340              		.comm	canbusRecMgsBuffer,260,4
+ 341              		.bss
+ 342              		.set	.LANCHOR0,. + 0
+ 343              		.type	recMsgBufferFillLevel, %object
+ 344              		.size	recMsgBufferFillLevel, 1
+ 345              	recMsgBufferFillLevel:
+ 346 0000 00       		.space	1
+ 347              		.text
+ 348              	.Letext0:
+ 349              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 350              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 351              		.file 4 "Generated_Source\\PSoC5\\cytypes.h"
+ 352              		.file 5 "Generated_Source\\PSoC5\\VehicleCAN.h"
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 19
+
+
+ 353              		.file 6 "./CanbusMessageRead.h"
+ 354              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 355              		.section	.debug_info,"",%progbits
+ 356              	.Ldebug_info0:
+ 357 0000 F6030000 		.4byte	0x3f6
+ 358 0004 0400     		.2byte	0x4
+ 359 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 360 000a 04       		.byte	0x4
+ 361 000b 01       		.uleb128 0x1
+ 362 000c B1020000 		.4byte	.LASF53
+ 363 0010 0C       		.byte	0xc
+ 364 0011 1A010000 		.4byte	.LASF54
+ 365 0015 4E020000 		.4byte	.LASF55
+ 366 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 367 001d 00000000 		.4byte	0
+ 368 0021 00000000 		.4byte	.Ldebug_line0
+ 369 0025 02       		.uleb128 0x2
+ 370 0026 01       		.byte	0x1
+ 371 0027 06       		.byte	0x6
+ 372 0028 49010000 		.4byte	.LASF0
+ 373 002c 03       		.uleb128 0x3
+ 374 002d BE000000 		.4byte	.LASF4
+ 375 0031 02       		.byte	0x2
+ 376 0032 1D       		.byte	0x1d
+ 377 0033 37000000 		.4byte	0x37
+ 378 0037 02       		.uleb128 0x2
+ 379 0038 01       		.byte	0x1
+ 380 0039 08       		.byte	0x8
+ 381 003a 0C010000 		.4byte	.LASF1
+ 382 003e 02       		.uleb128 0x2
+ 383 003f 02       		.byte	0x2
+ 384 0040 05       		.byte	0x5
+ 385 0041 1E000000 		.4byte	.LASF2
+ 386 0045 02       		.uleb128 0x2
+ 387 0046 02       		.byte	0x2
+ 388 0047 07       		.byte	0x7
+ 389 0048 A4010000 		.4byte	.LASF3
+ 390 004c 03       		.uleb128 0x3
+ 391 004d 44020000 		.4byte	.LASF5
+ 392 0051 02       		.byte	0x2
+ 393 0052 3F       		.byte	0x3f
+ 394 0053 57000000 		.4byte	0x57
+ 395 0057 02       		.uleb128 0x2
+ 396 0058 04       		.byte	0x4
+ 397 0059 05       		.byte	0x5
+ 398 005a AF000000 		.4byte	.LASF6
+ 399 005e 02       		.uleb128 0x2
+ 400 005f 04       		.byte	0x4
+ 401 0060 07       		.byte	0x7
+ 402 0061 8C010000 		.4byte	.LASF7
+ 403 0065 02       		.uleb128 0x2
+ 404 0066 08       		.byte	0x8
+ 405 0067 05       		.byte	0x5
+ 406 0068 9B000000 		.4byte	.LASF8
+ 407 006c 02       		.uleb128 0x2
+ 408 006d 08       		.byte	0x8
+ 409 006e 07       		.byte	0x7
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 20
+
+
+ 410 006f 55010000 		.4byte	.LASF9
+ 411 0073 04       		.uleb128 0x4
+ 412 0074 04       		.byte	0x4
+ 413 0075 05       		.byte	0x5
+ 414 0076 696E7400 		.ascii	"int\000"
+ 415 007a 02       		.uleb128 0x2
+ 416 007b 04       		.byte	0x4
+ 417 007c 07       		.byte	0x7
+ 418 007d 7F010000 		.4byte	.LASF10
+ 419 0081 03       		.uleb128 0x3
+ 420 0082 7C000000 		.4byte	.LASF11
+ 421 0086 03       		.byte	0x3
+ 422 0087 18       		.byte	0x18
+ 423 0088 2C000000 		.4byte	0x2c
+ 424 008c 03       		.uleb128 0x3
+ 425 008d F8010000 		.4byte	.LASF12
+ 426 0091 03       		.byte	0x3
+ 427 0092 2C       		.byte	0x2c
+ 428 0093 4C000000 		.4byte	0x4c
+ 429 0097 05       		.uleb128 0x5
+ 430 0098 84000000 		.4byte	.LASF13
+ 431 009c 04       		.byte	0x4
+ 432 009d E901     		.2byte	0x1e9
+ 433 009f 37000000 		.4byte	0x37
+ 434 00a3 05       		.uleb128 0x5
+ 435 00a4 1B020000 		.4byte	.LASF14
+ 436 00a8 04       		.byte	0x4
+ 437 00a9 EB01     		.2byte	0x1eb
+ 438 00ab 5E000000 		.4byte	0x5e
+ 439 00af 02       		.uleb128 0x2
+ 440 00b0 04       		.byte	0x4
+ 441 00b1 04       		.byte	0x4
+ 442 00b2 95000000 		.4byte	.LASF15
+ 443 00b6 02       		.uleb128 0x2
+ 444 00b7 08       		.byte	0x8
+ 445 00b8 04       		.byte	0x4
+ 446 00b9 2F020000 		.4byte	.LASF16
+ 447 00bd 02       		.uleb128 0x2
+ 448 00be 01       		.byte	0x1
+ 449 00bf 08       		.byte	0x8
+ 450 00c0 BE010000 		.4byte	.LASF17
+ 451 00c4 05       		.uleb128 0x5
+ 452 00c5 22020000 		.4byte	.LASF18
+ 453 00c9 04       		.byte	0x4
+ 454 00ca 9302     		.2byte	0x293
+ 455 00cc D0000000 		.4byte	0xd0
+ 456 00d0 06       		.uleb128 0x6
+ 457 00d1 97000000 		.4byte	0x97
+ 458 00d5 05       		.uleb128 0x5
+ 459 00d6 9E010000 		.4byte	.LASF19
+ 460 00da 04       		.byte	0x4
+ 461 00db 9502     		.2byte	0x295
+ 462 00dd E1000000 		.4byte	0xe1
+ 463 00e1 06       		.uleb128 0x6
+ 464 00e2 A3000000 		.4byte	0xa3
+ 465 00e6 02       		.uleb128 0x2
+ 466 00e7 08       		.byte	0x8
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 21
+
+
+ 467 00e8 04       		.byte	0x4
+ 468 00e9 F9000000 		.4byte	.LASF20
+ 469 00ed 02       		.uleb128 0x2
+ 470 00ee 04       		.byte	0x4
+ 471 00ef 07       		.byte	0x7
+ 472 00f0 28000000 		.4byte	.LASF21
+ 473 00f4 07       		.uleb128 0x7
+ 474 00f5 08       		.byte	0x8
+ 475 00f6 05       		.byte	0x5
+ 476 00f7 6F       		.byte	0x6f
+ 477 00f8 09010000 		.4byte	0x109
+ 478 00fc 08       		.uleb128 0x8
+ 479 00fd DE000000 		.4byte	.LASF23
+ 480 0101 05       		.byte	0x5
+ 481 0102 71       		.byte	0x71
+ 482 0103 09010000 		.4byte	0x109
+ 483 0107 00       		.byte	0
+ 484 0108 00       		.byte	0
+ 485 0109 09       		.uleb128 0x9
+ 486 010a 97000000 		.4byte	0x97
+ 487 010e 19010000 		.4byte	0x119
+ 488 0112 0A       		.uleb128 0xa
+ 489 0113 ED000000 		.4byte	0xed
+ 490 0117 07       		.byte	0x7
+ 491 0118 00       		.byte	0
+ 492 0119 03       		.uleb128 0x3
+ 493 011a 82020000 		.4byte	.LASF22
+ 494 011e 05       		.byte	0x5
+ 495 011f 72       		.byte	0x72
+ 496 0120 F4000000 		.4byte	0xf4
+ 497 0124 07       		.uleb128 0x7
+ 498 0125 08       		.byte	0x8
+ 499 0126 05       		.byte	0x5
+ 500 0127 75       		.byte	0x75
+ 501 0128 39010000 		.4byte	0x139
+ 502 012c 08       		.uleb128 0x8
+ 503 012d DE000000 		.4byte	.LASF23
+ 504 0131 05       		.byte	0x5
+ 505 0132 77       		.byte	0x77
+ 506 0133 49010000 		.4byte	0x149
+ 507 0137 00       		.byte	0
+ 508 0138 00       		.byte	0
+ 509 0139 09       		.uleb128 0x9
+ 510 013a C4000000 		.4byte	0xc4
+ 511 013e 49010000 		.4byte	0x149
+ 512 0142 0A       		.uleb128 0xa
+ 513 0143 ED000000 		.4byte	0xed
+ 514 0147 07       		.byte	0x7
+ 515 0148 00       		.byte	0
+ 516 0149 06       		.uleb128 0x6
+ 517 014a 39010000 		.4byte	0x139
+ 518 014e 03       		.uleb128 0x3
+ 519 014f C8000000 		.4byte	.LASF24
+ 520 0153 05       		.byte	0x5
+ 521 0154 78       		.byte	0x78
+ 522 0155 24010000 		.4byte	0x124
+ 523 0159 07       		.uleb128 0x7
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 22
+
+
+ 524 015a 04       		.byte	0x4
+ 525 015b 05       		.byte	0x5
+ 526 015c 7B       		.byte	0x7b
+ 527 015d 6E010000 		.4byte	0x16e
+ 528 0161 08       		.uleb128 0x8
+ 529 0162 DE000000 		.4byte	.LASF23
+ 530 0166 05       		.byte	0x5
+ 531 0167 7D       		.byte	0x7d
+ 532 0168 7E010000 		.4byte	0x17e
+ 533 016c 00       		.byte	0
+ 534 016d 00       		.byte	0
+ 535 016e 09       		.uleb128 0x9
+ 536 016f C4000000 		.4byte	0xc4
+ 537 0173 7E010000 		.4byte	0x17e
+ 538 0177 0A       		.uleb128 0xa
+ 539 0178 ED000000 		.4byte	0xed
+ 540 017c 03       		.byte	0x3
+ 541 017d 00       		.byte	0
+ 542 017e 06       		.uleb128 0x6
+ 543 017f 6E010000 		.4byte	0x16e
+ 544 0183 03       		.uleb128 0x3
+ 545 0184 07000000 		.4byte	.LASF25
+ 546 0188 05       		.byte	0x5
+ 547 0189 7E       		.byte	0x7e
+ 548 018a 59010000 		.4byte	0x159
+ 549 018e 07       		.uleb128 0x7
+ 550 018f 0C       		.byte	0xc
+ 551 0190 05       		.byte	0x5
+ 552 0191 81       		.byte	0x81
+ 553 0192 DE010000 		.4byte	0x1de
+ 554 0196 0B       		.uleb128 0xb
+ 555 0197 696400   		.ascii	"id\000"
+ 556 019a 05       		.byte	0x5
+ 557 019b 83       		.byte	0x83
+ 558 019c A3000000 		.4byte	0xa3
+ 559 01a0 00       		.byte	0
+ 560 01a1 0B       		.uleb128 0xb
+ 561 01a2 72747200 		.ascii	"rtr\000"
+ 562 01a6 05       		.byte	0x5
+ 563 01a7 84       		.byte	0x84
+ 564 01a8 97000000 		.4byte	0x97
+ 565 01ac 04       		.byte	0x4
+ 566 01ad 0B       		.uleb128 0xb
+ 567 01ae 69646500 		.ascii	"ide\000"
+ 568 01b2 05       		.byte	0x5
+ 569 01b3 85       		.byte	0x85
+ 570 01b4 97000000 		.4byte	0x97
+ 571 01b8 05       		.byte	0x5
+ 572 01b9 0B       		.uleb128 0xb
+ 573 01ba 646C6300 		.ascii	"dlc\000"
+ 574 01be 05       		.byte	0x5
+ 575 01bf 86       		.byte	0x86
+ 576 01c0 97000000 		.4byte	0x97
+ 577 01c4 06       		.byte	0x6
+ 578 01c5 0B       		.uleb128 0xb
+ 579 01c6 69727100 		.ascii	"irq\000"
+ 580 01ca 05       		.byte	0x5
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 23
+
+
+ 581 01cb 87       		.byte	0x87
+ 582 01cc 97000000 		.4byte	0x97
+ 583 01d0 07       		.byte	0x7
+ 584 01d1 0B       		.uleb128 0xb
+ 585 01d2 6D736700 		.ascii	"msg\000"
+ 586 01d6 05       		.byte	0x5
+ 587 01d7 8B       		.byte	0x8b
+ 588 01d8 DE010000 		.4byte	0x1de
+ 589 01dc 08       		.byte	0x8
+ 590 01dd 00       		.byte	0
+ 591 01de 0C       		.uleb128 0xc
+ 592 01df 04       		.byte	0x4
+ 593 01e0 19010000 		.4byte	0x119
+ 594 01e4 03       		.uleb128 0x3
+ 595 01e5 31000000 		.4byte	.LASF26
+ 596 01e9 05       		.byte	0x5
+ 597 01ea 8C       		.byte	0x8c
+ 598 01eb 8E010000 		.4byte	0x18e
+ 599 01ef 07       		.uleb128 0x7
+ 600 01f0 20       		.byte	0x20
+ 601 01f1 05       		.byte	0x5
+ 602 01f2 A0       		.byte	0xa0
+ 603 01f3 4C020000 		.4byte	0x24c
+ 604 01f7 08       		.uleb128 0x8
+ 605 01f8 00020000 		.4byte	.LASF27
+ 606 01fc 05       		.byte	0x5
+ 607 01fd A2       		.byte	0xa2
+ 608 01fe 83010000 		.4byte	0x183
+ 609 0202 00       		.byte	0
+ 610 0203 08       		.uleb128 0x8
+ 611 0204 8A000000 		.4byte	.LASF28
+ 612 0208 05       		.byte	0x5
+ 613 0209 A3       		.byte	0xa3
+ 614 020a 83010000 		.4byte	0x183
+ 615 020e 04       		.byte	0x4
+ 616 020f 08       		.uleb128 0x8
+ 617 0210 5D000000 		.4byte	.LASF29
+ 618 0214 05       		.byte	0x5
+ 619 0215 A4       		.byte	0xa4
+ 620 0216 4E010000 		.4byte	0x14e
+ 621 021a 08       		.byte	0x8
+ 622 021b 08       		.uleb128 0x8
+ 623 021c 3F030000 		.4byte	.LASF30
+ 624 0220 05       		.byte	0x5
+ 625 0221 A5       		.byte	0xa5
+ 626 0222 83010000 		.4byte	0x183
+ 627 0226 10       		.byte	0x10
+ 628 0227 08       		.uleb128 0x8
+ 629 0228 8F000000 		.4byte	.LASF31
+ 630 022c 05       		.byte	0x5
+ 631 022d A6       		.byte	0xa6
+ 632 022e 83010000 		.4byte	0x183
+ 633 0232 14       		.byte	0x14
+ 634 0233 08       		.uleb128 0x8
+ 635 0234 05010000 		.4byte	.LASF32
+ 636 0238 05       		.byte	0x5
+ 637 0239 A7       		.byte	0xa7
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 24
+
+
+ 638 023a 83010000 		.4byte	0x183
+ 639 023e 18       		.byte	0x18
+ 640 023f 08       		.uleb128 0x8
+ 641 0240 B7010000 		.4byte	.LASF33
+ 642 0244 05       		.byte	0x5
+ 643 0245 A8       		.byte	0xa8
+ 644 0246 83010000 		.4byte	0x183
+ 645 024a 1C       		.byte	0x1c
+ 646 024b 00       		.byte	0
+ 647 024c 03       		.uleb128 0x3
+ 648 024d E3010000 		.4byte	.LASF34
+ 649 0251 05       		.byte	0x5
+ 650 0252 A9       		.byte	0xa9
+ 651 0253 EF010000 		.4byte	0x1ef
+ 652 0257 07       		.uleb128 0x7
+ 653 0258 10       		.byte	0x10
+ 654 0259 05       		.byte	0x5
+ 655 025a AC       		.byte	0xac
+ 656 025b 84020000 		.4byte	0x284
+ 657 025f 08       		.uleb128 0x8
+ 658 0260 A9000000 		.4byte	.LASF35
+ 659 0264 05       		.byte	0x5
+ 660 0265 AE       		.byte	0xae
+ 661 0266 83010000 		.4byte	0x183
+ 662 026a 00       		.byte	0
+ 663 026b 08       		.uleb128 0x8
+ 664 026c 3F020000 		.4byte	.LASF36
+ 665 0270 05       		.byte	0x5
+ 666 0271 AF       		.byte	0xaf
+ 667 0272 83010000 		.4byte	0x183
+ 668 0276 04       		.byte	0x4
+ 669 0277 08       		.uleb128 0x8
+ 670 0278 43000000 		.4byte	.LASF37
+ 671 027c 05       		.byte	0x5
+ 672 027d B0       		.byte	0xb0
+ 673 027e 4E010000 		.4byte	0x14e
+ 674 0282 08       		.byte	0x8
+ 675 0283 00       		.byte	0
+ 676 0284 03       		.uleb128 0x3
+ 677 0285 06020000 		.4byte	.LASF38
+ 678 0289 05       		.byte	0x5
+ 679 028a B1       		.byte	0xb1
+ 680 028b 57020000 		.4byte	0x257
+ 681 028f 07       		.uleb128 0x7
+ 682 0290 0D       		.byte	0xd
+ 683 0291 06       		.byte	0x6
+ 684 0292 13       		.byte	0x13
+ 685 0293 BC020000 		.4byte	0x2bc
+ 686 0297 08       		.uleb128 0x8
+ 687 0298 8A000000 		.4byte	.LASF28
+ 688 029c 06       		.byte	0x6
+ 689 029d 15       		.byte	0x15
+ 690 029e 83010000 		.4byte	0x183
+ 691 02a2 00       		.byte	0
+ 692 02a3 08       		.uleb128 0x8
+ 693 02a4 5D000000 		.4byte	.LASF29
+ 694 02a8 06       		.byte	0x6
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 25
+
+
+ 695 02a9 16       		.byte	0x16
+ 696 02aa 4E010000 		.4byte	0x14e
+ 697 02ae 04       		.byte	0x4
+ 698 02af 0B       		.uleb128 0xb
+ 699 02b0 646C6300 		.ascii	"dlc\000"
+ 700 02b4 06       		.byte	0x6
+ 701 02b5 17       		.byte	0x17
+ 702 02b6 81000000 		.4byte	0x81
+ 703 02ba 0C       		.byte	0xc
+ 704 02bb 00       		.byte	0
+ 705 02bc 03       		.uleb128 0x3
+ 706 02bd 64000000 		.4byte	.LASF39
+ 707 02c1 06       		.byte	0x6
+ 708 02c2 19       		.byte	0x19
+ 709 02c3 8F020000 		.4byte	0x28f
+ 710 02c7 0D       		.uleb128 0xd
+ 711 02c8 6C010000 		.4byte	.LASF56
+ 712 02cc 01       		.byte	0x1
+ 713 02cd 38       		.byte	0x38
+ 714 02ce 97000000 		.4byte	0x97
+ 715 02d2 00000000 		.4byte	.LFB68
+ 716 02d6 D8000000 		.4byte	.LFE68-.LFB68
+ 717 02da 01       		.uleb128 0x1
+ 718 02db 9C       		.byte	0x9c
+ 719 02dc 46030000 		.4byte	0x346
+ 720 02e0 0E       		.uleb128 0xe
+ 721 02e1 27020000 		.4byte	.LASF44
+ 722 02e5 01       		.byte	0x1
+ 723 02e6 38       		.byte	0x38
+ 724 02e7 46030000 		.4byte	0x346
+ 725 02eb 00000000 		.4byte	.LLST0
+ 726 02ef 0F       		.uleb128 0xf
+ 727 02f0 6900     		.ascii	"i\000"
+ 728 02f2 01       		.byte	0x1
+ 729 02f3 3A       		.byte	0x3a
+ 730 02f4 97000000 		.4byte	0x97
+ 731 02f8 21000000 		.4byte	.LLST1
+ 732 02fc 0F       		.uleb128 0xf
+ 733 02fd 6A00     		.ascii	"j\000"
+ 734 02ff 01       		.byte	0x1
+ 735 0300 3A       		.byte	0x3a
+ 736 0301 97000000 		.4byte	0x97
+ 737 0305 4A000000 		.4byte	.LLST2
+ 738 0309 10       		.uleb128 0x10
+ 739 030a B8000000 		.4byte	.LASF40
+ 740 030e 01       		.byte	0x1
+ 741 030f 3A       		.byte	0x3a
+ 742 0310 97000000 		.4byte	0x97
+ 743 0314 74000000 		.4byte	.LLST3
+ 744 0318 10       		.uleb128 0x10
+ 745 0319 76000000 		.4byte	.LASF41
+ 746 031d 01       		.byte	0x1
+ 747 031e 3B       		.byte	0x3b
+ 748 031f 97000000 		.4byte	0x97
+ 749 0323 9D000000 		.4byte	.LLST4
+ 750 0327 10       		.uleb128 0x10
+ 751 0328 00000000 		.4byte	.LASF42
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 26
+
+
+ 752 032c 01       		.byte	0x1
+ 753 032d 3C       		.byte	0x3c
+ 754 032e 97000000 		.4byte	0x97
+ 755 0332 C7000000 		.4byte	.LLST5
+ 756 0336 10       		.uleb128 0x10
+ 757 0337 9C020000 		.4byte	.LASF43
+ 758 033b 01       		.byte	0x1
+ 759 033c 3D       		.byte	0x3d
+ 760 033d A3000000 		.4byte	0xa3
+ 761 0341 FD000000 		.4byte	.LLST6
+ 762 0345 00       		.byte	0
+ 763 0346 0C       		.uleb128 0xc
+ 764 0347 04       		.byte	0x4
+ 765 0348 4C030000 		.4byte	0x34c
+ 766 034c 11       		.uleb128 0x11
+ 767 034d E4010000 		.4byte	0x1e4
+ 768 0351 12       		.uleb128 0x12
+ 769 0352 45030000 		.4byte	.LASF46
+ 770 0356 01       		.byte	0x1
+ 771 0357 B6       		.byte	0xb6
+ 772 0358 00000000 		.4byte	.LFB69
+ 773 035c 1C000000 		.4byte	.LFE69-.LFB69
+ 774 0360 01       		.uleb128 0x1
+ 775 0361 9C       		.byte	0x9c
+ 776 0362 76030000 		.4byte	0x376
+ 777 0366 0E       		.uleb128 0xe
+ 778 0367 36020000 		.4byte	.LASF45
+ 779 036b 01       		.byte	0x1
+ 780 036c B6       		.byte	0xb6
+ 781 036d 97000000 		.4byte	0x97
+ 782 0371 3D010000 		.4byte	.LLST7
+ 783 0375 00       		.byte	0
+ 784 0376 13       		.uleb128 0x13
+ 785 0377 E3000000 		.4byte	.LASF47
+ 786 037b 01       		.byte	0x1
+ 787 037c 7202     		.2byte	0x272
+ 788 037e 00000000 		.4byte	.LFB70
+ 789 0382 8C000000 		.4byte	.LFE70-.LFB70
+ 790 0386 01       		.uleb128 0x1
+ 791 0387 9C       		.byte	0x9c
+ 792 0388 B6030000 		.4byte	0x3b6
+ 793 038c 14       		.uleb128 0x14
+ 794 038d D9010000 		.4byte	.LASF48
+ 795 0391 01       		.byte	0x1
+ 796 0392 7202     		.2byte	0x272
+ 797 0394 97000000 		.4byte	0x97
+ 798 0398 5E010000 		.4byte	.LLST8
+ 799 039c 15       		.uleb128 0x15
+ 800 039d 14000000 		.4byte	.LBB2
+ 801 03a1 64000000 		.4byte	.LBE2-.LBB2
+ 802 03a5 16       		.uleb128 0x16
+ 803 03a6 19000000 		.4byte	.LASF49
+ 804 03aa 01       		.byte	0x1
+ 805 03ab 7C02     		.2byte	0x27c
+ 806 03ad BC020000 		.4byte	0x2bc
+ 807 03b1 02       		.uleb128 0x2
+ 808 03b2 91       		.byte	0x91
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 27
+
+
+ 809 03b3 58       		.sleb128 -40
+ 810 03b4 00       		.byte	0
+ 811 03b5 00       		.byte	0
+ 812 03b6 17       		.uleb128 0x17
+ 813 03b7 A4020000 		.4byte	.LASF50
+ 814 03bb 07       		.byte	0x7
+ 815 03bc 1207     		.2byte	0x712
+ 816 03be C2030000 		.4byte	0x3c2
+ 817 03c2 06       		.uleb128 0x6
+ 818 03c3 8C000000 		.4byte	0x8c
+ 819 03c7 09       		.uleb128 0x9
+ 820 03c8 BC020000 		.4byte	0x2bc
+ 821 03cc D7030000 		.4byte	0x3d7
+ 822 03d0 0A       		.uleb128 0xa
+ 823 03d1 ED000000 		.4byte	0xed
+ 824 03d5 13       		.byte	0x13
+ 825 03d6 00       		.byte	0
+ 826 03d7 18       		.uleb128 0x18
+ 827 03d8 4A000000 		.4byte	.LASF51
+ 828 03dc 01       		.byte	0x1
+ 829 03dd 1E       		.byte	0x1e
+ 830 03de C7030000 		.4byte	0x3c7
+ 831 03e2 05       		.uleb128 0x5
+ 832 03e3 03       		.byte	0x3
+ 833 03e4 00000000 		.4byte	canbusRecMgsBuffer
+ 834 03e8 18       		.uleb128 0x18
+ 835 03e9 C3010000 		.4byte	.LASF52
+ 836 03ed 01       		.byte	0x1
+ 837 03ee 1F       		.byte	0x1f
+ 838 03ef 81000000 		.4byte	0x81
+ 839 03f3 05       		.uleb128 0x5
+ 840 03f4 03       		.byte	0x3
+ 841 03f5 00000000 		.4byte	recMsgBufferFillLevel
+ 842 03f9 00       		.byte	0
+ 843              		.section	.debug_abbrev,"",%progbits
+ 844              	.Ldebug_abbrev0:
+ 845 0000 01       		.uleb128 0x1
+ 846 0001 11       		.uleb128 0x11
+ 847 0002 01       		.byte	0x1
+ 848 0003 25       		.uleb128 0x25
+ 849 0004 0E       		.uleb128 0xe
+ 850 0005 13       		.uleb128 0x13
+ 851 0006 0B       		.uleb128 0xb
+ 852 0007 03       		.uleb128 0x3
+ 853 0008 0E       		.uleb128 0xe
+ 854 0009 1B       		.uleb128 0x1b
+ 855 000a 0E       		.uleb128 0xe
+ 856 000b 55       		.uleb128 0x55
+ 857 000c 17       		.uleb128 0x17
+ 858 000d 11       		.uleb128 0x11
+ 859 000e 01       		.uleb128 0x1
+ 860 000f 10       		.uleb128 0x10
+ 861 0010 17       		.uleb128 0x17
+ 862 0011 00       		.byte	0
+ 863 0012 00       		.byte	0
+ 864 0013 02       		.uleb128 0x2
+ 865 0014 24       		.uleb128 0x24
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 28
+
+
+ 866 0015 00       		.byte	0
+ 867 0016 0B       		.uleb128 0xb
+ 868 0017 0B       		.uleb128 0xb
+ 869 0018 3E       		.uleb128 0x3e
+ 870 0019 0B       		.uleb128 0xb
+ 871 001a 03       		.uleb128 0x3
+ 872 001b 0E       		.uleb128 0xe
+ 873 001c 00       		.byte	0
+ 874 001d 00       		.byte	0
+ 875 001e 03       		.uleb128 0x3
+ 876 001f 16       		.uleb128 0x16
+ 877 0020 00       		.byte	0
+ 878 0021 03       		.uleb128 0x3
+ 879 0022 0E       		.uleb128 0xe
+ 880 0023 3A       		.uleb128 0x3a
+ 881 0024 0B       		.uleb128 0xb
+ 882 0025 3B       		.uleb128 0x3b
+ 883 0026 0B       		.uleb128 0xb
+ 884 0027 49       		.uleb128 0x49
+ 885 0028 13       		.uleb128 0x13
+ 886 0029 00       		.byte	0
+ 887 002a 00       		.byte	0
+ 888 002b 04       		.uleb128 0x4
+ 889 002c 24       		.uleb128 0x24
+ 890 002d 00       		.byte	0
+ 891 002e 0B       		.uleb128 0xb
+ 892 002f 0B       		.uleb128 0xb
+ 893 0030 3E       		.uleb128 0x3e
+ 894 0031 0B       		.uleb128 0xb
+ 895 0032 03       		.uleb128 0x3
+ 896 0033 08       		.uleb128 0x8
+ 897 0034 00       		.byte	0
+ 898 0035 00       		.byte	0
+ 899 0036 05       		.uleb128 0x5
+ 900 0037 16       		.uleb128 0x16
+ 901 0038 00       		.byte	0
+ 902 0039 03       		.uleb128 0x3
+ 903 003a 0E       		.uleb128 0xe
+ 904 003b 3A       		.uleb128 0x3a
+ 905 003c 0B       		.uleb128 0xb
+ 906 003d 3B       		.uleb128 0x3b
+ 907 003e 05       		.uleb128 0x5
+ 908 003f 49       		.uleb128 0x49
+ 909 0040 13       		.uleb128 0x13
+ 910 0041 00       		.byte	0
+ 911 0042 00       		.byte	0
+ 912 0043 06       		.uleb128 0x6
+ 913 0044 35       		.uleb128 0x35
+ 914 0045 00       		.byte	0
+ 915 0046 49       		.uleb128 0x49
+ 916 0047 13       		.uleb128 0x13
+ 917 0048 00       		.byte	0
+ 918 0049 00       		.byte	0
+ 919 004a 07       		.uleb128 0x7
+ 920 004b 13       		.uleb128 0x13
+ 921 004c 01       		.byte	0x1
+ 922 004d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 29
+
+
+ 923 004e 0B       		.uleb128 0xb
+ 924 004f 3A       		.uleb128 0x3a
+ 925 0050 0B       		.uleb128 0xb
+ 926 0051 3B       		.uleb128 0x3b
+ 927 0052 0B       		.uleb128 0xb
+ 928 0053 01       		.uleb128 0x1
+ 929 0054 13       		.uleb128 0x13
+ 930 0055 00       		.byte	0
+ 931 0056 00       		.byte	0
+ 932 0057 08       		.uleb128 0x8
+ 933 0058 0D       		.uleb128 0xd
+ 934 0059 00       		.byte	0
+ 935 005a 03       		.uleb128 0x3
+ 936 005b 0E       		.uleb128 0xe
+ 937 005c 3A       		.uleb128 0x3a
+ 938 005d 0B       		.uleb128 0xb
+ 939 005e 3B       		.uleb128 0x3b
+ 940 005f 0B       		.uleb128 0xb
+ 941 0060 49       		.uleb128 0x49
+ 942 0061 13       		.uleb128 0x13
+ 943 0062 38       		.uleb128 0x38
+ 944 0063 0B       		.uleb128 0xb
+ 945 0064 00       		.byte	0
+ 946 0065 00       		.byte	0
+ 947 0066 09       		.uleb128 0x9
+ 948 0067 01       		.uleb128 0x1
+ 949 0068 01       		.byte	0x1
+ 950 0069 49       		.uleb128 0x49
+ 951 006a 13       		.uleb128 0x13
+ 952 006b 01       		.uleb128 0x1
+ 953 006c 13       		.uleb128 0x13
+ 954 006d 00       		.byte	0
+ 955 006e 00       		.byte	0
+ 956 006f 0A       		.uleb128 0xa
+ 957 0070 21       		.uleb128 0x21
+ 958 0071 00       		.byte	0
+ 959 0072 49       		.uleb128 0x49
+ 960 0073 13       		.uleb128 0x13
+ 961 0074 2F       		.uleb128 0x2f
+ 962 0075 0B       		.uleb128 0xb
+ 963 0076 00       		.byte	0
+ 964 0077 00       		.byte	0
+ 965 0078 0B       		.uleb128 0xb
+ 966 0079 0D       		.uleb128 0xd
+ 967 007a 00       		.byte	0
+ 968 007b 03       		.uleb128 0x3
+ 969 007c 08       		.uleb128 0x8
+ 970 007d 3A       		.uleb128 0x3a
+ 971 007e 0B       		.uleb128 0xb
+ 972 007f 3B       		.uleb128 0x3b
+ 973 0080 0B       		.uleb128 0xb
+ 974 0081 49       		.uleb128 0x49
+ 975 0082 13       		.uleb128 0x13
+ 976 0083 38       		.uleb128 0x38
+ 977 0084 0B       		.uleb128 0xb
+ 978 0085 00       		.byte	0
+ 979 0086 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 30
+
+
+ 980 0087 0C       		.uleb128 0xc
+ 981 0088 0F       		.uleb128 0xf
+ 982 0089 00       		.byte	0
+ 983 008a 0B       		.uleb128 0xb
+ 984 008b 0B       		.uleb128 0xb
+ 985 008c 49       		.uleb128 0x49
+ 986 008d 13       		.uleb128 0x13
+ 987 008e 00       		.byte	0
+ 988 008f 00       		.byte	0
+ 989 0090 0D       		.uleb128 0xd
+ 990 0091 2E       		.uleb128 0x2e
+ 991 0092 01       		.byte	0x1
+ 992 0093 3F       		.uleb128 0x3f
+ 993 0094 19       		.uleb128 0x19
+ 994 0095 03       		.uleb128 0x3
+ 995 0096 0E       		.uleb128 0xe
+ 996 0097 3A       		.uleb128 0x3a
+ 997 0098 0B       		.uleb128 0xb
+ 998 0099 3B       		.uleb128 0x3b
+ 999 009a 0B       		.uleb128 0xb
+ 1000 009b 27       		.uleb128 0x27
+ 1001 009c 19       		.uleb128 0x19
+ 1002 009d 49       		.uleb128 0x49
+ 1003 009e 13       		.uleb128 0x13
+ 1004 009f 11       		.uleb128 0x11
+ 1005 00a0 01       		.uleb128 0x1
+ 1006 00a1 12       		.uleb128 0x12
+ 1007 00a2 06       		.uleb128 0x6
+ 1008 00a3 40       		.uleb128 0x40
+ 1009 00a4 18       		.uleb128 0x18
+ 1010 00a5 9742     		.uleb128 0x2117
+ 1011 00a7 19       		.uleb128 0x19
+ 1012 00a8 01       		.uleb128 0x1
+ 1013 00a9 13       		.uleb128 0x13
+ 1014 00aa 00       		.byte	0
+ 1015 00ab 00       		.byte	0
+ 1016 00ac 0E       		.uleb128 0xe
+ 1017 00ad 05       		.uleb128 0x5
+ 1018 00ae 00       		.byte	0
+ 1019 00af 03       		.uleb128 0x3
+ 1020 00b0 0E       		.uleb128 0xe
+ 1021 00b1 3A       		.uleb128 0x3a
+ 1022 00b2 0B       		.uleb128 0xb
+ 1023 00b3 3B       		.uleb128 0x3b
+ 1024 00b4 0B       		.uleb128 0xb
+ 1025 00b5 49       		.uleb128 0x49
+ 1026 00b6 13       		.uleb128 0x13
+ 1027 00b7 02       		.uleb128 0x2
+ 1028 00b8 17       		.uleb128 0x17
+ 1029 00b9 00       		.byte	0
+ 1030 00ba 00       		.byte	0
+ 1031 00bb 0F       		.uleb128 0xf
+ 1032 00bc 34       		.uleb128 0x34
+ 1033 00bd 00       		.byte	0
+ 1034 00be 03       		.uleb128 0x3
+ 1035 00bf 08       		.uleb128 0x8
+ 1036 00c0 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 31
+
+
+ 1037 00c1 0B       		.uleb128 0xb
+ 1038 00c2 3B       		.uleb128 0x3b
+ 1039 00c3 0B       		.uleb128 0xb
+ 1040 00c4 49       		.uleb128 0x49
+ 1041 00c5 13       		.uleb128 0x13
+ 1042 00c6 02       		.uleb128 0x2
+ 1043 00c7 17       		.uleb128 0x17
+ 1044 00c8 00       		.byte	0
+ 1045 00c9 00       		.byte	0
+ 1046 00ca 10       		.uleb128 0x10
+ 1047 00cb 34       		.uleb128 0x34
+ 1048 00cc 00       		.byte	0
+ 1049 00cd 03       		.uleb128 0x3
+ 1050 00ce 0E       		.uleb128 0xe
+ 1051 00cf 3A       		.uleb128 0x3a
+ 1052 00d0 0B       		.uleb128 0xb
+ 1053 00d1 3B       		.uleb128 0x3b
+ 1054 00d2 0B       		.uleb128 0xb
+ 1055 00d3 49       		.uleb128 0x49
+ 1056 00d4 13       		.uleb128 0x13
+ 1057 00d5 02       		.uleb128 0x2
+ 1058 00d6 17       		.uleb128 0x17
+ 1059 00d7 00       		.byte	0
+ 1060 00d8 00       		.byte	0
+ 1061 00d9 11       		.uleb128 0x11
+ 1062 00da 26       		.uleb128 0x26
+ 1063 00db 00       		.byte	0
+ 1064 00dc 49       		.uleb128 0x49
+ 1065 00dd 13       		.uleb128 0x13
+ 1066 00de 00       		.byte	0
+ 1067 00df 00       		.byte	0
+ 1068 00e0 12       		.uleb128 0x12
+ 1069 00e1 2E       		.uleb128 0x2e
+ 1070 00e2 01       		.byte	0x1
+ 1071 00e3 3F       		.uleb128 0x3f
+ 1072 00e4 19       		.uleb128 0x19
+ 1073 00e5 03       		.uleb128 0x3
+ 1074 00e6 0E       		.uleb128 0xe
+ 1075 00e7 3A       		.uleb128 0x3a
+ 1076 00e8 0B       		.uleb128 0xb
+ 1077 00e9 3B       		.uleb128 0x3b
+ 1078 00ea 0B       		.uleb128 0xb
+ 1079 00eb 27       		.uleb128 0x27
+ 1080 00ec 19       		.uleb128 0x19
+ 1081 00ed 11       		.uleb128 0x11
+ 1082 00ee 01       		.uleb128 0x1
+ 1083 00ef 12       		.uleb128 0x12
+ 1084 00f0 06       		.uleb128 0x6
+ 1085 00f1 40       		.uleb128 0x40
+ 1086 00f2 18       		.uleb128 0x18
+ 1087 00f3 9742     		.uleb128 0x2117
+ 1088 00f5 19       		.uleb128 0x19
+ 1089 00f6 01       		.uleb128 0x1
+ 1090 00f7 13       		.uleb128 0x13
+ 1091 00f8 00       		.byte	0
+ 1092 00f9 00       		.byte	0
+ 1093 00fa 13       		.uleb128 0x13
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 32
+
+
+ 1094 00fb 2E       		.uleb128 0x2e
+ 1095 00fc 01       		.byte	0x1
+ 1096 00fd 3F       		.uleb128 0x3f
+ 1097 00fe 19       		.uleb128 0x19
+ 1098 00ff 03       		.uleb128 0x3
+ 1099 0100 0E       		.uleb128 0xe
+ 1100 0101 3A       		.uleb128 0x3a
+ 1101 0102 0B       		.uleb128 0xb
+ 1102 0103 3B       		.uleb128 0x3b
+ 1103 0104 05       		.uleb128 0x5
+ 1104 0105 27       		.uleb128 0x27
+ 1105 0106 19       		.uleb128 0x19
+ 1106 0107 11       		.uleb128 0x11
+ 1107 0108 01       		.uleb128 0x1
+ 1108 0109 12       		.uleb128 0x12
+ 1109 010a 06       		.uleb128 0x6
+ 1110 010b 40       		.uleb128 0x40
+ 1111 010c 18       		.uleb128 0x18
+ 1112 010d 9742     		.uleb128 0x2117
+ 1113 010f 19       		.uleb128 0x19
+ 1114 0110 01       		.uleb128 0x1
+ 1115 0111 13       		.uleb128 0x13
+ 1116 0112 00       		.byte	0
+ 1117 0113 00       		.byte	0
+ 1118 0114 14       		.uleb128 0x14
+ 1119 0115 05       		.uleb128 0x5
+ 1120 0116 00       		.byte	0
+ 1121 0117 03       		.uleb128 0x3
+ 1122 0118 0E       		.uleb128 0xe
+ 1123 0119 3A       		.uleb128 0x3a
+ 1124 011a 0B       		.uleb128 0xb
+ 1125 011b 3B       		.uleb128 0x3b
+ 1126 011c 05       		.uleb128 0x5
+ 1127 011d 49       		.uleb128 0x49
+ 1128 011e 13       		.uleb128 0x13
+ 1129 011f 02       		.uleb128 0x2
+ 1130 0120 17       		.uleb128 0x17
+ 1131 0121 00       		.byte	0
+ 1132 0122 00       		.byte	0
+ 1133 0123 15       		.uleb128 0x15
+ 1134 0124 0B       		.uleb128 0xb
+ 1135 0125 01       		.byte	0x1
+ 1136 0126 11       		.uleb128 0x11
+ 1137 0127 01       		.uleb128 0x1
+ 1138 0128 12       		.uleb128 0x12
+ 1139 0129 06       		.uleb128 0x6
+ 1140 012a 00       		.byte	0
+ 1141 012b 00       		.byte	0
+ 1142 012c 16       		.uleb128 0x16
+ 1143 012d 34       		.uleb128 0x34
+ 1144 012e 00       		.byte	0
+ 1145 012f 03       		.uleb128 0x3
+ 1146 0130 0E       		.uleb128 0xe
+ 1147 0131 3A       		.uleb128 0x3a
+ 1148 0132 0B       		.uleb128 0xb
+ 1149 0133 3B       		.uleb128 0x3b
+ 1150 0134 05       		.uleb128 0x5
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 33
+
+
+ 1151 0135 49       		.uleb128 0x49
+ 1152 0136 13       		.uleb128 0x13
+ 1153 0137 02       		.uleb128 0x2
+ 1154 0138 18       		.uleb128 0x18
+ 1155 0139 00       		.byte	0
+ 1156 013a 00       		.byte	0
+ 1157 013b 17       		.uleb128 0x17
+ 1158 013c 34       		.uleb128 0x34
+ 1159 013d 00       		.byte	0
+ 1160 013e 03       		.uleb128 0x3
+ 1161 013f 0E       		.uleb128 0xe
+ 1162 0140 3A       		.uleb128 0x3a
+ 1163 0141 0B       		.uleb128 0xb
+ 1164 0142 3B       		.uleb128 0x3b
+ 1165 0143 05       		.uleb128 0x5
+ 1166 0144 49       		.uleb128 0x49
+ 1167 0145 13       		.uleb128 0x13
+ 1168 0146 3F       		.uleb128 0x3f
+ 1169 0147 19       		.uleb128 0x19
+ 1170 0148 3C       		.uleb128 0x3c
+ 1171 0149 19       		.uleb128 0x19
+ 1172 014a 00       		.byte	0
+ 1173 014b 00       		.byte	0
+ 1174 014c 18       		.uleb128 0x18
+ 1175 014d 34       		.uleb128 0x34
+ 1176 014e 00       		.byte	0
+ 1177 014f 03       		.uleb128 0x3
+ 1178 0150 0E       		.uleb128 0xe
+ 1179 0151 3A       		.uleb128 0x3a
+ 1180 0152 0B       		.uleb128 0xb
+ 1181 0153 3B       		.uleb128 0x3b
+ 1182 0154 0B       		.uleb128 0xb
+ 1183 0155 49       		.uleb128 0x49
+ 1184 0156 13       		.uleb128 0x13
+ 1185 0157 3F       		.uleb128 0x3f
+ 1186 0158 19       		.uleb128 0x19
+ 1187 0159 02       		.uleb128 0x2
+ 1188 015a 18       		.uleb128 0x18
+ 1189 015b 00       		.byte	0
+ 1190 015c 00       		.byte	0
+ 1191 015d 00       		.byte	0
+ 1192              		.section	.debug_loc,"",%progbits
+ 1193              	.Ldebug_loc0:
+ 1194              	.LLST0:
+ 1195 0000 00000000 		.4byte	.LVL0
+ 1196 0004 C4000000 		.4byte	.LVL25
+ 1197 0008 0100     		.2byte	0x1
+ 1198 000a 50       		.byte	0x50
+ 1199 000b C4000000 		.4byte	.LVL25
+ 1200 000f D8000000 		.4byte	.LFE68
+ 1201 0013 0400     		.2byte	0x4
+ 1202 0015 F3       		.byte	0xf3
+ 1203 0016 01       		.uleb128 0x1
+ 1204 0017 50       		.byte	0x50
+ 1205 0018 9F       		.byte	0x9f
+ 1206 0019 00000000 		.4byte	0
+ 1207 001d 00000000 		.4byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 34
+
+
+ 1208              	.LLST1:
+ 1209 0021 08000000 		.4byte	.LVL2
+ 1210 0025 AC000000 		.4byte	.LVL19
+ 1211 0029 0100     		.2byte	0x1
+ 1212 002b 54       		.byte	0x54
+ 1213 002c AE000000 		.4byte	.LVL20
+ 1214 0030 B0000000 		.4byte	.LVL21
+ 1215 0034 0100     		.2byte	0x1
+ 1216 0036 54       		.byte	0x54
+ 1217 0037 B4000000 		.4byte	.LVL22
+ 1218 003b BE000000 		.4byte	.LVL24
+ 1219 003f 0100     		.2byte	0x1
+ 1220 0041 54       		.byte	0x54
+ 1221 0042 00000000 		.4byte	0
+ 1222 0046 00000000 		.4byte	0
+ 1223              	.LLST2:
+ 1224 004a 56000000 		.4byte	.LVL10
+ 1225 004e 5A000000 		.4byte	.LVL11
+ 1226 0052 0200     		.2byte	0x2
+ 1227 0054 30       		.byte	0x30
+ 1228 0055 9F       		.byte	0x9f
+ 1229 0056 5A000000 		.4byte	.LVL11
+ 1230 005a 78000000 		.4byte	.LVL12
+ 1231 005e 0100     		.2byte	0x1
+ 1232 0060 53       		.byte	0x53
+ 1233 0061 7A000000 		.4byte	.LVL13
+ 1234 0065 8A000000 		.4byte	.LVL14
+ 1235 0069 0100     		.2byte	0x1
+ 1236 006b 53       		.byte	0x53
+ 1237 006c 00000000 		.4byte	0
+ 1238 0070 00000000 		.4byte	0
+ 1239              	.LLST3:
+ 1240 0074 08000000 		.4byte	.LVL2
+ 1241 0078 A6000000 		.4byte	.LVL17
+ 1242 007c 0100     		.2byte	0x1
+ 1243 007e 56       		.byte	0x56
+ 1244 007f A8000000 		.4byte	.LVL18
+ 1245 0083 B0000000 		.4byte	.LVL21
+ 1246 0087 0100     		.2byte	0x1
+ 1247 0089 56       		.byte	0x56
+ 1248 008a B4000000 		.4byte	.LVL22
+ 1249 008e BE000000 		.4byte	.LVL24
+ 1250 0092 0100     		.2byte	0x1
+ 1251 0094 56       		.byte	0x56
+ 1252 0095 00000000 		.4byte	0
+ 1253 0099 00000000 		.4byte	0
+ 1254              	.LLST4:
+ 1255 009d 02000000 		.4byte	.LVL1
+ 1256 00a1 08000000 		.4byte	.LVL2
+ 1257 00a5 0200     		.2byte	0x2
+ 1258 00a7 30       		.byte	0x30
+ 1259 00a8 9F       		.byte	0x9f
+ 1260 00a9 08000000 		.4byte	.LVL2
+ 1261 00ad BC000000 		.4byte	.LVL23
+ 1262 00b1 0100     		.2byte	0x1
+ 1263 00b3 57       		.byte	0x57
+ 1264 00b4 BE000000 		.4byte	.LVL24
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 35
+
+
+ 1265 00b8 C6000000 		.4byte	.LVL26
+ 1266 00bc 0100     		.2byte	0x1
+ 1267 00be 57       		.byte	0x57
+ 1268 00bf 00000000 		.4byte	0
+ 1269 00c3 00000000 		.4byte	0
+ 1270              	.LLST5:
+ 1271 00c7 02000000 		.4byte	.LVL1
+ 1272 00cb 08000000 		.4byte	.LVL2
+ 1273 00cf 0200     		.2byte	0x2
+ 1274 00d1 31       		.byte	0x31
+ 1275 00d2 9F       		.byte	0x9f
+ 1276 00d3 08000000 		.4byte	.LVL2
+ 1277 00d7 1A000000 		.4byte	.LVL5
+ 1278 00db 0100     		.2byte	0x1
+ 1279 00dd 52       		.byte	0x52
+ 1280 00de A2000000 		.4byte	.LVL15
+ 1281 00e2 A4000000 		.4byte	.LVL16
+ 1282 00e6 0200     		.2byte	0x2
+ 1283 00e8 30       		.byte	0x30
+ 1284 00e9 9F       		.byte	0x9f
+ 1285 00ea A4000000 		.4byte	.LVL16
+ 1286 00ee D8000000 		.4byte	.LFE68
+ 1287 00f2 0100     		.2byte	0x1
+ 1288 00f4 52       		.byte	0x52
+ 1289 00f5 00000000 		.4byte	0
+ 1290 00f9 00000000 		.4byte	0
+ 1291              	.LLST6:
+ 1292 00fd 10000000 		.4byte	.LVL3
+ 1293 0101 18000000 		.4byte	.LVL4
+ 1294 0105 0200     		.2byte	0x2
+ 1295 0107 30       		.byte	0x30
+ 1296 0108 9F       		.byte	0x9f
+ 1297 0109 18000000 		.4byte	.LVL4
+ 1298 010d 48000000 		.4byte	.LVL7
+ 1299 0111 0100     		.2byte	0x1
+ 1300 0113 53       		.byte	0x53
+ 1301 0114 48000000 		.4byte	.LVL7
+ 1302 0118 4A000000 		.4byte	.LVL8
+ 1303 011c 0100     		.2byte	0x1
+ 1304 011e 5E       		.byte	0x5e
+ 1305 011f 4A000000 		.4byte	.LVL8
+ 1306 0123 4E000000 		.4byte	.LVL9
+ 1307 0127 0100     		.2byte	0x1
+ 1308 0129 53       		.byte	0x53
+ 1309 012a 4E000000 		.4byte	.LVL9
+ 1310 012e A4000000 		.4byte	.LVL16
+ 1311 0132 0100     		.2byte	0x1
+ 1312 0134 5E       		.byte	0x5e
+ 1313 0135 00000000 		.4byte	0
+ 1314 0139 00000000 		.4byte	0
+ 1315              	.LLST7:
+ 1316 013d 00000000 		.4byte	.LVL27
+ 1317 0141 06000000 		.4byte	.LVL28
+ 1318 0145 0100     		.2byte	0x1
+ 1319 0147 50       		.byte	0x50
+ 1320 0148 06000000 		.4byte	.LVL28
+ 1321 014c 1C000000 		.4byte	.LFE69
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 36
+
+
+ 1322 0150 0400     		.2byte	0x4
+ 1323 0152 F3       		.byte	0xf3
+ 1324 0153 01       		.uleb128 0x1
+ 1325 0154 50       		.byte	0x50
+ 1326 0155 9F       		.byte	0x9f
+ 1327 0156 00000000 		.4byte	0
+ 1328 015a 00000000 		.4byte	0
+ 1329              	.LLST8:
+ 1330 015e 00000000 		.4byte	.LVL29
+ 1331 0162 1C000000 		.4byte	.LVL30
+ 1332 0166 0100     		.2byte	0x1
+ 1333 0168 50       		.byte	0x50
+ 1334 0169 1C000000 		.4byte	.LVL30
+ 1335 016d 8C000000 		.4byte	.LFE70
+ 1336 0171 0400     		.2byte	0x4
+ 1337 0173 F3       		.byte	0xf3
+ 1338 0174 01       		.uleb128 0x1
+ 1339 0175 50       		.byte	0x50
+ 1340 0176 9F       		.byte	0x9f
+ 1341 0177 00000000 		.4byte	0
+ 1342 017b 00000000 		.4byte	0
+ 1343              		.section	.debug_aranges,"",%progbits
+ 1344 0000 2C000000 		.4byte	0x2c
+ 1345 0004 0200     		.2byte	0x2
+ 1346 0006 00000000 		.4byte	.Ldebug_info0
+ 1347 000a 04       		.byte	0x4
+ 1348 000b 00       		.byte	0
+ 1349 000c 0000     		.2byte	0
+ 1350 000e 0000     		.2byte	0
+ 1351 0010 00000000 		.4byte	.LFB68
+ 1352 0014 D8000000 		.4byte	.LFE68-.LFB68
+ 1353 0018 00000000 		.4byte	.LFB69
+ 1354 001c 1C000000 		.4byte	.LFE69-.LFB69
+ 1355 0020 00000000 		.4byte	.LFB70
+ 1356 0024 8C000000 		.4byte	.LFE70-.LFB70
+ 1357 0028 00000000 		.4byte	0
+ 1358 002c 00000000 		.4byte	0
+ 1359              		.section	.debug_ranges,"",%progbits
+ 1360              	.Ldebug_ranges0:
+ 1361 0000 00000000 		.4byte	.LFB68
+ 1362 0004 D8000000 		.4byte	.LFE68
+ 1363 0008 00000000 		.4byte	.LFB69
+ 1364 000c 1C000000 		.4byte	.LFE69
+ 1365 0010 00000000 		.4byte	.LFB70
+ 1366 0014 8C000000 		.4byte	.LFE70
+ 1367 0018 00000000 		.4byte	0
+ 1368 001c 00000000 		.4byte	0
+ 1369              		.section	.debug_line,"",%progbits
+ 1370              	.Ldebug_line0:
+ 1371 0000 29020000 		.section	.debug_str,"MS",%progbits,1
+ 1371      02008601 
+ 1371      00000201 
+ 1371      FB0E0D00 
+ 1371      01010101 
+ 1372              	.LASF42:
+ 1373 0000 72657375 		.ascii	"result\000"
+ 1373      6C7400
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 37
+
+
+ 1374              	.LASF25:
+ 1375 0007 56656869 		.ascii	"VehicleCAN_REG_32\000"
+ 1375      636C6543 
+ 1375      414E5F52 
+ 1375      45475F33 
+ 1375      3200
+ 1376              	.LASF49:
+ 1377 0019 74656D70 		.ascii	"temp\000"
+ 1377      00
+ 1378              	.LASF2:
+ 1379 001e 73686F72 		.ascii	"short int\000"
+ 1379      7420696E 
+ 1379      7400
+ 1380              	.LASF21:
+ 1381 0028 73697A65 		.ascii	"sizetype\000"
+ 1381      74797065 
+ 1381      00
+ 1382              	.LASF26:
+ 1383 0031 56656869 		.ascii	"VehicleCAN_TX_MSG\000"
+ 1383      636C6543 
+ 1383      414E5F54 
+ 1383      585F4D53 
+ 1383      4700
+ 1384              	.LASF37:
+ 1385 0043 74786461 		.ascii	"txdata\000"
+ 1385      746100
+ 1386              	.LASF51:
+ 1387 004a 63616E62 		.ascii	"canbusRecMgsBuffer\000"
+ 1387      75735265 
+ 1387      634D6773 
+ 1387      42756666 
+ 1387      657200
+ 1388              	.LASF29:
+ 1389 005d 72786461 		.ascii	"rxdata\000"
+ 1389      746100
+ 1390              	.LASF39:
+ 1391 0064 43414E42 		.ascii	"CANBusRXMessage_t\000"
+ 1391      75735258 
+ 1391      4D657373 
+ 1391      6167655F 
+ 1391      7400
+ 1392              	.LASF41:
+ 1393 0076 72657472 		.ascii	"retry\000"
+ 1393      7900
+ 1394              	.LASF11:
+ 1395 007c 75696E74 		.ascii	"uint8_t\000"
+ 1395      385F7400 
+ 1396              	.LASF13:
+ 1397 0084 75696E74 		.ascii	"uint8\000"
+ 1397      3800
+ 1398              	.LASF28:
+ 1399 008a 72786964 		.ascii	"rxid\000"
+ 1399      00
+ 1400              	.LASF31:
+ 1401 008f 72786163 		.ascii	"rxacr\000"
+ 1401      7200
+ 1402              	.LASF15:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 38
+
+
+ 1403 0095 666C6F61 		.ascii	"float\000"
+ 1403      7400
+ 1404              	.LASF8:
+ 1405 009b 6C6F6E67 		.ascii	"long long int\000"
+ 1405      206C6F6E 
+ 1405      6720696E 
+ 1405      7400
+ 1406              	.LASF35:
+ 1407 00a9 7478636D 		.ascii	"txcmd\000"
+ 1407      6400
+ 1408              	.LASF6:
+ 1409 00af 6C6F6E67 		.ascii	"long int\000"
+ 1409      20696E74 
+ 1409      00
+ 1410              	.LASF40:
+ 1411 00b8 73686966 		.ascii	"shift\000"
+ 1411      7400
+ 1412              	.LASF4:
+ 1413 00be 5F5F7569 		.ascii	"__uint8_t\000"
+ 1413      6E74385F 
+ 1413      7400
+ 1414              	.LASF24:
+ 1415 00c8 56656869 		.ascii	"VehicleCAN_DATA_BYTES\000"
+ 1415      636C6543 
+ 1415      414E5F44 
+ 1415      4154415F 
+ 1415      42595445 
+ 1416              	.LASF23:
+ 1417 00de 62797465 		.ascii	"byte\000"
+ 1417      00
+ 1418              	.LASF47:
+ 1419 00e3 56656869 		.ascii	"VehicleCAN_ReceiveMsg\000"
+ 1419      636C6543 
+ 1419      414E5F52 
+ 1419      65636569 
+ 1419      76654D73 
+ 1420              	.LASF20:
+ 1421 00f9 6C6F6E67 		.ascii	"long double\000"
+ 1421      20646F75 
+ 1421      626C6500 
+ 1422              	.LASF32:
+ 1423 0105 7278616D 		.ascii	"rxamrd\000"
+ 1423      726400
+ 1424              	.LASF1:
+ 1425 010c 756E7369 		.ascii	"unsigned char\000"
+ 1425      676E6564 
+ 1425      20636861 
+ 1425      7200
+ 1426              	.LASF54:
+ 1427 011a 47656E65 		.ascii	"Generated_Source\\PSoC5\\VehicleCAN_TX_RX_func.c\000"
+ 1427      72617465 
+ 1427      645F536F 
+ 1427      75726365 
+ 1427      5C50536F 
+ 1428              	.LASF0:
+ 1429 0149 7369676E 		.ascii	"signed char\000"
+ 1429      65642063 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 39
+
+
+ 1429      68617200 
+ 1430              	.LASF9:
+ 1431 0155 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1431      206C6F6E 
+ 1431      6720756E 
+ 1431      7369676E 
+ 1431      65642069 
+ 1432              	.LASF56:
+ 1433 016c 56656869 		.ascii	"VehicleCAN_SendMsg\000"
+ 1433      636C6543 
+ 1433      414E5F53 
+ 1433      656E644D 
+ 1433      736700
+ 1434              	.LASF10:
+ 1435 017f 756E7369 		.ascii	"unsigned int\000"
+ 1435      676E6564 
+ 1435      20696E74 
+ 1435      00
+ 1436              	.LASF7:
+ 1437 018c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1437      20756E73 
+ 1437      69676E65 
+ 1437      6420696E 
+ 1437      7400
+ 1438              	.LASF19:
+ 1439 019e 72656733 		.ascii	"reg32\000"
+ 1439      3200
+ 1440              	.LASF3:
+ 1441 01a4 73686F72 		.ascii	"short unsigned int\000"
+ 1441      7420756E 
+ 1441      7369676E 
+ 1441      65642069 
+ 1441      6E7400
+ 1442              	.LASF33:
+ 1443 01b7 72786163 		.ascii	"rxacrd\000"
+ 1443      726400
+ 1444              	.LASF17:
+ 1445 01be 63686172 		.ascii	"char\000"
+ 1445      00
+ 1446              	.LASF52:
+ 1447 01c3 7265634D 		.ascii	"recMsgBufferFillLevel\000"
+ 1447      73674275 
+ 1447      66666572 
+ 1447      46696C6C 
+ 1447      4C657665 
+ 1448              	.LASF48:
+ 1449 01d9 72784D61 		.ascii	"rxMailbox\000"
+ 1449      696C626F 
+ 1449      7800
+ 1450              	.LASF34:
+ 1451 01e3 56656869 		.ascii	"VehicleCAN_RX_STRUCT\000"
+ 1451      636C6543 
+ 1451      414E5F52 
+ 1451      585F5354 
+ 1451      52554354 
+ 1452              	.LASF12:
+ 1453 01f8 696E7433 		.ascii	"int32_t\000"
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 40
+
+
+ 1453      325F7400 
+ 1454              	.LASF27:
+ 1455 0200 7278636D 		.ascii	"rxcmd\000"
+ 1455      6400
+ 1456              	.LASF38:
+ 1457 0206 56656869 		.ascii	"VehicleCAN_TX_STRUCT\000"
+ 1457      636C6543 
+ 1457      414E5F54 
+ 1457      585F5354 
+ 1457      52554354 
+ 1458              	.LASF14:
+ 1459 021b 75696E74 		.ascii	"uint32\000"
+ 1459      333200
+ 1460              	.LASF18:
+ 1461 0222 72656738 		.ascii	"reg8\000"
+ 1461      00
+ 1462              	.LASF44:
+ 1463 0227 6D657373 		.ascii	"message\000"
+ 1463      61676500 
+ 1464              	.LASF16:
+ 1465 022f 646F7562 		.ascii	"double\000"
+ 1465      6C6500
+ 1466              	.LASF45:
+ 1467 0236 62756666 		.ascii	"bufferId\000"
+ 1467      65724964 
+ 1467      00
+ 1468              	.LASF36:
+ 1469 023f 74786964 		.ascii	"txid\000"
+ 1469      00
+ 1470              	.LASF5:
+ 1471 0244 5F5F696E 		.ascii	"__int32_t\000"
+ 1471      7433325F 
+ 1471      7400
+ 1472              	.LASF55:
+ 1473 024e 453A5C47 		.ascii	"E:\\GIT Hub Project\\protocov\\Protocov\\Protocov.c"
+ 1473      49542048 
+ 1473      75622050 
+ 1473      726F6A65 
+ 1473      63745C70 
+ 1474 027d 7964736E 		.ascii	"ydsn\000"
+ 1474      00
+ 1475              	.LASF22:
+ 1476 0282 56656869 		.ascii	"VehicleCAN_DATA_BYTES_MSG\000"
+ 1476      636C6543 
+ 1476      414E5F44 
+ 1476      4154415F 
+ 1476      42595445 
+ 1477              	.LASF43:
+ 1478 029c 72656754 		.ascii	"regTemp\000"
+ 1478      656D7000 
+ 1479              	.LASF50:
+ 1480 02a4 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1480      52784275 
+ 1480      66666572 
+ 1480      00
+ 1481              	.LASF53:
+ 1482 02b1 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc9XoFh3.s 			page 41
+
+
+ 1482      43313120 
+ 1482      352E342E 
+ 1482      31203230 
+ 1482      31363036 
+ 1483 02e4 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1483      20726576 
+ 1483      6973696F 
+ 1483      6E203233 
+ 1483      37373135 
+ 1484 0317 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1484      66756E63 
+ 1484      74696F6E 
+ 1484      2D736563 
+ 1484      74696F6E 
+ 1485              	.LASF30:
+ 1486 033f 7278616D 		.ascii	"rxamr\000"
+ 1486      7200
+ 1487              	.LASF46:
+ 1488 0345 56656869 		.ascii	"VehicleCAN_TxCancel\000"
+ 1488      636C6543 
+ 1488      414E5F54 
+ 1488      7843616E 
+ 1488      63656C00 
+ 1489              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

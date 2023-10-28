@@ -1,0 +1,1508 @@
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"BluetoothComms.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.TaskBluetoothComms,"ax",%progbits
+  20              		.align	2
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	TaskBluetoothComms, %function
+  24              	TaskBluetoothComms:
+  25              	.LFB68:
+  26              		.file 1 "BluetoothComms.c"
+   1:BluetoothComms.c **** /* ========================================
+   2:BluetoothComms.c ****  *
+   3:BluetoothComms.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:BluetoothComms.c ****  * All Rights Reserved
+   5:BluetoothComms.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:BluetoothComms.c ****  *
+   7:BluetoothComms.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:BluetoothComms.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:BluetoothComms.c ****  *
+  10:BluetoothComms.c ****  * ========================================
+  11:BluetoothComms.c **** */
+  12:BluetoothComms.c **** 
+  13:BluetoothComms.c **** #include "BluetoothComms.h"
+  14:BluetoothComms.c **** #include "MessageConstructor.h"
+  15:BluetoothComms.c **** 
+  16:BluetoothComms.c **** 
+  17:BluetoothComms.c **** extern uint8_t bluetoothDataAvailable;
+  18:BluetoothComms.c **** extern BluetoothUartMsg_t bluetoothISRDataBuff[64];
+  19:BluetoothComms.c **** extern uint64_t bluetoothMsgCount;
+  20:BluetoothComms.c **** 
+  21:BluetoothComms.c **** uint8_t bluetoothUserDataBuff[64];
+  22:BluetoothComms.c **** 
+  23:BluetoothComms.c **** TickType_t bluetoothRecTimeout_ms = 5;
+  24:BluetoothComms.c **** 
+  25:BluetoothComms.c **** 
+  26:BluetoothComms.c **** TaskHandle_t xHandle = NULL;
+  27:BluetoothComms.c **** 
+  28:BluetoothComms.c **** 
+  29:BluetoothComms.c **** 
+  30:BluetoothComms.c **** static void TaskBluetoothComms( void *pvParameters )
+  31:BluetoothComms.c **** {
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 2
+
+
+  27              		.loc 1 31 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  32:BluetoothComms.c **** 	
+  33:BluetoothComms.c ****     (void)pvParameters;
+  34:BluetoothComms.c ****     
+  35:BluetoothComms.c ****     //IntBluetoothUART_Start();
+  36:BluetoothComms.c ****     
+  37:BluetoothComms.c ****     BluetoothUART_Start();
+  36              		.loc 1 37 0
+  37 0002 FFF7FEFF 		bl	BluetoothUART_Start
+  38              	.LVL1:
+  38:BluetoothComms.c ****     IntBluetoothUART_Start();
+  39              		.loc 1 38 0
+  40 0006 FFF7FEFF 		bl	IntBluetoothUART_Start
+  41              	.LVL2:
+  39:BluetoothComms.c ****     Clock_1_Start();
+  42              		.loc 1 39 0
+  43 000a FFF7FEFF 		bl	Clock_1_Start
+  44              	.LVL3:
+  40:BluetoothComms.c ****     Clock_2_Start();
+  45              		.loc 1 40 0
+  46 000e FFF7FEFF 		bl	Clock_2_Start
+  47              	.LVL4:
+  41:BluetoothComms.c ****     Counter_1_Start();
+  48              		.loc 1 41 0
+  49 0012 FFF7FEFF 		bl	Counter_1_Start
+  50              	.LVL5:
+  51              	.L2:
+  52              	.LBB2:
+  42:BluetoothComms.c ****      
+  43:BluetoothComms.c ****     uint16_t errorLog = 0;
+  44:BluetoothComms.c ****     uint8_t readData = 0;
+  45:BluetoothComms.c ****     uint32_t awoken = 0;
+  46:BluetoothComms.c ****     
+  47:BluetoothComms.c ****     for( ;; )
+  48:BluetoothComms.c **** 	{
+  49:BluetoothComms.c ****         BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  50:BluetoothComms.c ****      
+  51:BluetoothComms.c ****         ulTaskNotifyTake( pdTRUE, pdMS_TO_TICKS( bluetoothRecTimeout_ms ) );
+  53              		.loc 1 51 0
+  54 0016 124B     		ldr	r3, .L5
+  55 0018 1A68     		ldr	r2, [r3]
+  56 001a 4FF47A73 		mov	r3, #1000
+  57 001e 03FB02F2 		mul	r2, r3, r2
+  58 0022 104B     		ldr	r3, .L5+4
+  59 0024 A3FB0232 		umull	r3, r2, r3, r2
+  60 0028 9209     		lsrs	r2, r2, #6
+  61 002a 0121     		movs	r1, #1
+  62 002c 0020     		movs	r0, #0
+  63 002e FFF7FEFF 		bl	ulTaskGenericNotifyTake
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 3
+
+
+  64              	.LVL6:
+  52:BluetoothComms.c ****         
+  53:BluetoothComms.c ****         if( bluetoothDataAvailable ==0 ) continue;
+  65              		.loc 1 53 0
+  66 0032 0D4B     		ldr	r3, .L5+8
+  67 0034 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  68 0036 002B     		cmp	r3, #0
+  69 0038 EDD0     		beq	.L2
+  54:BluetoothComms.c **** 
+  55:BluetoothComms.c ****         bluetoothUserDataBuff[ bluetoothMsgCount -1] = bluetoothISRDataBuff[ bluetoothMsgCount -1 ]
+  70              		.loc 1 55 0
+  71 003a 0C4B     		ldr	r3, .L5+12
+  72 003c D3E90023 		ldrd	r2, [r3]
+  73 0040 12F1FF32 		adds	r2, r2, #-1
+  74 0044 02EB4201 		add	r1, r2, r2, lsl #1
+  75 0048 8B00     		lsls	r3, r1, #2
+  76 004a 0949     		ldr	r1, .L5+16
+  77 004c C85C     		ldrb	r0, [r1, r3]	@ zero_extendqisi2
+  78 004e 094B     		ldr	r3, .L5+20
+  79 0050 1A44     		add	r2, r2, r3
+  80 0052 1070     		strb	r0, [r2]
+  56:BluetoothComms.c ****           
+  57:BluetoothComms.c ****         BluetoothUART_WriteTxData(bluetoothUserDataBuff[ bluetoothMsgCount -1 ]);
+  81              		.loc 1 57 0
+  82 0054 FFF7FEFF 		bl	BluetoothUART_WriteTxData
+  83              	.LVL7:
+  58:BluetoothComms.c ****         bluetoothDataAvailable = 0;
+  84              		.loc 1 58 0
+  85 0058 0022     		movs	r2, #0
+  86 005a 034B     		ldr	r3, .L5+8
+  87 005c 1A70     		strb	r2, [r3]
+  88 005e DAE7     		b	.L2
+  89              	.L6:
+  90              		.align	2
+  91              	.L5:
+  92 0060 00000000 		.word	.LANCHOR0
+  93 0064 D34D6210 		.word	274877907
+  94 0068 00000000 		.word	bluetoothDataAvailable
+  95 006c 00000000 		.word	bluetoothMsgCount
+  96 0070 00000000 		.word	bluetoothISRDataBuff
+  97 0074 00000000 		.word	bluetoothUserDataBuff
+  98              	.LBE2:
+  99              		.cfi_endproc
+ 100              	.LFE68:
+ 101              		.size	TaskBluetoothComms, .-TaskBluetoothComms
+ 102              		.section	.text.getBluetoothCommsTaskHandle,"ax",%progbits
+ 103              		.align	2
+ 104              		.global	getBluetoothCommsTaskHandle
+ 105              		.thumb
+ 106              		.thumb_func
+ 107              		.type	getBluetoothCommsTaskHandle, %function
+ 108              	getBluetoothCommsTaskHandle:
+ 109              	.LFB69:
+  59:BluetoothComms.c ****        
+  60:BluetoothComms.c ****     }
+  61:BluetoothComms.c **** }
+  62:BluetoothComms.c **** 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 4
+
+
+  63:BluetoothComms.c **** TaskHandle_t getBluetoothCommsTaskHandle()
+  64:BluetoothComms.c **** {
+ 110              		.loc 1 64 0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+  65:BluetoothComms.c ****     
+  66:BluetoothComms.c ****     return xHandle; 
+  67:BluetoothComms.c **** }
+ 115              		.loc 1 67 0
+ 116 0000 014B     		ldr	r3, .L8
+ 117 0002 1868     		ldr	r0, [r3]
+ 118 0004 7047     		bx	lr
+ 119              	.L9:
+ 120 0006 00BF     		.align	2
+ 121              	.L8:
+ 122 0008 00000000 		.word	.LANCHOR1
+ 123              		.cfi_endproc
+ 124              	.LFE69:
+ 125              		.size	getBluetoothCommsTaskHandle, .-getBluetoothCommsTaskHandle
+ 126              		.section	.text.startTaskBluetoothComms,"ax",%progbits
+ 127              		.align	2
+ 128              		.global	startTaskBluetoothComms
+ 129              		.thumb
+ 130              		.thumb_func
+ 131              		.type	startTaskBluetoothComms, %function
+ 132              	startTaskBluetoothComms:
+ 133              	.LFB70:
+  68:BluetoothComms.c **** 
+  69:BluetoothComms.c **** 
+  70:BluetoothComms.c **** void startTaskBluetoothComms()
+  71:BluetoothComms.c **** {
+ 134              		.loc 1 71 0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138 0000 00B5     		push	{lr}
+ 139              		.cfi_def_cfa_offset 4
+ 140              		.cfi_offset 14, -4
+ 141 0002 83B0     		sub	sp, sp, #12
+ 142              		.cfi_def_cfa_offset 16
+  72:BluetoothComms.c ****     
+  73:BluetoothComms.c ****     /* Create the task, storing the handle. */ 
+  74:BluetoothComms.c **** 	xTaskCreate(
+ 143              		.loc 1 74 0
+ 144 0004 064B     		ldr	r3, .L12
+ 145 0006 0193     		str	r3, [sp, #4]
+ 146 0008 0023     		movs	r3, #0
+ 147 000a 0093     		str	r3, [sp]
+ 148 000c 0123     		movs	r3, #1
+ 149 000e 8022     		movs	r2, #128
+ 150 0010 0449     		ldr	r1, .L12+4
+ 151 0012 0548     		ldr	r0, .L12+8
+ 152 0014 FFF7FEFF 		bl	xTaskCreate
+ 153              	.LVL8:
+  75:BluetoothComms.c **** 		TaskBluetoothComms,      /* Function that implements the task. */ 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 5
+
+
+  76:BluetoothComms.c **** 		"taskUserCodeGenerator",    /* Text name for the task. */ 
+  77:BluetoothComms.c **** 		128,                        /* Stack size in words, not bytes. */ 
+  78:BluetoothComms.c **** 		( void * ) 1,               /* Parameter passed into the task. */ 
+  79:BluetoothComms.c **** 		tskIDLE_PRIORITY,           /* Priority at which the task is created. */ 
+  80:BluetoothComms.c **** 	&xHandle );                     /* Used to pass out the created task's handle. */ 
+  81:BluetoothComms.c ****     
+  82:BluetoothComms.c **** }
+ 154              		.loc 1 82 0
+ 155 0018 03B0     		add	sp, sp, #12
+ 156              		.cfi_def_cfa_offset 4
+ 157              		@ sp needed
+ 158 001a 5DF804FB 		ldr	pc, [sp], #4
+ 159              	.L13:
+ 160 001e 00BF     		.align	2
+ 161              	.L12:
+ 162 0020 00000000 		.word	.LANCHOR1
+ 163 0024 00000000 		.word	.LC0
+ 164 0028 00000000 		.word	TaskBluetoothComms
+ 165              		.cfi_endproc
+ 166              	.LFE70:
+ 167              		.size	startTaskBluetoothComms, .-startTaskBluetoothComms
+ 168              		.global	xHandle
+ 169              		.global	bluetoothRecTimeout_ms
+ 170              		.comm	bluetoothUserDataBuff,64,4
+ 171              		.data
+ 172              		.align	2
+ 173              		.set	.LANCHOR0,. + 0
+ 174              		.type	bluetoothRecTimeout_ms, %object
+ 175              		.size	bluetoothRecTimeout_ms, 4
+ 176              	bluetoothRecTimeout_ms:
+ 177 0000 05000000 		.word	5
+ 178              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 179              		.align	2
+ 180              	.LC0:
+ 181 0000 7461736B 		.ascii	"taskUserCodeGenerator\000"
+ 181      55736572 
+ 181      436F6465 
+ 181      47656E65 
+ 181      7261746F 
+ 182              		.bss
+ 183              		.align	2
+ 184              		.set	.LANCHOR1,. + 0
+ 185              		.type	xHandle, %object
+ 186              		.size	xHandle, 4
+ 187              	xHandle:
+ 188 0000 00000000 		.space	4
+ 189              		.text
+ 190              	.Letext0:
+ 191              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 192              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 193              		.file 4 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\portable\\GCC\\ARM_CM3/portmacro.h"
+ 194              		.file 5 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\include/task.h"
+ 195              		.file 6 "BluetoothComms.h"
+ 196              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 197              		.file 8 "Generated_Source\\PSoC5/BluetoothUART.h"
+ 198              		.file 9 "Generated_Source\\PSoC5/IntBluetoothUART.h"
+ 199              		.file 10 "Generated_Source\\PSoC5/Clock_1.h"
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 6
+
+
+ 200              		.file 11 "Generated_Source\\PSoC5/Clock_2.h"
+ 201              		.file 12 "Generated_Source\\PSoC5/Counter_1.h"
+ 202              		.section	.debug_info,"",%progbits
+ 203              	.Ldebug_info0:
+ 204 0000 5C030000 		.4byte	0x35c
+ 205 0004 0400     		.2byte	0x4
+ 206 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 207 000a 04       		.byte	0x4
+ 208 000b 01       		.uleb128 0x1
+ 209 000c 85000000 		.4byte	.LASF50
+ 210 0010 0C       		.byte	0xc
+ 211 0011 B4030000 		.4byte	.LASF51
+ 212 0015 EE020000 		.4byte	.LASF52
+ 213 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 214 001d 00000000 		.4byte	0
+ 215 0021 00000000 		.4byte	.Ldebug_line0
+ 216 0025 02       		.uleb128 0x2
+ 217 0026 01       		.byte	0x1
+ 218 0027 06       		.byte	0x6
+ 219 0028 92030000 		.4byte	.LASF0
+ 220 002c 03       		.uleb128 0x3
+ 221 002d 14000000 		.4byte	.LASF3
+ 222 0031 02       		.byte	0x2
+ 223 0032 1D       		.byte	0x1d
+ 224 0033 37000000 		.4byte	0x37
+ 225 0037 02       		.uleb128 0x2
+ 226 0038 01       		.byte	0x1
+ 227 0039 08       		.byte	0x8
+ 228 003a 08020000 		.4byte	.LASF1
+ 229 003e 02       		.uleb128 0x2
+ 230 003f 02       		.byte	0x2
+ 231 0040 05       		.byte	0x5
+ 232 0041 22030000 		.4byte	.LASF2
+ 233 0045 03       		.uleb128 0x3
+ 234 0046 A2010000 		.4byte	.LASF4
+ 235 004a 02       		.byte	0x2
+ 236 004b 2B       		.byte	0x2b
+ 237 004c 50000000 		.4byte	0x50
+ 238 0050 02       		.uleb128 0x2
+ 239 0051 02       		.byte	0x2
+ 240 0052 07       		.byte	0x7
+ 241 0053 5B010000 		.4byte	.LASF5
+ 242 0057 03       		.uleb128 0x3
+ 243 0058 40000000 		.4byte	.LASF6
+ 244 005c 02       		.byte	0x2
+ 245 005d 3F       		.byte	0x3f
+ 246 005e 62000000 		.4byte	0x62
+ 247 0062 02       		.uleb128 0x2
+ 248 0063 04       		.byte	0x4
+ 249 0064 05       		.byte	0x5
+ 250 0065 62030000 		.4byte	.LASF7
+ 251 0069 03       		.uleb128 0x3
+ 252 006a C6010000 		.4byte	.LASF8
+ 253 006e 02       		.byte	0x2
+ 254 006f 41       		.byte	0x41
+ 255 0070 74000000 		.4byte	0x74
+ 256 0074 02       		.uleb128 0x2
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 7
+
+
+ 257 0075 04       		.byte	0x4
+ 258 0076 07       		.byte	0x7
+ 259 0077 49010000 		.4byte	.LASF9
+ 260 007b 02       		.uleb128 0x2
+ 261 007c 08       		.byte	0x8
+ 262 007d 05       		.byte	0x5
+ 263 007e A3020000 		.4byte	.LASF10
+ 264 0082 03       		.uleb128 0x3
+ 265 0083 7B030000 		.4byte	.LASF11
+ 266 0087 02       		.byte	0x2
+ 267 0088 5B       		.byte	0x5b
+ 268 0089 8D000000 		.4byte	0x8d
+ 269 008d 02       		.uleb128 0x2
+ 270 008e 08       		.byte	0x8
+ 271 008f 07       		.byte	0x7
+ 272 0090 23020000 		.4byte	.LASF12
+ 273 0094 04       		.uleb128 0x4
+ 274 0095 04       		.byte	0x4
+ 275 0096 05       		.byte	0x5
+ 276 0097 696E7400 		.ascii	"int\000"
+ 277 009b 02       		.uleb128 0x2
+ 278 009c 04       		.byte	0x4
+ 279 009d 07       		.byte	0x7
+ 280 009e 16020000 		.4byte	.LASF13
+ 281 00a2 03       		.uleb128 0x3
+ 282 00a3 3A020000 		.4byte	.LASF14
+ 283 00a7 03       		.byte	0x3
+ 284 00a8 18       		.byte	0x18
+ 285 00a9 2C000000 		.4byte	0x2c
+ 286 00ad 03       		.uleb128 0x3
+ 287 00ae 43030000 		.4byte	.LASF15
+ 288 00b2 03       		.byte	0x3
+ 289 00b3 24       		.byte	0x24
+ 290 00b4 45000000 		.4byte	0x45
+ 291 00b8 03       		.uleb128 0x3
+ 292 00b9 8B020000 		.4byte	.LASF16
+ 293 00bd 03       		.byte	0x3
+ 294 00be 2C       		.byte	0x2c
+ 295 00bf 57000000 		.4byte	0x57
+ 296 00c3 03       		.uleb128 0x3
+ 297 00c4 59030000 		.4byte	.LASF17
+ 298 00c8 03       		.byte	0x3
+ 299 00c9 30       		.byte	0x30
+ 300 00ca 69000000 		.4byte	0x69
+ 301 00ce 03       		.uleb128 0x3
+ 302 00cf 62000000 		.4byte	.LASF18
+ 303 00d3 03       		.byte	0x3
+ 304 00d4 3C       		.byte	0x3c
+ 305 00d5 82000000 		.4byte	0x82
+ 306 00d9 02       		.uleb128 0x2
+ 307 00da 04       		.byte	0x4
+ 308 00db 04       		.byte	0x4
+ 309 00dc 73000000 		.4byte	.LASF19
+ 310 00e0 02       		.uleb128 0x2
+ 311 00e1 08       		.byte	0x8
+ 312 00e2 04       		.byte	0x4
+ 313 00e3 AD010000 		.4byte	.LASF20
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 8
+
+
+ 314 00e7 02       		.uleb128 0x2
+ 315 00e8 01       		.byte	0x1
+ 316 00e9 08       		.byte	0x8
+ 317 00ea B1020000 		.4byte	.LASF21
+ 318 00ee 02       		.uleb128 0x2
+ 319 00ef 08       		.byte	0x8
+ 320 00f0 04       		.byte	0x4
+ 321 00f1 86030000 		.4byte	.LASF22
+ 322 00f5 02       		.uleb128 0x2
+ 323 00f6 04       		.byte	0x4
+ 324 00f7 07       		.byte	0x7
+ 325 00f8 9A020000 		.4byte	.LASF23
+ 326 00fc 05       		.uleb128 0x5
+ 327 00fd 04       		.byte	0x4
+ 328 00fe 03       		.uleb128 0x3
+ 329 00ff C5030000 		.4byte	.LASF24
+ 330 0103 04       		.byte	0x4
+ 331 0104 3B       		.byte	0x3b
+ 332 0105 62000000 		.4byte	0x62
+ 333 0109 03       		.uleb128 0x3
+ 334 010a 79000000 		.4byte	.LASF25
+ 335 010e 04       		.byte	0x4
+ 336 010f 3C       		.byte	0x3c
+ 337 0110 74000000 		.4byte	0x74
+ 338 0114 03       		.uleb128 0x3
+ 339 0115 1E000000 		.4byte	.LASF26
+ 340 0119 04       		.byte	0x4
+ 341 011a 42       		.byte	0x42
+ 342 011b C3000000 		.4byte	0xc3
+ 343 011f 03       		.uleb128 0x3
+ 344 0120 4C030000 		.4byte	.LASF27
+ 345 0124 05       		.byte	0x5
+ 346 0125 57       		.byte	0x57
+ 347 0126 2A010000 		.4byte	0x12a
+ 348 012a 06       		.uleb128 0x6
+ 349 012b 04       		.byte	0x4
+ 350 012c 30010000 		.4byte	0x130
+ 351 0130 07       		.uleb128 0x7
+ 352 0131 D1010000 		.4byte	.LASF53
+ 353 0135 08       		.uleb128 0x8
+ 354 0136 0C       		.byte	0xc
+ 355 0137 06       		.byte	0x6
+ 356 0138 16       		.byte	0x16
+ 357 0139 62010000 		.4byte	0x162
+ 358 013d 09       		.uleb128 0x9
+ 359 013e 6D736700 		.ascii	"msg\000"
+ 360 0142 06       		.byte	0x6
+ 361 0143 19       		.byte	0x19
+ 362 0144 A2000000 		.4byte	0xa2
+ 363 0148 00       		.byte	0
+ 364 0149 0A       		.uleb128 0xa
+ 365 014a A7030000 		.4byte	.LASF28
+ 366 014e 06       		.byte	0x6
+ 367 014f 1A       		.byte	0x1a
+ 368 0150 14010000 		.4byte	0x114
+ 369 0154 04       		.byte	0x4
+ 370 0155 0A       		.uleb128 0xa
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 9
+
+
+ 371 0156 DC030000 		.4byte	.LASF29
+ 372 015a 06       		.byte	0x6
+ 373 015b 1B       		.byte	0x1b
+ 374 015c 14010000 		.4byte	0x114
+ 375 0160 08       		.byte	0x8
+ 376 0161 00       		.byte	0
+ 377 0162 03       		.uleb128 0x3
+ 378 0163 36010000 		.4byte	.LASF30
+ 379 0167 06       		.byte	0x6
+ 380 0168 1D       		.byte	0x1d
+ 381 0169 35010000 		.4byte	0x135
+ 382 016d 0B       		.uleb128 0xb
+ 383 016e DB020000 		.4byte	.LASF54
+ 384 0172 01       		.byte	0x1
+ 385 0173 1E       		.byte	0x1e
+ 386 0174 00000000 		.4byte	.LFB68
+ 387 0178 78000000 		.4byte	.LFE68-.LFB68
+ 388 017c 01       		.uleb128 0x1
+ 389 017d 9C       		.byte	0x9c
+ 390 017e 1E020000 		.4byte	0x21e
+ 391 0182 0C       		.uleb128 0xc
+ 392 0183 B6020000 		.4byte	.LASF55
+ 393 0187 01       		.byte	0x1
+ 394 0188 1E       		.byte	0x1e
+ 395 0189 FC000000 		.4byte	0xfc
+ 396 018d 00000000 		.4byte	.LLST0
+ 397 0191 0D       		.uleb128 0xd
+ 398 0192 FF010000 		.4byte	.LASF31
+ 399 0196 01       		.byte	0x1
+ 400 0197 2B       		.byte	0x2b
+ 401 0198 AD000000 		.4byte	0xad
+ 402 019c 00       		.byte	0
+ 403 019d 0D       		.uleb128 0xd
+ 404 019e 9E030000 		.4byte	.LASF32
+ 405 01a2 01       		.byte	0x1
+ 406 01a3 2C       		.byte	0x2c
+ 407 01a4 A2000000 		.4byte	0xa2
+ 408 01a8 00       		.byte	0
+ 409 01a9 0D       		.uleb128 0xd
+ 410 01aa 93020000 		.4byte	.LASF33
+ 411 01ae 01       		.byte	0x1
+ 412 01af 2D       		.byte	0x2d
+ 413 01b0 C3000000 		.4byte	0xc3
+ 414 01b4 00       		.byte	0
+ 415 01b5 0E       		.uleb128 0xe
+ 416 01b6 16000000 		.4byte	.LBB2
+ 417 01ba 62000000 		.4byte	.LBE2-.LBB2
+ 418 01be F0010000 		.4byte	0x1f0
+ 419 01c2 0D       		.uleb128 0xd
+ 420 01c3 89010000 		.4byte	.LASF34
+ 421 01c7 01       		.byte	0x1
+ 422 01c8 31       		.byte	0x31
+ 423 01c9 FE000000 		.4byte	0xfe
+ 424 01cd 00       		.byte	0
+ 425 01ce 0F       		.uleb128 0xf
+ 426 01cf 32000000 		.4byte	.LVL6
+ 427 01d3 05030000 		.4byte	0x305
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 10
+
+
+ 428 01d7 E6010000 		.4byte	0x1e6
+ 429 01db 10       		.uleb128 0x10
+ 430 01dc 01       		.uleb128 0x1
+ 431 01dd 50       		.byte	0x50
+ 432 01de 01       		.uleb128 0x1
+ 433 01df 30       		.byte	0x30
+ 434 01e0 10       		.uleb128 0x10
+ 435 01e1 01       		.uleb128 0x1
+ 436 01e2 51       		.byte	0x51
+ 437 01e3 01       		.uleb128 0x1
+ 438 01e4 31       		.byte	0x31
+ 439 01e5 00       		.byte	0
+ 440 01e6 11       		.uleb128 0x11
+ 441 01e7 58000000 		.4byte	.LVL7
+ 442 01eb 11030000 		.4byte	0x311
+ 443 01ef 00       		.byte	0
+ 444 01f0 11       		.uleb128 0x11
+ 445 01f1 06000000 		.4byte	.LVL1
+ 446 01f5 1C030000 		.4byte	0x31c
+ 447 01f9 11       		.uleb128 0x11
+ 448 01fa 0A000000 		.4byte	.LVL2
+ 449 01fe 27030000 		.4byte	0x327
+ 450 0202 11       		.uleb128 0x11
+ 451 0203 0E000000 		.4byte	.LVL3
+ 452 0207 32030000 		.4byte	0x332
+ 453 020b 11       		.uleb128 0x11
+ 454 020c 12000000 		.4byte	.LVL4
+ 455 0210 3D030000 		.4byte	0x33d
+ 456 0214 11       		.uleb128 0x11
+ 457 0215 16000000 		.4byte	.LVL5
+ 458 0219 48030000 		.4byte	0x348
+ 459 021d 00       		.byte	0
+ 460 021e 12       		.uleb128 0x12
+ 461 021f 6F020000 		.4byte	.LASF56
+ 462 0223 01       		.byte	0x1
+ 463 0224 3F       		.byte	0x3f
+ 464 0225 1F010000 		.4byte	0x11f
+ 465 0229 00000000 		.4byte	.LFB69
+ 466 022d 0C000000 		.4byte	.LFE69-.LFB69
+ 467 0231 01       		.uleb128 0x1
+ 468 0232 9C       		.byte	0x9c
+ 469 0233 13       		.uleb128 0x13
+ 470 0234 4A000000 		.4byte	.LASF57
+ 471 0238 01       		.byte	0x1
+ 472 0239 46       		.byte	0x46
+ 473 023a 00000000 		.4byte	.LFB70
+ 474 023e 2C000000 		.4byte	.LFE70-.LFB70
+ 475 0242 01       		.uleb128 0x1
+ 476 0243 9C       		.byte	0x9c
+ 477 0244 80020000 		.4byte	0x280
+ 478 0248 14       		.uleb128 0x14
+ 479 0249 18000000 		.4byte	.LVL8
+ 480 024d 53030000 		.4byte	0x353
+ 481 0251 10       		.uleb128 0x10
+ 482 0252 01       		.uleb128 0x1
+ 483 0253 50       		.byte	0x50
+ 484 0254 05       		.uleb128 0x5
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 11
+
+
+ 485 0255 03       		.byte	0x3
+ 486 0256 00000000 		.4byte	TaskBluetoothComms
+ 487 025a 10       		.uleb128 0x10
+ 488 025b 01       		.uleb128 0x1
+ 489 025c 51       		.byte	0x51
+ 490 025d 05       		.uleb128 0x5
+ 491 025e 03       		.byte	0x3
+ 492 025f 00000000 		.4byte	.LC0
+ 493 0263 10       		.uleb128 0x10
+ 494 0264 01       		.uleb128 0x1
+ 495 0265 52       		.byte	0x52
+ 496 0266 02       		.uleb128 0x2
+ 497 0267 08       		.byte	0x8
+ 498 0268 80       		.byte	0x80
+ 499 0269 10       		.uleb128 0x10
+ 500 026a 01       		.uleb128 0x1
+ 501 026b 53       		.byte	0x53
+ 502 026c 01       		.uleb128 0x1
+ 503 026d 31       		.byte	0x31
+ 504 026e 10       		.uleb128 0x10
+ 505 026f 02       		.uleb128 0x2
+ 506 0270 7D       		.byte	0x7d
+ 507 0271 00       		.sleb128 0
+ 508 0272 01       		.uleb128 0x1
+ 509 0273 30       		.byte	0x30
+ 510 0274 10       		.uleb128 0x10
+ 511 0275 02       		.uleb128 0x2
+ 512 0276 7D       		.byte	0x7d
+ 513 0277 04       		.sleb128 4
+ 514 0278 05       		.uleb128 0x5
+ 515 0279 03       		.byte	0x3
+ 516 027a 00000000 		.4byte	.LANCHOR1
+ 517 027e 00       		.byte	0
+ 518 027f 00       		.byte	0
+ 519 0280 15       		.uleb128 0x15
+ 520 0281 6E010000 		.4byte	.LASF35
+ 521 0285 07       		.byte	0x7
+ 522 0286 1207     		.2byte	0x712
+ 523 0288 8C020000 		.4byte	0x28c
+ 524 028c 16       		.uleb128 0x16
+ 525 028d B8000000 		.4byte	0xb8
+ 526 0291 17       		.uleb128 0x17
+ 527 0292 29000000 		.4byte	.LASF36
+ 528 0296 01       		.byte	0x1
+ 529 0297 11       		.byte	0x11
+ 530 0298 A2000000 		.4byte	0xa2
+ 531 029c 18       		.uleb128 0x18
+ 532 029d 62010000 		.4byte	0x162
+ 533 02a1 AC020000 		.4byte	0x2ac
+ 534 02a5 19       		.uleb128 0x19
+ 535 02a6 F5000000 		.4byte	0xf5
+ 536 02aa 3F       		.byte	0x3f
+ 537 02ab 00       		.byte	0
+ 538 02ac 17       		.uleb128 0x17
+ 539 02ad 21010000 		.4byte	.LASF37
+ 540 02b1 01       		.byte	0x1
+ 541 02b2 12       		.byte	0x12
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 12
+
+
+ 542 02b3 9C020000 		.4byte	0x29c
+ 543 02b7 17       		.uleb128 0x17
+ 544 02b8 B4010000 		.4byte	.LASF38
+ 545 02bc 01       		.byte	0x1
+ 546 02bd 13       		.byte	0x13
+ 547 02be CE000000 		.4byte	0xce
+ 548 02c2 18       		.uleb128 0x18
+ 549 02c3 A2000000 		.4byte	0xa2
+ 550 02c7 D2020000 		.4byte	0x2d2
+ 551 02cb 19       		.uleb128 0x19
+ 552 02cc F5000000 		.4byte	0xf5
+ 553 02d0 3F       		.byte	0x3f
+ 554 02d1 00       		.byte	0
+ 555 02d2 1A       		.uleb128 0x1a
+ 556 02d3 59020000 		.4byte	.LASF39
+ 557 02d7 01       		.byte	0x1
+ 558 02d8 15       		.byte	0x15
+ 559 02d9 C2020000 		.4byte	0x2c2
+ 560 02dd 05       		.uleb128 0x5
+ 561 02de 03       		.byte	0x3
+ 562 02df 00000000 		.4byte	bluetoothUserDataBuff
+ 563 02e3 1A       		.uleb128 0x1a
+ 564 02e4 42020000 		.4byte	.LASF40
+ 565 02e8 01       		.byte	0x1
+ 566 02e9 17       		.byte	0x17
+ 567 02ea 14010000 		.4byte	0x114
+ 568 02ee 05       		.uleb128 0x5
+ 569 02ef 03       		.byte	0x3
+ 570 02f0 00000000 		.4byte	bluetoothRecTimeout_ms
+ 571 02f4 1A       		.uleb128 0x1a
+ 572 02f5 6B000000 		.4byte	.LASF41
+ 573 02f9 01       		.byte	0x1
+ 574 02fa 1A       		.byte	0x1a
+ 575 02fb 1F010000 		.4byte	0x11f
+ 576 02ff 05       		.uleb128 0x5
+ 577 0300 03       		.byte	0x3
+ 578 0301 00000000 		.4byte	xHandle
+ 579 0305 1B       		.uleb128 0x1b
+ 580 0306 C3020000 		.4byte	.LASF42
+ 581 030a C3020000 		.4byte	.LASF42
+ 582 030e 05       		.byte	0x5
+ 583 030f 9F0A     		.2byte	0xa9f
+ 584 0311 1C       		.uleb128 0x1c
+ 585 0312 E5010000 		.4byte	.LASF43
+ 586 0316 E5010000 		.4byte	.LASF43
+ 587 031a 08       		.byte	0x8
+ 588 031b 88       		.byte	0x88
+ 589 031c 1C       		.uleb128 0x1c
+ 590 031d 00000000 		.4byte	.LASF44
+ 591 0321 00000000 		.4byte	.LASF44
+ 592 0325 08       		.byte	0x8
+ 593 0326 54       		.byte	0x54
+ 594 0327 1C       		.uleb128 0x1c
+ 595 0328 2C030000 		.4byte	.LASF45
+ 596 032c 2C030000 		.4byte	.LASF45
+ 597 0330 09       		.byte	0x9
+ 598 0331 17       		.byte	0x17
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 13
+
+
+ 599 0332 1C       		.uleb128 0x1c
+ 600 0333 13010000 		.4byte	.LASF46
+ 601 0337 13010000 		.4byte	.LASF46
+ 602 033b 0A       		.byte	0xa
+ 603 033c 27       		.byte	0x27
+ 604 033d 1C       		.uleb128 0x1c
+ 605 033e 7B010000 		.4byte	.LASF47
+ 606 0342 7B010000 		.4byte	.LASF47
+ 607 0346 0B       		.byte	0xb
+ 608 0347 27       		.byte	0x27
+ 609 0348 1C       		.uleb128 0x1c
+ 610 0349 6B030000 		.4byte	.LASF48
+ 611 034d 6B030000 		.4byte	.LASF48
+ 612 0351 0C       		.byte	0xc
+ 613 0352 4F       		.byte	0x4f
+ 614 0353 1B       		.uleb128 0x1b
+ 615 0354 D0030000 		.4byte	.LASF49
+ 616 0358 D0030000 		.4byte	.LASF49
+ 617 035c 05       		.byte	0x5
+ 618 035d 6301     		.2byte	0x163
+ 619 035f 00       		.byte	0
+ 620              		.section	.debug_abbrev,"",%progbits
+ 621              	.Ldebug_abbrev0:
+ 622 0000 01       		.uleb128 0x1
+ 623 0001 11       		.uleb128 0x11
+ 624 0002 01       		.byte	0x1
+ 625 0003 25       		.uleb128 0x25
+ 626 0004 0E       		.uleb128 0xe
+ 627 0005 13       		.uleb128 0x13
+ 628 0006 0B       		.uleb128 0xb
+ 629 0007 03       		.uleb128 0x3
+ 630 0008 0E       		.uleb128 0xe
+ 631 0009 1B       		.uleb128 0x1b
+ 632 000a 0E       		.uleb128 0xe
+ 633 000b 55       		.uleb128 0x55
+ 634 000c 17       		.uleb128 0x17
+ 635 000d 11       		.uleb128 0x11
+ 636 000e 01       		.uleb128 0x1
+ 637 000f 10       		.uleb128 0x10
+ 638 0010 17       		.uleb128 0x17
+ 639 0011 00       		.byte	0
+ 640 0012 00       		.byte	0
+ 641 0013 02       		.uleb128 0x2
+ 642 0014 24       		.uleb128 0x24
+ 643 0015 00       		.byte	0
+ 644 0016 0B       		.uleb128 0xb
+ 645 0017 0B       		.uleb128 0xb
+ 646 0018 3E       		.uleb128 0x3e
+ 647 0019 0B       		.uleb128 0xb
+ 648 001a 03       		.uleb128 0x3
+ 649 001b 0E       		.uleb128 0xe
+ 650 001c 00       		.byte	0
+ 651 001d 00       		.byte	0
+ 652 001e 03       		.uleb128 0x3
+ 653 001f 16       		.uleb128 0x16
+ 654 0020 00       		.byte	0
+ 655 0021 03       		.uleb128 0x3
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 14
+
+
+ 656 0022 0E       		.uleb128 0xe
+ 657 0023 3A       		.uleb128 0x3a
+ 658 0024 0B       		.uleb128 0xb
+ 659 0025 3B       		.uleb128 0x3b
+ 660 0026 0B       		.uleb128 0xb
+ 661 0027 49       		.uleb128 0x49
+ 662 0028 13       		.uleb128 0x13
+ 663 0029 00       		.byte	0
+ 664 002a 00       		.byte	0
+ 665 002b 04       		.uleb128 0x4
+ 666 002c 24       		.uleb128 0x24
+ 667 002d 00       		.byte	0
+ 668 002e 0B       		.uleb128 0xb
+ 669 002f 0B       		.uleb128 0xb
+ 670 0030 3E       		.uleb128 0x3e
+ 671 0031 0B       		.uleb128 0xb
+ 672 0032 03       		.uleb128 0x3
+ 673 0033 08       		.uleb128 0x8
+ 674 0034 00       		.byte	0
+ 675 0035 00       		.byte	0
+ 676 0036 05       		.uleb128 0x5
+ 677 0037 0F       		.uleb128 0xf
+ 678 0038 00       		.byte	0
+ 679 0039 0B       		.uleb128 0xb
+ 680 003a 0B       		.uleb128 0xb
+ 681 003b 00       		.byte	0
+ 682 003c 00       		.byte	0
+ 683 003d 06       		.uleb128 0x6
+ 684 003e 0F       		.uleb128 0xf
+ 685 003f 00       		.byte	0
+ 686 0040 0B       		.uleb128 0xb
+ 687 0041 0B       		.uleb128 0xb
+ 688 0042 49       		.uleb128 0x49
+ 689 0043 13       		.uleb128 0x13
+ 690 0044 00       		.byte	0
+ 691 0045 00       		.byte	0
+ 692 0046 07       		.uleb128 0x7
+ 693 0047 13       		.uleb128 0x13
+ 694 0048 00       		.byte	0
+ 695 0049 03       		.uleb128 0x3
+ 696 004a 0E       		.uleb128 0xe
+ 697 004b 3C       		.uleb128 0x3c
+ 698 004c 19       		.uleb128 0x19
+ 699 004d 00       		.byte	0
+ 700 004e 00       		.byte	0
+ 701 004f 08       		.uleb128 0x8
+ 702 0050 13       		.uleb128 0x13
+ 703 0051 01       		.byte	0x1
+ 704 0052 0B       		.uleb128 0xb
+ 705 0053 0B       		.uleb128 0xb
+ 706 0054 3A       		.uleb128 0x3a
+ 707 0055 0B       		.uleb128 0xb
+ 708 0056 3B       		.uleb128 0x3b
+ 709 0057 0B       		.uleb128 0xb
+ 710 0058 01       		.uleb128 0x1
+ 711 0059 13       		.uleb128 0x13
+ 712 005a 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 15
+
+
+ 713 005b 00       		.byte	0
+ 714 005c 09       		.uleb128 0x9
+ 715 005d 0D       		.uleb128 0xd
+ 716 005e 00       		.byte	0
+ 717 005f 03       		.uleb128 0x3
+ 718 0060 08       		.uleb128 0x8
+ 719 0061 3A       		.uleb128 0x3a
+ 720 0062 0B       		.uleb128 0xb
+ 721 0063 3B       		.uleb128 0x3b
+ 722 0064 0B       		.uleb128 0xb
+ 723 0065 49       		.uleb128 0x49
+ 724 0066 13       		.uleb128 0x13
+ 725 0067 38       		.uleb128 0x38
+ 726 0068 0B       		.uleb128 0xb
+ 727 0069 00       		.byte	0
+ 728 006a 00       		.byte	0
+ 729 006b 0A       		.uleb128 0xa
+ 730 006c 0D       		.uleb128 0xd
+ 731 006d 00       		.byte	0
+ 732 006e 03       		.uleb128 0x3
+ 733 006f 0E       		.uleb128 0xe
+ 734 0070 3A       		.uleb128 0x3a
+ 735 0071 0B       		.uleb128 0xb
+ 736 0072 3B       		.uleb128 0x3b
+ 737 0073 0B       		.uleb128 0xb
+ 738 0074 49       		.uleb128 0x49
+ 739 0075 13       		.uleb128 0x13
+ 740 0076 38       		.uleb128 0x38
+ 741 0077 0B       		.uleb128 0xb
+ 742 0078 00       		.byte	0
+ 743 0079 00       		.byte	0
+ 744 007a 0B       		.uleb128 0xb
+ 745 007b 2E       		.uleb128 0x2e
+ 746 007c 01       		.byte	0x1
+ 747 007d 03       		.uleb128 0x3
+ 748 007e 0E       		.uleb128 0xe
+ 749 007f 3A       		.uleb128 0x3a
+ 750 0080 0B       		.uleb128 0xb
+ 751 0081 3B       		.uleb128 0x3b
+ 752 0082 0B       		.uleb128 0xb
+ 753 0083 27       		.uleb128 0x27
+ 754 0084 19       		.uleb128 0x19
+ 755 0085 8701     		.uleb128 0x87
+ 756 0087 19       		.uleb128 0x19
+ 757 0088 11       		.uleb128 0x11
+ 758 0089 01       		.uleb128 0x1
+ 759 008a 12       		.uleb128 0x12
+ 760 008b 06       		.uleb128 0x6
+ 761 008c 40       		.uleb128 0x40
+ 762 008d 18       		.uleb128 0x18
+ 763 008e 9742     		.uleb128 0x2117
+ 764 0090 19       		.uleb128 0x19
+ 765 0091 01       		.uleb128 0x1
+ 766 0092 13       		.uleb128 0x13
+ 767 0093 00       		.byte	0
+ 768 0094 00       		.byte	0
+ 769 0095 0C       		.uleb128 0xc
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 16
+
+
+ 770 0096 05       		.uleb128 0x5
+ 771 0097 00       		.byte	0
+ 772 0098 03       		.uleb128 0x3
+ 773 0099 0E       		.uleb128 0xe
+ 774 009a 3A       		.uleb128 0x3a
+ 775 009b 0B       		.uleb128 0xb
+ 776 009c 3B       		.uleb128 0x3b
+ 777 009d 0B       		.uleb128 0xb
+ 778 009e 49       		.uleb128 0x49
+ 779 009f 13       		.uleb128 0x13
+ 780 00a0 02       		.uleb128 0x2
+ 781 00a1 17       		.uleb128 0x17
+ 782 00a2 00       		.byte	0
+ 783 00a3 00       		.byte	0
+ 784 00a4 0D       		.uleb128 0xd
+ 785 00a5 34       		.uleb128 0x34
+ 786 00a6 00       		.byte	0
+ 787 00a7 03       		.uleb128 0x3
+ 788 00a8 0E       		.uleb128 0xe
+ 789 00a9 3A       		.uleb128 0x3a
+ 790 00aa 0B       		.uleb128 0xb
+ 791 00ab 3B       		.uleb128 0x3b
+ 792 00ac 0B       		.uleb128 0xb
+ 793 00ad 49       		.uleb128 0x49
+ 794 00ae 13       		.uleb128 0x13
+ 795 00af 1C       		.uleb128 0x1c
+ 796 00b0 0B       		.uleb128 0xb
+ 797 00b1 00       		.byte	0
+ 798 00b2 00       		.byte	0
+ 799 00b3 0E       		.uleb128 0xe
+ 800 00b4 0B       		.uleb128 0xb
+ 801 00b5 01       		.byte	0x1
+ 802 00b6 11       		.uleb128 0x11
+ 803 00b7 01       		.uleb128 0x1
+ 804 00b8 12       		.uleb128 0x12
+ 805 00b9 06       		.uleb128 0x6
+ 806 00ba 01       		.uleb128 0x1
+ 807 00bb 13       		.uleb128 0x13
+ 808 00bc 00       		.byte	0
+ 809 00bd 00       		.byte	0
+ 810 00be 0F       		.uleb128 0xf
+ 811 00bf 898201   		.uleb128 0x4109
+ 812 00c2 01       		.byte	0x1
+ 813 00c3 11       		.uleb128 0x11
+ 814 00c4 01       		.uleb128 0x1
+ 815 00c5 31       		.uleb128 0x31
+ 816 00c6 13       		.uleb128 0x13
+ 817 00c7 01       		.uleb128 0x1
+ 818 00c8 13       		.uleb128 0x13
+ 819 00c9 00       		.byte	0
+ 820 00ca 00       		.byte	0
+ 821 00cb 10       		.uleb128 0x10
+ 822 00cc 8A8201   		.uleb128 0x410a
+ 823 00cf 00       		.byte	0
+ 824 00d0 02       		.uleb128 0x2
+ 825 00d1 18       		.uleb128 0x18
+ 826 00d2 9142     		.uleb128 0x2111
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 17
+
+
+ 827 00d4 18       		.uleb128 0x18
+ 828 00d5 00       		.byte	0
+ 829 00d6 00       		.byte	0
+ 830 00d7 11       		.uleb128 0x11
+ 831 00d8 898201   		.uleb128 0x4109
+ 832 00db 00       		.byte	0
+ 833 00dc 11       		.uleb128 0x11
+ 834 00dd 01       		.uleb128 0x1
+ 835 00de 31       		.uleb128 0x31
+ 836 00df 13       		.uleb128 0x13
+ 837 00e0 00       		.byte	0
+ 838 00e1 00       		.byte	0
+ 839 00e2 12       		.uleb128 0x12
+ 840 00e3 2E       		.uleb128 0x2e
+ 841 00e4 00       		.byte	0
+ 842 00e5 3F       		.uleb128 0x3f
+ 843 00e6 19       		.uleb128 0x19
+ 844 00e7 03       		.uleb128 0x3
+ 845 00e8 0E       		.uleb128 0xe
+ 846 00e9 3A       		.uleb128 0x3a
+ 847 00ea 0B       		.uleb128 0xb
+ 848 00eb 3B       		.uleb128 0x3b
+ 849 00ec 0B       		.uleb128 0xb
+ 850 00ed 49       		.uleb128 0x49
+ 851 00ee 13       		.uleb128 0x13
+ 852 00ef 11       		.uleb128 0x11
+ 853 00f0 01       		.uleb128 0x1
+ 854 00f1 12       		.uleb128 0x12
+ 855 00f2 06       		.uleb128 0x6
+ 856 00f3 40       		.uleb128 0x40
+ 857 00f4 18       		.uleb128 0x18
+ 858 00f5 9742     		.uleb128 0x2117
+ 859 00f7 19       		.uleb128 0x19
+ 860 00f8 00       		.byte	0
+ 861 00f9 00       		.byte	0
+ 862 00fa 13       		.uleb128 0x13
+ 863 00fb 2E       		.uleb128 0x2e
+ 864 00fc 01       		.byte	0x1
+ 865 00fd 3F       		.uleb128 0x3f
+ 866 00fe 19       		.uleb128 0x19
+ 867 00ff 03       		.uleb128 0x3
+ 868 0100 0E       		.uleb128 0xe
+ 869 0101 3A       		.uleb128 0x3a
+ 870 0102 0B       		.uleb128 0xb
+ 871 0103 3B       		.uleb128 0x3b
+ 872 0104 0B       		.uleb128 0xb
+ 873 0105 11       		.uleb128 0x11
+ 874 0106 01       		.uleb128 0x1
+ 875 0107 12       		.uleb128 0x12
+ 876 0108 06       		.uleb128 0x6
+ 877 0109 40       		.uleb128 0x40
+ 878 010a 18       		.uleb128 0x18
+ 879 010b 9742     		.uleb128 0x2117
+ 880 010d 19       		.uleb128 0x19
+ 881 010e 01       		.uleb128 0x1
+ 882 010f 13       		.uleb128 0x13
+ 883 0110 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 18
+
+
+ 884 0111 00       		.byte	0
+ 885 0112 14       		.uleb128 0x14
+ 886 0113 898201   		.uleb128 0x4109
+ 887 0116 01       		.byte	0x1
+ 888 0117 11       		.uleb128 0x11
+ 889 0118 01       		.uleb128 0x1
+ 890 0119 31       		.uleb128 0x31
+ 891 011a 13       		.uleb128 0x13
+ 892 011b 00       		.byte	0
+ 893 011c 00       		.byte	0
+ 894 011d 15       		.uleb128 0x15
+ 895 011e 34       		.uleb128 0x34
+ 896 011f 00       		.byte	0
+ 897 0120 03       		.uleb128 0x3
+ 898 0121 0E       		.uleb128 0xe
+ 899 0122 3A       		.uleb128 0x3a
+ 900 0123 0B       		.uleb128 0xb
+ 901 0124 3B       		.uleb128 0x3b
+ 902 0125 05       		.uleb128 0x5
+ 903 0126 49       		.uleb128 0x49
+ 904 0127 13       		.uleb128 0x13
+ 905 0128 3F       		.uleb128 0x3f
+ 906 0129 19       		.uleb128 0x19
+ 907 012a 3C       		.uleb128 0x3c
+ 908 012b 19       		.uleb128 0x19
+ 909 012c 00       		.byte	0
+ 910 012d 00       		.byte	0
+ 911 012e 16       		.uleb128 0x16
+ 912 012f 35       		.uleb128 0x35
+ 913 0130 00       		.byte	0
+ 914 0131 49       		.uleb128 0x49
+ 915 0132 13       		.uleb128 0x13
+ 916 0133 00       		.byte	0
+ 917 0134 00       		.byte	0
+ 918 0135 17       		.uleb128 0x17
+ 919 0136 34       		.uleb128 0x34
+ 920 0137 00       		.byte	0
+ 921 0138 03       		.uleb128 0x3
+ 922 0139 0E       		.uleb128 0xe
+ 923 013a 3A       		.uleb128 0x3a
+ 924 013b 0B       		.uleb128 0xb
+ 925 013c 3B       		.uleb128 0x3b
+ 926 013d 0B       		.uleb128 0xb
+ 927 013e 49       		.uleb128 0x49
+ 928 013f 13       		.uleb128 0x13
+ 929 0140 3F       		.uleb128 0x3f
+ 930 0141 19       		.uleb128 0x19
+ 931 0142 3C       		.uleb128 0x3c
+ 932 0143 19       		.uleb128 0x19
+ 933 0144 00       		.byte	0
+ 934 0145 00       		.byte	0
+ 935 0146 18       		.uleb128 0x18
+ 936 0147 01       		.uleb128 0x1
+ 937 0148 01       		.byte	0x1
+ 938 0149 49       		.uleb128 0x49
+ 939 014a 13       		.uleb128 0x13
+ 940 014b 01       		.uleb128 0x1
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 19
+
+
+ 941 014c 13       		.uleb128 0x13
+ 942 014d 00       		.byte	0
+ 943 014e 00       		.byte	0
+ 944 014f 19       		.uleb128 0x19
+ 945 0150 21       		.uleb128 0x21
+ 946 0151 00       		.byte	0
+ 947 0152 49       		.uleb128 0x49
+ 948 0153 13       		.uleb128 0x13
+ 949 0154 2F       		.uleb128 0x2f
+ 950 0155 0B       		.uleb128 0xb
+ 951 0156 00       		.byte	0
+ 952 0157 00       		.byte	0
+ 953 0158 1A       		.uleb128 0x1a
+ 954 0159 34       		.uleb128 0x34
+ 955 015a 00       		.byte	0
+ 956 015b 03       		.uleb128 0x3
+ 957 015c 0E       		.uleb128 0xe
+ 958 015d 3A       		.uleb128 0x3a
+ 959 015e 0B       		.uleb128 0xb
+ 960 015f 3B       		.uleb128 0x3b
+ 961 0160 0B       		.uleb128 0xb
+ 962 0161 49       		.uleb128 0x49
+ 963 0162 13       		.uleb128 0x13
+ 964 0163 3F       		.uleb128 0x3f
+ 965 0164 19       		.uleb128 0x19
+ 966 0165 02       		.uleb128 0x2
+ 967 0166 18       		.uleb128 0x18
+ 968 0167 00       		.byte	0
+ 969 0168 00       		.byte	0
+ 970 0169 1B       		.uleb128 0x1b
+ 971 016a 2E       		.uleb128 0x2e
+ 972 016b 00       		.byte	0
+ 973 016c 3F       		.uleb128 0x3f
+ 974 016d 19       		.uleb128 0x19
+ 975 016e 3C       		.uleb128 0x3c
+ 976 016f 19       		.uleb128 0x19
+ 977 0170 6E       		.uleb128 0x6e
+ 978 0171 0E       		.uleb128 0xe
+ 979 0172 03       		.uleb128 0x3
+ 980 0173 0E       		.uleb128 0xe
+ 981 0174 3A       		.uleb128 0x3a
+ 982 0175 0B       		.uleb128 0xb
+ 983 0176 3B       		.uleb128 0x3b
+ 984 0177 05       		.uleb128 0x5
+ 985 0178 00       		.byte	0
+ 986 0179 00       		.byte	0
+ 987 017a 1C       		.uleb128 0x1c
+ 988 017b 2E       		.uleb128 0x2e
+ 989 017c 00       		.byte	0
+ 990 017d 3F       		.uleb128 0x3f
+ 991 017e 19       		.uleb128 0x19
+ 992 017f 3C       		.uleb128 0x3c
+ 993 0180 19       		.uleb128 0x19
+ 994 0181 6E       		.uleb128 0x6e
+ 995 0182 0E       		.uleb128 0xe
+ 996 0183 03       		.uleb128 0x3
+ 997 0184 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 20
+
+
+ 998 0185 3A       		.uleb128 0x3a
+ 999 0186 0B       		.uleb128 0xb
+ 1000 0187 3B       		.uleb128 0x3b
+ 1001 0188 0B       		.uleb128 0xb
+ 1002 0189 00       		.byte	0
+ 1003 018a 00       		.byte	0
+ 1004 018b 00       		.byte	0
+ 1005              		.section	.debug_loc,"",%progbits
+ 1006              	.Ldebug_loc0:
+ 1007              	.LLST0:
+ 1008 0000 00000000 		.4byte	.LVL0
+ 1009 0004 05000000 		.4byte	.LVL1-1
+ 1010 0008 0100     		.2byte	0x1
+ 1011 000a 50       		.byte	0x50
+ 1012 000b 05000000 		.4byte	.LVL1-1
+ 1013 000f 78000000 		.4byte	.LFE68
+ 1014 0013 0400     		.2byte	0x4
+ 1015 0015 F3       		.byte	0xf3
+ 1016 0016 01       		.uleb128 0x1
+ 1017 0017 50       		.byte	0x50
+ 1018 0018 9F       		.byte	0x9f
+ 1019 0019 00000000 		.4byte	0
+ 1020 001d 00000000 		.4byte	0
+ 1021              		.section	.debug_aranges,"",%progbits
+ 1022 0000 2C000000 		.4byte	0x2c
+ 1023 0004 0200     		.2byte	0x2
+ 1024 0006 00000000 		.4byte	.Ldebug_info0
+ 1025 000a 04       		.byte	0x4
+ 1026 000b 00       		.byte	0
+ 1027 000c 0000     		.2byte	0
+ 1028 000e 0000     		.2byte	0
+ 1029 0010 00000000 		.4byte	.LFB68
+ 1030 0014 78000000 		.4byte	.LFE68-.LFB68
+ 1031 0018 00000000 		.4byte	.LFB69
+ 1032 001c 0C000000 		.4byte	.LFE69-.LFB69
+ 1033 0020 00000000 		.4byte	.LFB70
+ 1034 0024 2C000000 		.4byte	.LFE70-.LFB70
+ 1035 0028 00000000 		.4byte	0
+ 1036 002c 00000000 		.4byte	0
+ 1037              		.section	.debug_ranges,"",%progbits
+ 1038              	.Ldebug_ranges0:
+ 1039 0000 00000000 		.4byte	.LFB68
+ 1040 0004 78000000 		.4byte	.LFE68
+ 1041 0008 00000000 		.4byte	.LFB69
+ 1042 000c 0C000000 		.4byte	.LFE69
+ 1043 0010 00000000 		.4byte	.LFB70
+ 1044 0014 2C000000 		.4byte	.LFE70
+ 1045 0018 00000000 		.4byte	0
+ 1046 001c 00000000 		.4byte	0
+ 1047              		.section	.debug_line,"",%progbits
+ 1048              	.Ldebug_line0:
+ 1049 0000 6C020000 		.section	.debug_str,"MS",%progbits,1
+ 1049      02002902 
+ 1049      00000201 
+ 1049      FB0E0D00 
+ 1049      01010101 
+ 1050              	.LASF44:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 21
+
+
+ 1051 0000 426C7565 		.ascii	"BluetoothUART_Start\000"
+ 1051      746F6F74 
+ 1051      68554152 
+ 1051      545F5374 
+ 1051      61727400 
+ 1052              	.LASF3:
+ 1053 0014 5F5F7569 		.ascii	"__uint8_t\000"
+ 1053      6E74385F 
+ 1053      7400
+ 1054              	.LASF26:
+ 1055 001e 5469636B 		.ascii	"TickType_t\000"
+ 1055      54797065 
+ 1055      5F7400
+ 1056              	.LASF36:
+ 1057 0029 626C7565 		.ascii	"bluetoothDataAvailable\000"
+ 1057      746F6F74 
+ 1057      68446174 
+ 1057      61417661 
+ 1057      696C6162 
+ 1058              	.LASF6:
+ 1059 0040 5F5F696E 		.ascii	"__int32_t\000"
+ 1059      7433325F 
+ 1059      7400
+ 1060              	.LASF57:
+ 1061 004a 73746172 		.ascii	"startTaskBluetoothComms\000"
+ 1061      74546173 
+ 1061      6B426C75 
+ 1061      65746F6F 
+ 1061      7468436F 
+ 1062              	.LASF18:
+ 1063 0062 75696E74 		.ascii	"uint64_t\000"
+ 1063      36345F74 
+ 1063      00
+ 1064              	.LASF41:
+ 1065 006b 7848616E 		.ascii	"xHandle\000"
+ 1065      646C6500 
+ 1066              	.LASF19:
+ 1067 0073 666C6F61 		.ascii	"float\000"
+ 1067      7400
+ 1068              	.LASF25:
+ 1069 0079 55426173 		.ascii	"UBaseType_t\000"
+ 1069      65547970 
+ 1069      655F7400 
+ 1070              	.LASF50:
+ 1071 0085 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1071      43313120 
+ 1071      352E342E 
+ 1071      31203230 
+ 1071      31363036 
+ 1072 00b8 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1072      20726576 
+ 1072      6973696F 
+ 1072      6E203233 
+ 1072      37373135 
+ 1073 00eb 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1073      66756E63 
+ 1073      74696F6E 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 22
+
+
+ 1073      2D736563 
+ 1073      74696F6E 
+ 1074              	.LASF46:
+ 1075 0113 436C6F63 		.ascii	"Clock_1_Start\000"
+ 1075      6B5F315F 
+ 1075      53746172 
+ 1075      7400
+ 1076              	.LASF37:
+ 1077 0121 626C7565 		.ascii	"bluetoothISRDataBuff\000"
+ 1077      746F6F74 
+ 1077      68495352 
+ 1077      44617461 
+ 1077      42756666 
+ 1078              	.LASF30:
+ 1079 0136 426C7565 		.ascii	"BluetoothUartMsg_t\000"
+ 1079      746F6F74 
+ 1079      68556172 
+ 1079      744D7367 
+ 1079      5F7400
+ 1080              	.LASF9:
+ 1081 0149 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1081      20756E73 
+ 1081      69676E65 
+ 1081      6420696E 
+ 1081      7400
+ 1082              	.LASF5:
+ 1083 015b 73686F72 		.ascii	"short unsigned int\000"
+ 1083      7420756E 
+ 1083      7369676E 
+ 1083      65642069 
+ 1083      6E7400
+ 1084              	.LASF35:
+ 1085 016e 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1085      52784275 
+ 1085      66666572 
+ 1085      00
+ 1086              	.LASF47:
+ 1087 017b 436C6F63 		.ascii	"Clock_2_Start\000"
+ 1087      6B5F325F 
+ 1087      53746172 
+ 1087      7400
+ 1088              	.LASF34:
+ 1089 0189 78486967 		.ascii	"xHigherPriorityTaskWoken\000"
+ 1089      68657250 
+ 1089      72696F72 
+ 1089      69747954 
+ 1089      61736B57 
+ 1090              	.LASF4:
+ 1091 01a2 5F5F7569 		.ascii	"__uint16_t\000"
+ 1091      6E743136 
+ 1091      5F7400
+ 1092              	.LASF20:
+ 1093 01ad 646F7562 		.ascii	"double\000"
+ 1093      6C6500
+ 1094              	.LASF38:
+ 1095 01b4 626C7565 		.ascii	"bluetoothMsgCount\000"
+ 1095      746F6F74 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 23
+
+
+ 1095      684D7367 
+ 1095      436F756E 
+ 1095      7400
+ 1096              	.LASF8:
+ 1097 01c6 5F5F7569 		.ascii	"__uint32_t\000"
+ 1097      6E743332 
+ 1097      5F7400
+ 1098              	.LASF53:
+ 1099 01d1 74736B54 		.ascii	"tskTaskControlBlock\000"
+ 1099      61736B43 
+ 1099      6F6E7472 
+ 1099      6F6C426C 
+ 1099      6F636B00 
+ 1100              	.LASF43:
+ 1101 01e5 426C7565 		.ascii	"BluetoothUART_WriteTxData\000"
+ 1101      746F6F74 
+ 1101      68554152 
+ 1101      545F5772 
+ 1101      69746554 
+ 1102              	.LASF31:
+ 1103 01ff 6572726F 		.ascii	"errorLog\000"
+ 1103      724C6F67 
+ 1103      00
+ 1104              	.LASF1:
+ 1105 0208 756E7369 		.ascii	"unsigned char\000"
+ 1105      676E6564 
+ 1105      20636861 
+ 1105      7200
+ 1106              	.LASF13:
+ 1107 0216 756E7369 		.ascii	"unsigned int\000"
+ 1107      676E6564 
+ 1107      20696E74 
+ 1107      00
+ 1108              	.LASF12:
+ 1109 0223 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1109      206C6F6E 
+ 1109      6720756E 
+ 1109      7369676E 
+ 1109      65642069 
+ 1110              	.LASF14:
+ 1111 023a 75696E74 		.ascii	"uint8_t\000"
+ 1111      385F7400 
+ 1112              	.LASF40:
+ 1113 0242 626C7565 		.ascii	"bluetoothRecTimeout_ms\000"
+ 1113      746F6F74 
+ 1113      68526563 
+ 1113      54696D65 
+ 1113      6F75745F 
+ 1114              	.LASF39:
+ 1115 0259 626C7565 		.ascii	"bluetoothUserDataBuff\000"
+ 1115      746F6F74 
+ 1115      68557365 
+ 1115      72446174 
+ 1115      61427566 
+ 1116              	.LASF56:
+ 1117 026f 67657442 		.ascii	"getBluetoothCommsTaskHandle\000"
+ 1117      6C756574 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 24
+
+
+ 1117      6F6F7468 
+ 1117      436F6D6D 
+ 1117      73546173 
+ 1118              	.LASF16:
+ 1119 028b 696E7433 		.ascii	"int32_t\000"
+ 1119      325F7400 
+ 1120              	.LASF33:
+ 1121 0293 61776F6B 		.ascii	"awoken\000"
+ 1121      656E00
+ 1122              	.LASF23:
+ 1123 029a 73697A65 		.ascii	"sizetype\000"
+ 1123      74797065 
+ 1123      00
+ 1124              	.LASF10:
+ 1125 02a3 6C6F6E67 		.ascii	"long long int\000"
+ 1125      206C6F6E 
+ 1125      6720696E 
+ 1125      7400
+ 1126              	.LASF21:
+ 1127 02b1 63686172 		.ascii	"char\000"
+ 1127      00
+ 1128              	.LASF55:
+ 1129 02b6 70765061 		.ascii	"pvParameters\000"
+ 1129      72616D65 
+ 1129      74657273 
+ 1129      00
+ 1130              	.LASF42:
+ 1131 02c3 756C5461 		.ascii	"ulTaskGenericNotifyTake\000"
+ 1131      736B4765 
+ 1131      6E657269 
+ 1131      634E6F74 
+ 1131      69667954 
+ 1132              	.LASF54:
+ 1133 02db 5461736B 		.ascii	"TaskBluetoothComms\000"
+ 1133      426C7565 
+ 1133      746F6F74 
+ 1133      68436F6D 
+ 1133      6D7300
+ 1134              	.LASF52:
+ 1135 02ee 453A5C47 		.ascii	"E:\\GIT Hub Project\\protocov\\Protocov\\Protocov.c"
+ 1135      49542048 
+ 1135      75622050 
+ 1135      726F6A65 
+ 1135      63745C70 
+ 1136 031d 7964736E 		.ascii	"ydsn\000"
+ 1136      00
+ 1137              	.LASF2:
+ 1138 0322 73686F72 		.ascii	"short int\000"
+ 1138      7420696E 
+ 1138      7400
+ 1139              	.LASF45:
+ 1140 032c 496E7442 		.ascii	"IntBluetoothUART_Start\000"
+ 1140      6C756574 
+ 1140      6F6F7468 
+ 1140      55415254 
+ 1140      5F537461 
+ 1141              	.LASF15:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 25
+
+
+ 1142 0343 75696E74 		.ascii	"uint16_t\000"
+ 1142      31365F74 
+ 1142      00
+ 1143              	.LASF27:
+ 1144 034c 5461736B 		.ascii	"TaskHandle_t\000"
+ 1144      48616E64 
+ 1144      6C655F74 
+ 1144      00
+ 1145              	.LASF17:
+ 1146 0359 75696E74 		.ascii	"uint32_t\000"
+ 1146      33325F74 
+ 1146      00
+ 1147              	.LASF7:
+ 1148 0362 6C6F6E67 		.ascii	"long int\000"
+ 1148      20696E74 
+ 1148      00
+ 1149              	.LASF48:
+ 1150 036b 436F756E 		.ascii	"Counter_1_Start\000"
+ 1150      7465725F 
+ 1150      315F5374 
+ 1150      61727400 
+ 1151              	.LASF11:
+ 1152 037b 5F5F7569 		.ascii	"__uint64_t\000"
+ 1152      6E743634 
+ 1152      5F7400
+ 1153              	.LASF22:
+ 1154 0386 6C6F6E67 		.ascii	"long double\000"
+ 1154      20646F75 
+ 1154      626C6500 
+ 1155              	.LASF0:
+ 1156 0392 7369676E 		.ascii	"signed char\000"
+ 1156      65642063 
+ 1156      68617200 
+ 1157              	.LASF32:
+ 1158 039e 72656164 		.ascii	"readData\000"
+ 1158      44617461 
+ 1158      00
+ 1159              	.LASF28:
+ 1160 03a7 6F6C6454 		.ascii	"oldTickCount\000"
+ 1160      69636B43 
+ 1160      6F756E74 
+ 1160      00
+ 1161              	.LASF51:
+ 1162 03b4 426C7565 		.ascii	"BluetoothComms.c\000"
+ 1162      746F6F74 
+ 1162      68436F6D 
+ 1162      6D732E63 
+ 1162      00
+ 1163              	.LASF24:
+ 1164 03c5 42617365 		.ascii	"BaseType_t\000"
+ 1164      54797065 
+ 1164      5F7400
+ 1165              	.LASF49:
+ 1166 03d0 78546173 		.ascii	"xTaskCreate\000"
+ 1166      6B437265 
+ 1166      61746500 
+ 1167              	.LASF29:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccvFPSqZ.s 			page 26
+
+
+ 1168 03dc 6E657754 		.ascii	"newTickCount\000"
+ 1168      69636B43 
+ 1168      6F756E74 
+ 1168      00
+ 1169              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

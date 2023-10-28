@@ -1,0 +1,1971 @@
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"VehicleBattVoltageAdc_IRQ.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.VehicleBattVoltageAdc_IRQ_Interrupt,"ax",%progbits
+  20              		.align	2
+  21              		.global	VehicleBattVoltageAdc_IRQ_Interrupt
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	VehicleBattVoltageAdc_IRQ_Interrupt, %function
+  25              	VehicleBattVoltageAdc_IRQ_Interrupt:
+  26              	.LFB3:
+  27              		.file 1 "Generated_Source\\PSoC5\\VehicleBattVoltageAdc_IRQ.c"
+   1:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * File Name: VehicleBattVoltageAdc_IRQ.c  
+   3:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Version 1.70
+   4:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+   5:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Description:
+   6:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   API for controlling the state of an interrupt.
+   7:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+   8:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+   9:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Note:
+  10:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  11:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  18:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  19:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #include <cydevice_trm.h>
+  20:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #include <CyLib.h>
+  21:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #include <VehicleBattVoltageAdc_IRQ.h>
+  22:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #include "cyapicallbacks.h"
+  23:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  24:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #if !defined(VehicleBattVoltageAdc_IRQ__REMOVED) /* Check for removal by optimization */
+  25:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  26:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+  27:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Place your includes, defines and code here 
+  28:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************/
+  29:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /* `#START VehicleBattVoltageAdc_IRQ_intc` */
+  30:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** volatile uint8_t tessst = 0;
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 2
+
+
+  31:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /* `#END` */
+  32:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  33:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #ifndef CYINT_IRQ_BASE
+  34:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #define CYINT_IRQ_BASE      16
+  35:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #endif /* CYINT_IRQ_BASE */
+  36:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #ifndef CYINT_VECT_TABLE
+  37:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  38:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** #endif /* CYINT_VECT_TABLE */
+  39:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  40:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /* Declared in startup, used to set unused interrupts to. */
+  41:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** CY_ISR_PROTO(IntDefaultHandler);
+  42:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  43:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  44:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+  45:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_Start
+  46:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+  47:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  48:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+  49:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Set up the interrupt and enable it. This function disables the interrupt, 
+  50:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  sets the default interrupt vector, sets the priority from the value in the
+  51:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Design Wide Resources Interrupt Editor, then enables the interrupt to the 
+  52:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  interrupt controller.
+  53:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  54:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:  
+  55:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+  56:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  57:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+  58:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+  59:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  60:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+  61:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_Start(void)
+  62:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+  63:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* For all we know the interrupt is active. */
+  64:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_Disable();
+  65:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  66:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Set the ISR to point to the VehicleBattVoltageAdc_IRQ Interrupt. */
+  67:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_SetVector(&VehicleBattVoltageAdc_IRQ_Interrupt);
+  68:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  69:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Set the priority. */
+  70:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_SetPriority((uint8)VehicleBattVoltageAdc_IRQ_INTC_PRIOR_NUMBER);
+  71:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  72:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Enable it. */
+  73:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_Enable();
+  74:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+  75:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  76:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+  77:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+  78:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_StartEx
+  79:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+  80:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  81:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+  82:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Sets up the interrupt and enables it. This function disables the interrupt,
+  83:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  sets the interrupt vector based on the address passed in, sets the priority 
+  84:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  from the value in the Design Wide Resources Interrupt Editor, then enables 
+  85:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  the interrupt to the interrupt controller.
+  86:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  
+  87:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 3
+
+
+  88:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  used to provide consistent definition across compilers:
+  89:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  
+  90:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *  Function definition example:
+  91:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   CY_ISR(MyISR)
+  92:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   {
+  93:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   }
+  94:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Function prototype example:
+  95:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   CY_ISR_PROTO(MyISR);
+  96:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+  97:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:  
+  98:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  99:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 100:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 101:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 102:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 103:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 104:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_StartEx(cyisraddress address)
+ 105:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 106:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* For all we know the interrupt is active. */
+ 107:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_Disable();
+ 108:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 109:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Set the ISR to point to the VehicleBattVoltageAdc_IRQ Interrupt. */
+ 110:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_SetVector(address);
+ 111:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 112:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Set the priority. */
+ 113:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_SetPriority((uint8)VehicleBattVoltageAdc_IRQ_INTC_PRIOR_NUMBER);
+ 114:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 115:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Enable it. */
+ 116:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_Enable();
+ 117:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 118:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 119:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 120:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 121:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_Stop
+ 122:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 123:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 124:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 125:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Disables and removes the interrupt.
+ 126:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 127:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:  
+ 128:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 129:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 130:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 131:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 132:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 133:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 134:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_Stop(void)
+ 135:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 136:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Disable this interrupt. */
+ 137:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_Disable();
+ 138:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 139:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Set the ISR to point to the passive one. */
+ 140:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     VehicleBattVoltageAdc_IRQ_SetVector(&IntDefaultHandler);
+ 141:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 142:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 143:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 144:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 4
+
+
+ 145:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_Interrupt
+ 146:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 147:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 148:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 149:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   The default Interrupt Service Routine for VehicleBattVoltageAdc_IRQ.
+ 150:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 151:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Add custom code between the coments to keep the next version of this file
+ 152:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   from over writting your code.
+ 153:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 154:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:  
+ 155:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 156:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 157:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 158:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 159:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 160:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** CY_ISR(VehicleBattVoltageAdc_IRQ_Interrupt)
+ 161:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+  28              		.loc 1 161 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 7047     		bx	lr
+  34              		.cfi_endproc
+  35              	.LFE3:
+  36              		.size	VehicleBattVoltageAdc_IRQ_Interrupt, .-VehicleBattVoltageAdc_IRQ_Interrupt
+  37 0002 00BF     		.section	.text.VehicleBattVoltageAdc_IRQ_SetVector,"ax",%progbits
+  38              		.align	2
+  39              		.global	VehicleBattVoltageAdc_IRQ_SetVector
+  40              		.thumb
+  41              		.thumb_func
+  42              		.type	VehicleBattVoltageAdc_IRQ_SetVector, %function
+  43              	VehicleBattVoltageAdc_IRQ_SetVector:
+  44              	.LFB4:
+ 162:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     #ifdef VehicleBattVoltageAdc_IRQ_INTERRUPT_INTERRUPT_CALLBACK
+ 163:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****         VehicleBattVoltageAdc_IRQ_Interrupt_InterruptCallback();
+ 164:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     #endif /* VehicleBattVoltageAdc_IRQ_INTERRUPT_INTERRUPT_CALLBACK */ 
+ 165:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 166:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /*  Place your Interrupt code here. */
+ 167:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* `#START VehicleBattVoltageAdc_IRQ_Interrupt` */
+ 168:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 169:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* `#END` */
+ 170:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 171:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 172:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 173:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 174:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_SetVector
+ 175:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 176:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 177:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 178:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Change the ISR vector for the Interrupt. Note calling VehicleBattVoltageAdc_IRQ_Start
+ 179:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   will override any effect this method would have had. To set the vector 
+ 180:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   before the component has been started use VehicleBattVoltageAdc_IRQ_StartEx instead.
+ 181:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * 
+ 182:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+ 183:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   used to provide consistent definition across compilers:
+ 184:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 5
+
+
+ 185:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Function definition example:
+ 186:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   CY_ISR(MyISR)
+ 187:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   {
+ 188:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   }
+ 189:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 190:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Function prototype example:
+ 191:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *     CY_ISR_PROTO(MyISR);
+ 192:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 193:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 194:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 195:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 196:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 197:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 198:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 199:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 200:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_SetVector(cyisraddress address)
+ 201:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+  45              		.loc 1 201 0
+  46              		.cfi_startproc
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49              		@ link register save eliminated.
+  50              	.LVL0:
+ 202:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     cyisraddress * ramVectorTable;
+ 203:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 204:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  51              		.loc 1 204 0
+  52 0000 014B     		ldr	r3, .L3
+  53 0002 1B68     		ldr	r3, [r3]
+  54              	.LVL1:
+ 205:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 206:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)VehicleBattVoltageAdc_IRQ__INTC_NUMBER] = address;
+  55              		.loc 1 206 0
+  56 0004 9864     		str	r0, [r3, #72]
+  57 0006 7047     		bx	lr
+  58              	.L4:
+  59              		.align	2
+  60              	.L3:
+  61 0008 08ED00E0 		.word	-536810232
+  62              		.cfi_endproc
+  63              	.LFE4:
+  64              		.size	VehicleBattVoltageAdc_IRQ_SetVector, .-VehicleBattVoltageAdc_IRQ_SetVector
+  65              		.section	.text.VehicleBattVoltageAdc_IRQ_GetVector,"ax",%progbits
+  66              		.align	2
+  67              		.global	VehicleBattVoltageAdc_IRQ_GetVector
+  68              		.thumb
+  69              		.thumb_func
+  70              		.type	VehicleBattVoltageAdc_IRQ_GetVector, %function
+  71              	VehicleBattVoltageAdc_IRQ_GetVector:
+  72              	.LFB5:
+ 207:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 208:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 209:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 210:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 211:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_GetVector
+ 212:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 213:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 6
+
+
+ 214:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 215:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 216:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 217:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 218:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 219:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 220:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 221:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Address of the ISR in the interrupt vector table.
+ 222:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 223:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 224:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** cyisraddress VehicleBattVoltageAdc_IRQ_GetVector(void)
+ 225:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+  73              		.loc 1 225 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+ 226:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     cyisraddress * ramVectorTable;
+ 227:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 228:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  78              		.loc 1 228 0
+  79 0000 014B     		ldr	r3, .L6
+  80 0002 1B68     		ldr	r3, [r3]
+  81              	.LVL2:
+ 229:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 230:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)VehicleBattVoltageAdc_IRQ__INTC_NUMBER];
+ 231:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+  82              		.loc 1 231 0
+  83 0004 986C     		ldr	r0, [r3, #72]
+  84 0006 7047     		bx	lr
+  85              	.L7:
+  86              		.align	2
+  87              	.L6:
+  88 0008 08ED00E0 		.word	-536810232
+  89              		.cfi_endproc
+  90              	.LFE5:
+  91              		.size	VehicleBattVoltageAdc_IRQ_GetVector, .-VehicleBattVoltageAdc_IRQ_GetVector
+  92              		.section	.text.VehicleBattVoltageAdc_IRQ_SetPriority,"ax",%progbits
+  93              		.align	2
+  94              		.global	VehicleBattVoltageAdc_IRQ_SetPriority
+  95              		.thumb
+  96              		.thumb_func
+  97              		.type	VehicleBattVoltageAdc_IRQ_SetPriority, %function
+  98              	VehicleBattVoltageAdc_IRQ_SetPriority:
+  99              	.LFB6:
+ 232:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 233:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 234:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 235:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_SetPriority
+ 236:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 237:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 238:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 239:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Sets the Priority of the Interrupt. 
+ 240:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 241:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Note calling VehicleBattVoltageAdc_IRQ_Start or VehicleBattVoltageAdc_IRQ_StartEx will 
+ 242:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   override any effect this API would have had. This API should only be called
+ 243:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   after VehicleBattVoltageAdc_IRQ_Start or VehicleBattVoltageAdc_IRQ_StartEx has been called. 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 7
+
+
+ 244:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   To set the initial priority for the component, use the Design-Wide Resources
+ 245:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Interrupt Editor.
+ 246:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 247:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Note This API has no effect on Non-maskable interrupt NMI).
+ 248:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 249:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 250:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   priority: Priority of the interrupt, 0 being the highest priority
+ 251:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *             PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+ 252:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *             PSoC 4: Priority is from 0 to 3.
+ 253:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 254:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 255:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 256:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 257:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 258:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_SetPriority(uint8 priority)
+ 259:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 100              		.loc 1 259 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105              	.LVL3:
+ 260:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     *VehicleBattVoltageAdc_IRQ_INTC_PRIOR = priority << 5;
+ 106              		.loc 1 260 0
+ 107 0000 4001     		lsls	r0, r0, #5
+ 108              	.LVL4:
+ 109 0002 C0B2     		uxtb	r0, r0
+ 110 0004 014B     		ldr	r3, .L9
+ 111 0006 1870     		strb	r0, [r3]
+ 112 0008 7047     		bx	lr
+ 113              	.L10:
+ 114 000a 00BF     		.align	2
+ 115              	.L9:
+ 116 000c 02E400E0 		.word	-536812542
+ 117              		.cfi_endproc
+ 118              	.LFE6:
+ 119              		.size	VehicleBattVoltageAdc_IRQ_SetPriority, .-VehicleBattVoltageAdc_IRQ_SetPriority
+ 120              		.section	.text.VehicleBattVoltageAdc_IRQ_GetPriority,"ax",%progbits
+ 121              		.align	2
+ 122              		.global	VehicleBattVoltageAdc_IRQ_GetPriority
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.type	VehicleBattVoltageAdc_IRQ_GetPriority, %function
+ 126              	VehicleBattVoltageAdc_IRQ_GetPriority:
+ 127              	.LFB7:
+ 261:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 262:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 263:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 264:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 265:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_GetPriority
+ 266:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 267:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 268:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 269:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Gets the Priority of the Interrupt.
+ 270:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 271:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 272:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 8
+
+
+ 273:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 274:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 275:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Priority of the interrupt, 0 being the highest priority
+ 276:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *    PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+ 277:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *    PSoC 4: Priority is from 0 to 3.
+ 278:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 279:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 280:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** uint8 VehicleBattVoltageAdc_IRQ_GetPriority(void)
+ 281:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 128              		.loc 1 281 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132              		@ link register save eliminated.
+ 282:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     uint8 priority;
+ 283:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 284:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 285:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     priority = *VehicleBattVoltageAdc_IRQ_INTC_PRIOR >> 5;
+ 133              		.loc 1 285 0
+ 134 0000 014B     		ldr	r3, .L12
+ 135 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 136              	.LVL5:
+ 286:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 287:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     return priority;
+ 288:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 137              		.loc 1 288 0
+ 138 0004 4009     		lsrs	r0, r0, #5
+ 139              	.LVL6:
+ 140 0006 7047     		bx	lr
+ 141              	.L13:
+ 142              		.align	2
+ 143              	.L12:
+ 144 0008 02E400E0 		.word	-536812542
+ 145              		.cfi_endproc
+ 146              	.LFE7:
+ 147              		.size	VehicleBattVoltageAdc_IRQ_GetPriority, .-VehicleBattVoltageAdc_IRQ_GetPriority
+ 148              		.section	.text.VehicleBattVoltageAdc_IRQ_Enable,"ax",%progbits
+ 149              		.align	2
+ 150              		.global	VehicleBattVoltageAdc_IRQ_Enable
+ 151              		.thumb
+ 152              		.thumb_func
+ 153              		.type	VehicleBattVoltageAdc_IRQ_Enable, %function
+ 154              	VehicleBattVoltageAdc_IRQ_Enable:
+ 155              	.LFB8:
+ 289:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 290:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 291:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 292:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_Enable
+ 293:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 294:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 295:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 296:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Enables the interrupt to the interrupt controller. Do not call this function
+ 297:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   unless ISR_Start() has been called or the functionality of the ISR_Start() 
+ 298:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   function, which sets the vector and the priority, has been called.
+ 299:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 300:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 301:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 9
+
+
+ 302:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 303:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 304:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 305:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 306:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 307:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_Enable(void)
+ 308:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 156              		.loc 1 308 0
+ 157              		.cfi_startproc
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160              		@ link register save eliminated.
+ 309:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Enable the general interrupt. */
+ 310:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     *VehicleBattVoltageAdc_IRQ_INTC_SET_EN = VehicleBattVoltageAdc_IRQ__INTC_MASK;
+ 161              		.loc 1 310 0
+ 162 0000 0422     		movs	r2, #4
+ 163 0002 014B     		ldr	r3, .L15
+ 164 0004 1A60     		str	r2, [r3]
+ 165 0006 7047     		bx	lr
+ 166              	.L16:
+ 167              		.align	2
+ 168              	.L15:
+ 169 0008 00E100E0 		.word	-536813312
+ 170              		.cfi_endproc
+ 171              	.LFE8:
+ 172              		.size	VehicleBattVoltageAdc_IRQ_Enable, .-VehicleBattVoltageAdc_IRQ_Enable
+ 173              		.section	.text.VehicleBattVoltageAdc_IRQ_GetState,"ax",%progbits
+ 174              		.align	2
+ 175              		.global	VehicleBattVoltageAdc_IRQ_GetState
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.type	VehicleBattVoltageAdc_IRQ_GetState, %function
+ 179              	VehicleBattVoltageAdc_IRQ_GetState:
+ 180              	.LFB9:
+ 311:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 312:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 313:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 314:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 315:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_GetState
+ 316:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 317:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 318:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 319:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 320:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 321:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 322:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 323:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 324:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 325:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   1 if enabled, 0 if disabled.
+ 326:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 327:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 328:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** uint8 VehicleBattVoltageAdc_IRQ_GetState(void)
+ 329:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 181              		.loc 1 329 0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 0
+ 184              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 10
+
+
+ 185              		@ link register save eliminated.
+ 330:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Get the state of the general interrupt. */
+ 331:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     return ((*VehicleBattVoltageAdc_IRQ_INTC_SET_EN & (uint32)VehicleBattVoltageAdc_IRQ__INTC_MASK)
+ 186              		.loc 1 331 0
+ 187 0000 044B     		ldr	r3, .L20
+ 188 0002 1B68     		ldr	r3, [r3]
+ 189 0004 13F0040F 		tst	r3, #4
+ 190 0008 01D0     		beq	.L19
+ 191 000a 0120     		movs	r0, #1
+ 192 000c 7047     		bx	lr
+ 193              	.L19:
+ 194 000e 0020     		movs	r0, #0
+ 332:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 195              		.loc 1 332 0
+ 196 0010 7047     		bx	lr
+ 197              	.L21:
+ 198 0012 00BF     		.align	2
+ 199              	.L20:
+ 200 0014 00E100E0 		.word	-536813312
+ 201              		.cfi_endproc
+ 202              	.LFE9:
+ 203              		.size	VehicleBattVoltageAdc_IRQ_GetState, .-VehicleBattVoltageAdc_IRQ_GetState
+ 204              		.section	.text.VehicleBattVoltageAdc_IRQ_Disable,"ax",%progbits
+ 205              		.align	2
+ 206              		.global	VehicleBattVoltageAdc_IRQ_Disable
+ 207              		.thumb
+ 208              		.thumb_func
+ 209              		.type	VehicleBattVoltageAdc_IRQ_Disable, %function
+ 210              	VehicleBattVoltageAdc_IRQ_Disable:
+ 211              	.LFB10:
+ 333:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 334:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 335:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 336:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_Disable
+ 337:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 338:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 339:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 340:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Disables the Interrupt in the interrupt controller.
+ 341:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 342:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 343:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 344:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 345:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 346:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 347:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 348:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 349:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_Disable(void)
+ 350:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 212              		.loc 1 350 0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216              		@ link register save eliminated.
+ 351:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Disable the general interrupt. */
+ 352:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     *VehicleBattVoltageAdc_IRQ_INTC_CLR_EN = VehicleBattVoltageAdc_IRQ__INTC_MASK;
+ 217              		.loc 1 352 0
+ 218 0000 0422     		movs	r2, #4
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 11
+
+
+ 219 0002 014B     		ldr	r3, .L23
+ 220 0004 1A60     		str	r2, [r3]
+ 221 0006 7047     		bx	lr
+ 222              	.L24:
+ 223              		.align	2
+ 224              	.L23:
+ 225 0008 80E100E0 		.word	-536813184
+ 226              		.cfi_endproc
+ 227              	.LFE10:
+ 228              		.size	VehicleBattVoltageAdc_IRQ_Disable, .-VehicleBattVoltageAdc_IRQ_Disable
+ 229              		.section	.text.VehicleBattVoltageAdc_IRQ_Start,"ax",%progbits
+ 230              		.align	2
+ 231              		.global	VehicleBattVoltageAdc_IRQ_Start
+ 232              		.thumb
+ 233              		.thumb_func
+ 234              		.type	VehicleBattVoltageAdc_IRQ_Start, %function
+ 235              	VehicleBattVoltageAdc_IRQ_Start:
+ 236              	.LFB0:
+  62:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* For all we know the interrupt is active. */
+ 237              		.loc 1 62 0
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+ 241 0000 08B5     		push	{r3, lr}
+ 242              		.cfi_def_cfa_offset 8
+ 243              		.cfi_offset 3, -8
+ 244              		.cfi_offset 14, -4
+  64:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 245              		.loc 1 64 0
+ 246 0002 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_Disable
+ 247              	.LVL7:
+  67:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 248              		.loc 1 67 0
+ 249 0006 0448     		ldr	r0, .L27
+ 250 0008 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_SetVector
+ 251              	.LVL8:
+  70:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 252              		.loc 1 70 0
+ 253 000c 0720     		movs	r0, #7
+ 254 000e FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_SetPriority
+ 255              	.LVL9:
+  73:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 256              		.loc 1 73 0
+ 257 0012 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_Enable
+ 258              	.LVL10:
+ 259 0016 08BD     		pop	{r3, pc}
+ 260              	.L28:
+ 261              		.align	2
+ 262              	.L27:
+ 263 0018 00000000 		.word	VehicleBattVoltageAdc_IRQ_Interrupt
+ 264              		.cfi_endproc
+ 265              	.LFE0:
+ 266              		.size	VehicleBattVoltageAdc_IRQ_Start, .-VehicleBattVoltageAdc_IRQ_Start
+ 267              		.section	.text.VehicleBattVoltageAdc_IRQ_StartEx,"ax",%progbits
+ 268              		.align	2
+ 269              		.global	VehicleBattVoltageAdc_IRQ_StartEx
+ 270              		.thumb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 12
+
+
+ 271              		.thumb_func
+ 272              		.type	VehicleBattVoltageAdc_IRQ_StartEx, %function
+ 273              	VehicleBattVoltageAdc_IRQ_StartEx:
+ 274              	.LFB1:
+ 105:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* For all we know the interrupt is active. */
+ 275              		.loc 1 105 0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              	.LVL11:
+ 280 0000 10B5     		push	{r4, lr}
+ 281              		.cfi_def_cfa_offset 8
+ 282              		.cfi_offset 4, -8
+ 283              		.cfi_offset 14, -4
+ 284 0002 0446     		mov	r4, r0
+ 107:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 285              		.loc 1 107 0
+ 286 0004 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_Disable
+ 287              	.LVL12:
+ 110:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 288              		.loc 1 110 0
+ 289 0008 2046     		mov	r0, r4
+ 290 000a FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_SetVector
+ 291              	.LVL13:
+ 113:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 292              		.loc 1 113 0
+ 293 000e 0720     		movs	r0, #7
+ 294 0010 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_SetPriority
+ 295              	.LVL14:
+ 116:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 296              		.loc 1 116 0
+ 297 0014 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_Enable
+ 298              	.LVL15:
+ 299 0018 10BD     		pop	{r4, pc}
+ 300              		.cfi_endproc
+ 301              	.LFE1:
+ 302              		.size	VehicleBattVoltageAdc_IRQ_StartEx, .-VehicleBattVoltageAdc_IRQ_StartEx
+ 303 001a 00BF     		.section	.text.VehicleBattVoltageAdc_IRQ_Stop,"ax",%progbits
+ 304              		.align	2
+ 305              		.global	VehicleBattVoltageAdc_IRQ_Stop
+ 306              		.thumb
+ 307              		.thumb_func
+ 308              		.type	VehicleBattVoltageAdc_IRQ_Stop, %function
+ 309              	VehicleBattVoltageAdc_IRQ_Stop:
+ 310              	.LFB2:
+ 135:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     /* Disable this interrupt. */
+ 311              		.loc 1 135 0
+ 312              		.cfi_startproc
+ 313              		@ args = 0, pretend = 0, frame = 0
+ 314              		@ frame_needed = 0, uses_anonymous_args = 0
+ 315 0000 08B5     		push	{r3, lr}
+ 316              		.cfi_def_cfa_offset 8
+ 317              		.cfi_offset 3, -8
+ 318              		.cfi_offset 14, -4
+ 137:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 319              		.loc 1 137 0
+ 320 0002 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_Disable
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 13
+
+
+ 321              	.LVL16:
+ 140:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 322              		.loc 1 140 0
+ 323 0006 0248     		ldr	r0, .L33
+ 324 0008 FFF7FEFF 		bl	VehicleBattVoltageAdc_IRQ_SetVector
+ 325              	.LVL17:
+ 326 000c 08BD     		pop	{r3, pc}
+ 327              	.L34:
+ 328 000e 00BF     		.align	2
+ 329              	.L33:
+ 330 0010 00000000 		.word	IntDefaultHandler
+ 331              		.cfi_endproc
+ 332              	.LFE2:
+ 333              		.size	VehicleBattVoltageAdc_IRQ_Stop, .-VehicleBattVoltageAdc_IRQ_Stop
+ 334              		.section	.text.VehicleBattVoltageAdc_IRQ_SetPending,"ax",%progbits
+ 335              		.align	2
+ 336              		.global	VehicleBattVoltageAdc_IRQ_SetPending
+ 337              		.thumb
+ 338              		.thumb_func
+ 339              		.type	VehicleBattVoltageAdc_IRQ_SetPending, %function
+ 340              	VehicleBattVoltageAdc_IRQ_SetPending:
+ 341              	.LFB11:
+ 353:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 354:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 355:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 356:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 357:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_SetPending
+ 358:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 359:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 360:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 361:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 362:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   generating the interrupt.
+ 363:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 364:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 365:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 366:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 367:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 368:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 369:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 370:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Side Effects:
+ 371:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   If interrupts are enabled and the interrupt is set up properly, the ISR is
+ 372:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   entered (depending on the priority of this interrupt and other pending 
+ 373:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   interrupts).
+ 374:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 375:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 376:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_SetPending(void)
+ 377:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 342              		.loc 1 377 0
+ 343              		.cfi_startproc
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346              		@ link register save eliminated.
+ 378:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     *VehicleBattVoltageAdc_IRQ_INTC_SET_PD = VehicleBattVoltageAdc_IRQ__INTC_MASK;
+ 347              		.loc 1 378 0
+ 348 0000 0422     		movs	r2, #4
+ 349 0002 014B     		ldr	r3, .L36
+ 350 0004 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 14
+
+
+ 351 0006 7047     		bx	lr
+ 352              	.L37:
+ 353              		.align	2
+ 354              	.L36:
+ 355 0008 00E200E0 		.word	-536813056
+ 356              		.cfi_endproc
+ 357              	.LFE11:
+ 358              		.size	VehicleBattVoltageAdc_IRQ_SetPending, .-VehicleBattVoltageAdc_IRQ_SetPending
+ 359              		.section	.text.VehicleBattVoltageAdc_IRQ_ClearPending,"ax",%progbits
+ 360              		.align	2
+ 361              		.global	VehicleBattVoltageAdc_IRQ_ClearPending
+ 362              		.thumb
+ 363              		.thumb_func
+ 364              		.type	VehicleBattVoltageAdc_IRQ_ClearPending, %function
+ 365              	VehicleBattVoltageAdc_IRQ_ClearPending:
+ 366              	.LFB12:
+ 379:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** }
+ 380:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 381:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** 
+ 382:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** /*******************************************************************************
+ 383:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Function Name: VehicleBattVoltageAdc_IRQ_ClearPending
+ 384:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** ********************************************************************************
+ 385:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 386:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Summary:
+ 387:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Clears a pending interrupt in the interrupt controller.
+ 388:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 389:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   Note Some interrupt sources are clear-on-read and require the block 
+ 390:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   interrupt/status register to be read/cleared with the appropriate block API 
+ 391:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   (GPIO, UART, and so on). Otherwise the ISR will continue to remain in 
+ 392:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   pending state even though the interrupt itself is cleared using this API.
+ 393:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 394:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Parameters:
+ 395:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 396:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 397:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** * Return:
+ 398:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *   None
+ 399:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *
+ 400:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** *******************************************************************************/
+ 401:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** void VehicleBattVoltageAdc_IRQ_ClearPending(void)
+ 402:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c **** {
+ 367              		.loc 1 402 0
+ 368              		.cfi_startproc
+ 369              		@ args = 0, pretend = 0, frame = 0
+ 370              		@ frame_needed = 0, uses_anonymous_args = 0
+ 371              		@ link register save eliminated.
+ 403:Generated_Source\PSoC5/VehicleBattVoltageAdc_IRQ.c ****     *VehicleBattVoltageAdc_IRQ_INTC_CLR_PD = VehicleBattVoltageAdc_IRQ__INTC_MASK;
+ 372              		.loc 1 403 0
+ 373 0000 0422     		movs	r2, #4
+ 374 0002 014B     		ldr	r3, .L39
+ 375 0004 1A60     		str	r2, [r3]
+ 376 0006 7047     		bx	lr
+ 377              	.L40:
+ 378              		.align	2
+ 379              	.L39:
+ 380 0008 80E200E0 		.word	-536812928
+ 381              		.cfi_endproc
+ 382              	.LFE12:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 15
+
+
+ 383              		.size	VehicleBattVoltageAdc_IRQ_ClearPending, .-VehicleBattVoltageAdc_IRQ_ClearPending
+ 384              		.global	tessst
+ 385              		.bss
+ 386              		.type	tessst, %object
+ 387              		.size	tessst, 1
+ 388              	tessst:
+ 389 0000 00       		.space	1
+ 390              		.text
+ 391              	.Letext0:
+ 392              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 393              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 394              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 395              		.section	.debug_info,"",%progbits
+ 396              	.Ldebug_info0:
+ 397 0000 FA020000 		.4byte	0x2fa
+ 398 0004 0400     		.2byte	0x4
+ 399 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 400 000a 04       		.byte	0x4
+ 401 000b 01       		.uleb128 0x1
+ 402 000c 22010000 		.4byte	.LASF36
+ 403 0010 0C       		.byte	0xc
+ 404 0011 FA020000 		.4byte	.LASF37
+ 405 0015 2D030000 		.4byte	.LASF38
+ 406 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 407 001d 00000000 		.4byte	0
+ 408 0021 00000000 		.4byte	.Ldebug_line0
+ 409 0025 02       		.uleb128 0x2
+ 410 0026 04       		.byte	0x4
+ 411 0027 05       		.byte	0x5
+ 412 0028 696E7400 		.ascii	"int\000"
+ 413 002c 03       		.uleb128 0x3
+ 414 002d 04       		.byte	0x4
+ 415 002e 07       		.byte	0x7
+ 416 002f 92000000 		.4byte	.LASF0
+ 417 0033 03       		.uleb128 0x3
+ 418 0034 08       		.byte	0x8
+ 419 0035 05       		.byte	0x5
+ 420 0036 B6020000 		.4byte	.LASF1
+ 421 003a 03       		.uleb128 0x3
+ 422 003b 08       		.byte	0x8
+ 423 003c 04       		.byte	0x4
+ 424 003d 8B030000 		.4byte	.LASF2
+ 425 0041 03       		.uleb128 0x3
+ 426 0042 01       		.byte	0x1
+ 427 0043 06       		.byte	0x6
+ 428 0044 97030000 		.4byte	.LASF3
+ 429 0048 04       		.uleb128 0x4
+ 430 0049 29000000 		.4byte	.LASF12
+ 431 004d 02       		.byte	0x2
+ 432 004e 1D       		.byte	0x1d
+ 433 004f 53000000 		.4byte	0x53
+ 434 0053 03       		.uleb128 0x3
+ 435 0054 01       		.byte	0x1
+ 436 0055 08       		.byte	0x8
+ 437 0056 14010000 		.4byte	.LASF4
+ 438 005a 03       		.uleb128 0x3
+ 439 005b 02       		.byte	0x2
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 16
+
+
+ 440 005c 05       		.byte	0x5
+ 441 005d 61030000 		.4byte	.LASF5
+ 442 0061 03       		.uleb128 0x3
+ 443 0062 02       		.byte	0x2
+ 444 0063 07       		.byte	0x7
+ 445 0064 60000000 		.4byte	.LASF6
+ 446 0068 03       		.uleb128 0x3
+ 447 0069 04       		.byte	0x4
+ 448 006a 05       		.byte	0x5
+ 449 006b 57000000 		.4byte	.LASF7
+ 450 006f 03       		.uleb128 0x3
+ 451 0070 04       		.byte	0x4
+ 452 0071 07       		.byte	0x7
+ 453 0072 B7010000 		.4byte	.LASF8
+ 454 0076 03       		.uleb128 0x3
+ 455 0077 08       		.byte	0x8
+ 456 0078 07       		.byte	0x7
+ 457 0079 7C020000 		.4byte	.LASF9
+ 458 007d 03       		.uleb128 0x3
+ 459 007e 04       		.byte	0x4
+ 460 007f 07       		.byte	0x7
+ 461 0080 AD020000 		.4byte	.LASF10
+ 462 0084 03       		.uleb128 0x3
+ 463 0085 01       		.byte	0x1
+ 464 0086 08       		.byte	0x8
+ 465 0087 E6020000 		.4byte	.LASF11
+ 466 008b 05       		.uleb128 0x5
+ 467 008c 04       		.byte	0x4
+ 468 008d 91000000 		.4byte	0x91
+ 469 0091 06       		.uleb128 0x6
+ 470 0092 04       		.uleb128 0x4
+ 471 0093 93020000 		.4byte	.LASF13
+ 472 0097 03       		.byte	0x3
+ 473 0098 18       		.byte	0x18
+ 474 0099 48000000 		.4byte	0x48
+ 475 009d 07       		.uleb128 0x7
+ 476 009e F0010000 		.4byte	.LASF14
+ 477 00a2 04       		.byte	0x4
+ 478 00a3 E901     		.2byte	0x1e9
+ 479 00a5 53000000 		.4byte	0x53
+ 480 00a9 07       		.uleb128 0x7
+ 481 00aa 27020000 		.4byte	.LASF15
+ 482 00ae 04       		.byte	0x4
+ 483 00af EB01     		.2byte	0x1eb
+ 484 00b1 6F000000 		.4byte	0x6f
+ 485 00b5 03       		.uleb128 0x3
+ 486 00b6 04       		.byte	0x4
+ 487 00b7 04       		.byte	0x4
+ 488 00b8 0E010000 		.4byte	.LASF16
+ 489 00bc 03       		.uleb128 0x3
+ 490 00bd 08       		.byte	0x8
+ 491 00be 04       		.byte	0x4
+ 492 00bf 20020000 		.4byte	.LASF17
+ 493 00c3 07       		.uleb128 0x7
+ 494 00c4 A8020000 		.4byte	.LASF18
+ 495 00c8 04       		.byte	0x4
+ 496 00c9 9302     		.2byte	0x293
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 17
+
+
+ 497 00cb CF000000 		.4byte	0xcf
+ 498 00cf 08       		.uleb128 0x8
+ 499 00d0 9D000000 		.4byte	0x9d
+ 500 00d4 07       		.uleb128 0x7
+ 501 00d5 23000000 		.4byte	.LASF19
+ 502 00d9 04       		.byte	0x4
+ 503 00da 9502     		.2byte	0x295
+ 504 00dc E0000000 		.4byte	0xe0
+ 505 00e0 08       		.uleb128 0x8
+ 506 00e1 A9000000 		.4byte	0xa9
+ 507 00e5 07       		.uleb128 0x7
+ 508 00e6 9B020000 		.4byte	.LASF20
+ 509 00ea 04       		.byte	0x4
+ 510 00eb A502     		.2byte	0x2a5
+ 511 00ed 8B000000 		.4byte	0x8b
+ 512 00f1 09       		.uleb128 0x9
+ 513 00f2 33000000 		.4byte	.LASF28
+ 514 00f6 01       		.byte	0x1
+ 515 00f7 A0       		.byte	0xa0
+ 516 00f8 00000000 		.4byte	.LFB3
+ 517 00fc 02000000 		.4byte	.LFE3-.LFB3
+ 518 0100 01       		.uleb128 0x1
+ 519 0101 9C       		.byte	0x9c
+ 520 0102 0A       		.uleb128 0xa
+ 521 0103 9F000000 		.4byte	.LASF22
+ 522 0107 01       		.byte	0x1
+ 523 0108 C8       		.byte	0xc8
+ 524 0109 00000000 		.4byte	.LFB4
+ 525 010d 0C000000 		.4byte	.LFE4-.LFB4
+ 526 0111 01       		.uleb128 0x1
+ 527 0112 9C       		.byte	0x9c
+ 528 0113 32010000 		.4byte	0x132
+ 529 0117 0B       		.uleb128 0xb
+ 530 0118 74020000 		.4byte	.LASF24
+ 531 011c 01       		.byte	0x1
+ 532 011d C8       		.byte	0xc8
+ 533 011e E5000000 		.4byte	0xe5
+ 534 0122 01       		.uleb128 0x1
+ 535 0123 50       		.byte	0x50
+ 536 0124 0C       		.uleb128 0xc
+ 537 0125 EB020000 		.4byte	.LASF21
+ 538 0129 01       		.byte	0x1
+ 539 012a CA       		.byte	0xca
+ 540 012b 32010000 		.4byte	0x132
+ 541 012f 01       		.uleb128 0x1
+ 542 0130 53       		.byte	0x53
+ 543 0131 00       		.byte	0
+ 544 0132 05       		.uleb128 0x5
+ 545 0133 04       		.byte	0x4
+ 546 0134 E5000000 		.4byte	0xe5
+ 547 0138 0D       		.uleb128 0xd
+ 548 0139 50020000 		.4byte	.LASF26
+ 549 013d 01       		.byte	0x1
+ 550 013e E0       		.byte	0xe0
+ 551 013f E5000000 		.4byte	0xe5
+ 552 0143 00000000 		.4byte	.LFB5
+ 553 0147 0C000000 		.4byte	.LFE5-.LFB5
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 18
+
+
+ 554 014b 01       		.uleb128 0x1
+ 555 014c 9C       		.byte	0x9c
+ 556 014d 5F010000 		.4byte	0x15f
+ 557 0151 0C       		.uleb128 0xc
+ 558 0152 EB020000 		.4byte	.LASF21
+ 559 0156 01       		.byte	0x1
+ 560 0157 E2       		.byte	0xe2
+ 561 0158 32010000 		.4byte	0x132
+ 562 015c 01       		.uleb128 0x1
+ 563 015d 53       		.byte	0x53
+ 564 015e 00       		.byte	0
+ 565 015f 0E       		.uleb128 0xe
+ 566 0160 C3000000 		.4byte	.LASF23
+ 567 0164 01       		.byte	0x1
+ 568 0165 0201     		.2byte	0x102
+ 569 0167 00000000 		.4byte	.LFB6
+ 570 016b 10000000 		.4byte	.LFE6-.LFB6
+ 571 016f 01       		.uleb128 0x1
+ 572 0170 9C       		.byte	0x9c
+ 573 0171 86010000 		.4byte	0x186
+ 574 0175 0F       		.uleb128 0xf
+ 575 0176 17020000 		.4byte	.LASF25
+ 576 017a 01       		.byte	0x1
+ 577 017b 0201     		.2byte	0x102
+ 578 017d 9D000000 		.4byte	0x9d
+ 579 0181 00000000 		.4byte	.LLST0
+ 580 0185 00       		.byte	0
+ 581 0186 10       		.uleb128 0x10
+ 582 0187 A3030000 		.4byte	.LASF27
+ 583 018b 01       		.byte	0x1
+ 584 018c 1801     		.2byte	0x118
+ 585 018e 9D000000 		.4byte	0x9d
+ 586 0192 00000000 		.4byte	.LFB7
+ 587 0196 0C000000 		.4byte	.LFE7-.LFB7
+ 588 019a 01       		.uleb128 0x1
+ 589 019b 9C       		.byte	0x9c
+ 590 019c B1010000 		.4byte	0x1b1
+ 591 01a0 11       		.uleb128 0x11
+ 592 01a1 17020000 		.4byte	.LASF25
+ 593 01a5 01       		.byte	0x1
+ 594 01a6 1A01     		.2byte	0x11a
+ 595 01a8 9D000000 		.4byte	0x9d
+ 596 01ac 21000000 		.4byte	.LLST1
+ 597 01b0 00       		.byte	0
+ 598 01b1 12       		.uleb128 0x12
+ 599 01b2 F6010000 		.4byte	.LASF29
+ 600 01b6 01       		.byte	0x1
+ 601 01b7 3301     		.2byte	0x133
+ 602 01b9 00000000 		.4byte	.LFB8
+ 603 01bd 0C000000 		.4byte	.LFE8-.LFB8
+ 604 01c1 01       		.uleb128 0x1
+ 605 01c2 9C       		.byte	0x9c
+ 606 01c3 13       		.uleb128 0x13
+ 607 01c4 00000000 		.4byte	.LASF39
+ 608 01c8 01       		.byte	0x1
+ 609 01c9 4801     		.2byte	0x148
+ 610 01cb 9D000000 		.4byte	0x9d
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 19
+
+
+ 611 01cf 00000000 		.4byte	.LFB9
+ 612 01d3 18000000 		.4byte	.LFE9-.LFB9
+ 613 01d7 01       		.uleb128 0x1
+ 614 01d8 9C       		.byte	0x9c
+ 615 01d9 12       		.uleb128 0x12
+ 616 01da C4020000 		.4byte	.LASF30
+ 617 01de 01       		.byte	0x1
+ 618 01df 5D01     		.2byte	0x15d
+ 619 01e1 00000000 		.4byte	.LFB10
+ 620 01e5 0C000000 		.4byte	.LFE10-.LFB10
+ 621 01e9 01       		.uleb128 0x1
+ 622 01ea 9C       		.byte	0x9c
+ 623 01eb 0A       		.uleb128 0xa
+ 624 01ec 6B030000 		.4byte	.LASF31
+ 625 01f0 01       		.byte	0x1
+ 626 01f1 3D       		.byte	0x3d
+ 627 01f2 00000000 		.4byte	.LFB0
+ 628 01f6 1C000000 		.4byte	.LFE0-.LFB0
+ 629 01fa 01       		.uleb128 0x1
+ 630 01fb 9C       		.byte	0x9c
+ 631 01fc 3D020000 		.4byte	0x23d
+ 632 0200 14       		.uleb128 0x14
+ 633 0201 06000000 		.4byte	.LVL7
+ 634 0205 D9010000 		.4byte	0x1d9
+ 635 0209 15       		.uleb128 0x15
+ 636 020a 0C000000 		.4byte	.LVL8
+ 637 020e 02010000 		.4byte	0x102
+ 638 0212 20020000 		.4byte	0x220
+ 639 0216 16       		.uleb128 0x16
+ 640 0217 01       		.uleb128 0x1
+ 641 0218 50       		.byte	0x50
+ 642 0219 05       		.uleb128 0x5
+ 643 021a 03       		.byte	0x3
+ 644 021b 00000000 		.4byte	VehicleBattVoltageAdc_IRQ_Interrupt
+ 645 021f 00       		.byte	0
+ 646 0220 15       		.uleb128 0x15
+ 647 0221 12000000 		.4byte	.LVL9
+ 648 0225 5F010000 		.4byte	0x15f
+ 649 0229 33020000 		.4byte	0x233
+ 650 022d 16       		.uleb128 0x16
+ 651 022e 01       		.uleb128 0x1
+ 652 022f 50       		.byte	0x50
+ 653 0230 01       		.uleb128 0x1
+ 654 0231 37       		.byte	0x37
+ 655 0232 00       		.byte	0
+ 656 0233 14       		.uleb128 0x14
+ 657 0234 16000000 		.4byte	.LVL10
+ 658 0238 B1010000 		.4byte	0x1b1
+ 659 023c 00       		.byte	0
+ 660 023d 0A       		.uleb128 0xa
+ 661 023e 2E020000 		.4byte	.LASF32
+ 662 0242 01       		.byte	0x1
+ 663 0243 68       		.byte	0x68
+ 664 0244 00000000 		.4byte	.LFB1
+ 665 0248 1A000000 		.4byte	.LFE1-.LFB1
+ 666 024c 01       		.uleb128 0x1
+ 667 024d 9C       		.byte	0x9c
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 20
+
+
+ 668 024e 9B020000 		.4byte	0x29b
+ 669 0252 17       		.uleb128 0x17
+ 670 0253 74020000 		.4byte	.LASF24
+ 671 0257 01       		.byte	0x1
+ 672 0258 68       		.byte	0x68
+ 673 0259 E5000000 		.4byte	0xe5
+ 674 025d 38000000 		.4byte	.LLST2
+ 675 0261 14       		.uleb128 0x14
+ 676 0262 08000000 		.4byte	.LVL12
+ 677 0266 D9010000 		.4byte	0x1d9
+ 678 026a 15       		.uleb128 0x15
+ 679 026b 0E000000 		.4byte	.LVL13
+ 680 026f 02010000 		.4byte	0x102
+ 681 0273 7E020000 		.4byte	0x27e
+ 682 0277 16       		.uleb128 0x16
+ 683 0278 01       		.uleb128 0x1
+ 684 0279 50       		.byte	0x50
+ 685 027a 02       		.uleb128 0x2
+ 686 027b 74       		.byte	0x74
+ 687 027c 00       		.sleb128 0
+ 688 027d 00       		.byte	0
+ 689 027e 15       		.uleb128 0x15
+ 690 027f 14000000 		.4byte	.LVL14
+ 691 0283 5F010000 		.4byte	0x15f
+ 692 0287 91020000 		.4byte	0x291
+ 693 028b 16       		.uleb128 0x16
+ 694 028c 01       		.uleb128 0x1
+ 695 028d 50       		.byte	0x50
+ 696 028e 01       		.uleb128 0x1
+ 697 028f 37       		.byte	0x37
+ 698 0290 00       		.byte	0
+ 699 0291 14       		.uleb128 0x14
+ 700 0292 18000000 		.4byte	.LVL15
+ 701 0296 B1010000 		.4byte	0x1b1
+ 702 029a 00       		.byte	0
+ 703 029b 0A       		.uleb128 0xa
+ 704 029c 73000000 		.4byte	.LASF33
+ 705 02a0 01       		.byte	0x1
+ 706 02a1 86       		.byte	0x86
+ 707 02a2 00000000 		.4byte	.LFB2
+ 708 02a6 14000000 		.4byte	.LFE2-.LFB2
+ 709 02aa 01       		.uleb128 0x1
+ 710 02ab 9C       		.byte	0x9c
+ 711 02ac C3020000 		.4byte	0x2c3
+ 712 02b0 14       		.uleb128 0x14
+ 713 02b1 06000000 		.4byte	.LVL16
+ 714 02b5 D9010000 		.4byte	0x1d9
+ 715 02b9 14       		.uleb128 0x14
+ 716 02ba 0C000000 		.4byte	.LVL17
+ 717 02be 02010000 		.4byte	0x102
+ 718 02c2 00       		.byte	0
+ 719 02c3 12       		.uleb128 0x12
+ 720 02c4 E9000000 		.4byte	.LASF34
+ 721 02c8 01       		.byte	0x1
+ 722 02c9 7801     		.2byte	0x178
+ 723 02cb 00000000 		.4byte	.LFB11
+ 724 02cf 0C000000 		.4byte	.LFE11-.LFB11
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 21
+
+
+ 725 02d3 01       		.uleb128 0x1
+ 726 02d4 9C       		.byte	0x9c
+ 727 02d5 12       		.uleb128 0x12
+ 728 02d6 C9010000 		.4byte	.LASF35
+ 729 02da 01       		.byte	0x1
+ 730 02db 9101     		.2byte	0x191
+ 731 02dd 00000000 		.4byte	.LFB12
+ 732 02e1 0C000000 		.4byte	.LFE12-.LFB12
+ 733 02e5 01       		.uleb128 0x1
+ 734 02e6 9C       		.byte	0x9c
+ 735 02e7 18       		.uleb128 0x18
+ 736 02e8 B0010000 		.4byte	.LASF40
+ 737 02ec 01       		.byte	0x1
+ 738 02ed 1E       		.byte	0x1e
+ 739 02ee F8020000 		.4byte	0x2f8
+ 740 02f2 05       		.uleb128 0x5
+ 741 02f3 03       		.byte	0x3
+ 742 02f4 00000000 		.4byte	tessst
+ 743 02f8 08       		.uleb128 0x8
+ 744 02f9 92000000 		.4byte	0x92
+ 745 02fd 00       		.byte	0
+ 746              		.section	.debug_abbrev,"",%progbits
+ 747              	.Ldebug_abbrev0:
+ 748 0000 01       		.uleb128 0x1
+ 749 0001 11       		.uleb128 0x11
+ 750 0002 01       		.byte	0x1
+ 751 0003 25       		.uleb128 0x25
+ 752 0004 0E       		.uleb128 0xe
+ 753 0005 13       		.uleb128 0x13
+ 754 0006 0B       		.uleb128 0xb
+ 755 0007 03       		.uleb128 0x3
+ 756 0008 0E       		.uleb128 0xe
+ 757 0009 1B       		.uleb128 0x1b
+ 758 000a 0E       		.uleb128 0xe
+ 759 000b 55       		.uleb128 0x55
+ 760 000c 17       		.uleb128 0x17
+ 761 000d 11       		.uleb128 0x11
+ 762 000e 01       		.uleb128 0x1
+ 763 000f 10       		.uleb128 0x10
+ 764 0010 17       		.uleb128 0x17
+ 765 0011 00       		.byte	0
+ 766 0012 00       		.byte	0
+ 767 0013 02       		.uleb128 0x2
+ 768 0014 24       		.uleb128 0x24
+ 769 0015 00       		.byte	0
+ 770 0016 0B       		.uleb128 0xb
+ 771 0017 0B       		.uleb128 0xb
+ 772 0018 3E       		.uleb128 0x3e
+ 773 0019 0B       		.uleb128 0xb
+ 774 001a 03       		.uleb128 0x3
+ 775 001b 08       		.uleb128 0x8
+ 776 001c 00       		.byte	0
+ 777 001d 00       		.byte	0
+ 778 001e 03       		.uleb128 0x3
+ 779 001f 24       		.uleb128 0x24
+ 780 0020 00       		.byte	0
+ 781 0021 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 22
+
+
+ 782 0022 0B       		.uleb128 0xb
+ 783 0023 3E       		.uleb128 0x3e
+ 784 0024 0B       		.uleb128 0xb
+ 785 0025 03       		.uleb128 0x3
+ 786 0026 0E       		.uleb128 0xe
+ 787 0027 00       		.byte	0
+ 788 0028 00       		.byte	0
+ 789 0029 04       		.uleb128 0x4
+ 790 002a 16       		.uleb128 0x16
+ 791 002b 00       		.byte	0
+ 792 002c 03       		.uleb128 0x3
+ 793 002d 0E       		.uleb128 0xe
+ 794 002e 3A       		.uleb128 0x3a
+ 795 002f 0B       		.uleb128 0xb
+ 796 0030 3B       		.uleb128 0x3b
+ 797 0031 0B       		.uleb128 0xb
+ 798 0032 49       		.uleb128 0x49
+ 799 0033 13       		.uleb128 0x13
+ 800 0034 00       		.byte	0
+ 801 0035 00       		.byte	0
+ 802 0036 05       		.uleb128 0x5
+ 803 0037 0F       		.uleb128 0xf
+ 804 0038 00       		.byte	0
+ 805 0039 0B       		.uleb128 0xb
+ 806 003a 0B       		.uleb128 0xb
+ 807 003b 49       		.uleb128 0x49
+ 808 003c 13       		.uleb128 0x13
+ 809 003d 00       		.byte	0
+ 810 003e 00       		.byte	0
+ 811 003f 06       		.uleb128 0x6
+ 812 0040 15       		.uleb128 0x15
+ 813 0041 00       		.byte	0
+ 814 0042 27       		.uleb128 0x27
+ 815 0043 19       		.uleb128 0x19
+ 816 0044 00       		.byte	0
+ 817 0045 00       		.byte	0
+ 818 0046 07       		.uleb128 0x7
+ 819 0047 16       		.uleb128 0x16
+ 820 0048 00       		.byte	0
+ 821 0049 03       		.uleb128 0x3
+ 822 004a 0E       		.uleb128 0xe
+ 823 004b 3A       		.uleb128 0x3a
+ 824 004c 0B       		.uleb128 0xb
+ 825 004d 3B       		.uleb128 0x3b
+ 826 004e 05       		.uleb128 0x5
+ 827 004f 49       		.uleb128 0x49
+ 828 0050 13       		.uleb128 0x13
+ 829 0051 00       		.byte	0
+ 830 0052 00       		.byte	0
+ 831 0053 08       		.uleb128 0x8
+ 832 0054 35       		.uleb128 0x35
+ 833 0055 00       		.byte	0
+ 834 0056 49       		.uleb128 0x49
+ 835 0057 13       		.uleb128 0x13
+ 836 0058 00       		.byte	0
+ 837 0059 00       		.byte	0
+ 838 005a 09       		.uleb128 0x9
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 23
+
+
+ 839 005b 2E       		.uleb128 0x2e
+ 840 005c 00       		.byte	0
+ 841 005d 3F       		.uleb128 0x3f
+ 842 005e 19       		.uleb128 0x19
+ 843 005f 03       		.uleb128 0x3
+ 844 0060 0E       		.uleb128 0xe
+ 845 0061 3A       		.uleb128 0x3a
+ 846 0062 0B       		.uleb128 0xb
+ 847 0063 3B       		.uleb128 0x3b
+ 848 0064 0B       		.uleb128 0xb
+ 849 0065 27       		.uleb128 0x27
+ 850 0066 19       		.uleb128 0x19
+ 851 0067 11       		.uleb128 0x11
+ 852 0068 01       		.uleb128 0x1
+ 853 0069 12       		.uleb128 0x12
+ 854 006a 06       		.uleb128 0x6
+ 855 006b 40       		.uleb128 0x40
+ 856 006c 18       		.uleb128 0x18
+ 857 006d 9742     		.uleb128 0x2117
+ 858 006f 19       		.uleb128 0x19
+ 859 0070 00       		.byte	0
+ 860 0071 00       		.byte	0
+ 861 0072 0A       		.uleb128 0xa
+ 862 0073 2E       		.uleb128 0x2e
+ 863 0074 01       		.byte	0x1
+ 864 0075 3F       		.uleb128 0x3f
+ 865 0076 19       		.uleb128 0x19
+ 866 0077 03       		.uleb128 0x3
+ 867 0078 0E       		.uleb128 0xe
+ 868 0079 3A       		.uleb128 0x3a
+ 869 007a 0B       		.uleb128 0xb
+ 870 007b 3B       		.uleb128 0x3b
+ 871 007c 0B       		.uleb128 0xb
+ 872 007d 27       		.uleb128 0x27
+ 873 007e 19       		.uleb128 0x19
+ 874 007f 11       		.uleb128 0x11
+ 875 0080 01       		.uleb128 0x1
+ 876 0081 12       		.uleb128 0x12
+ 877 0082 06       		.uleb128 0x6
+ 878 0083 40       		.uleb128 0x40
+ 879 0084 18       		.uleb128 0x18
+ 880 0085 9742     		.uleb128 0x2117
+ 881 0087 19       		.uleb128 0x19
+ 882 0088 01       		.uleb128 0x1
+ 883 0089 13       		.uleb128 0x13
+ 884 008a 00       		.byte	0
+ 885 008b 00       		.byte	0
+ 886 008c 0B       		.uleb128 0xb
+ 887 008d 05       		.uleb128 0x5
+ 888 008e 00       		.byte	0
+ 889 008f 03       		.uleb128 0x3
+ 890 0090 0E       		.uleb128 0xe
+ 891 0091 3A       		.uleb128 0x3a
+ 892 0092 0B       		.uleb128 0xb
+ 893 0093 3B       		.uleb128 0x3b
+ 894 0094 0B       		.uleb128 0xb
+ 895 0095 49       		.uleb128 0x49
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 24
+
+
+ 896 0096 13       		.uleb128 0x13
+ 897 0097 02       		.uleb128 0x2
+ 898 0098 18       		.uleb128 0x18
+ 899 0099 00       		.byte	0
+ 900 009a 00       		.byte	0
+ 901 009b 0C       		.uleb128 0xc
+ 902 009c 34       		.uleb128 0x34
+ 903 009d 00       		.byte	0
+ 904 009e 03       		.uleb128 0x3
+ 905 009f 0E       		.uleb128 0xe
+ 906 00a0 3A       		.uleb128 0x3a
+ 907 00a1 0B       		.uleb128 0xb
+ 908 00a2 3B       		.uleb128 0x3b
+ 909 00a3 0B       		.uleb128 0xb
+ 910 00a4 49       		.uleb128 0x49
+ 911 00a5 13       		.uleb128 0x13
+ 912 00a6 02       		.uleb128 0x2
+ 913 00a7 18       		.uleb128 0x18
+ 914 00a8 00       		.byte	0
+ 915 00a9 00       		.byte	0
+ 916 00aa 0D       		.uleb128 0xd
+ 917 00ab 2E       		.uleb128 0x2e
+ 918 00ac 01       		.byte	0x1
+ 919 00ad 3F       		.uleb128 0x3f
+ 920 00ae 19       		.uleb128 0x19
+ 921 00af 03       		.uleb128 0x3
+ 922 00b0 0E       		.uleb128 0xe
+ 923 00b1 3A       		.uleb128 0x3a
+ 924 00b2 0B       		.uleb128 0xb
+ 925 00b3 3B       		.uleb128 0x3b
+ 926 00b4 0B       		.uleb128 0xb
+ 927 00b5 27       		.uleb128 0x27
+ 928 00b6 19       		.uleb128 0x19
+ 929 00b7 49       		.uleb128 0x49
+ 930 00b8 13       		.uleb128 0x13
+ 931 00b9 11       		.uleb128 0x11
+ 932 00ba 01       		.uleb128 0x1
+ 933 00bb 12       		.uleb128 0x12
+ 934 00bc 06       		.uleb128 0x6
+ 935 00bd 40       		.uleb128 0x40
+ 936 00be 18       		.uleb128 0x18
+ 937 00bf 9742     		.uleb128 0x2117
+ 938 00c1 19       		.uleb128 0x19
+ 939 00c2 01       		.uleb128 0x1
+ 940 00c3 13       		.uleb128 0x13
+ 941 00c4 00       		.byte	0
+ 942 00c5 00       		.byte	0
+ 943 00c6 0E       		.uleb128 0xe
+ 944 00c7 2E       		.uleb128 0x2e
+ 945 00c8 01       		.byte	0x1
+ 946 00c9 3F       		.uleb128 0x3f
+ 947 00ca 19       		.uleb128 0x19
+ 948 00cb 03       		.uleb128 0x3
+ 949 00cc 0E       		.uleb128 0xe
+ 950 00cd 3A       		.uleb128 0x3a
+ 951 00ce 0B       		.uleb128 0xb
+ 952 00cf 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 25
+
+
+ 953 00d0 05       		.uleb128 0x5
+ 954 00d1 27       		.uleb128 0x27
+ 955 00d2 19       		.uleb128 0x19
+ 956 00d3 11       		.uleb128 0x11
+ 957 00d4 01       		.uleb128 0x1
+ 958 00d5 12       		.uleb128 0x12
+ 959 00d6 06       		.uleb128 0x6
+ 960 00d7 40       		.uleb128 0x40
+ 961 00d8 18       		.uleb128 0x18
+ 962 00d9 9742     		.uleb128 0x2117
+ 963 00db 19       		.uleb128 0x19
+ 964 00dc 01       		.uleb128 0x1
+ 965 00dd 13       		.uleb128 0x13
+ 966 00de 00       		.byte	0
+ 967 00df 00       		.byte	0
+ 968 00e0 0F       		.uleb128 0xf
+ 969 00e1 05       		.uleb128 0x5
+ 970 00e2 00       		.byte	0
+ 971 00e3 03       		.uleb128 0x3
+ 972 00e4 0E       		.uleb128 0xe
+ 973 00e5 3A       		.uleb128 0x3a
+ 974 00e6 0B       		.uleb128 0xb
+ 975 00e7 3B       		.uleb128 0x3b
+ 976 00e8 05       		.uleb128 0x5
+ 977 00e9 49       		.uleb128 0x49
+ 978 00ea 13       		.uleb128 0x13
+ 979 00eb 02       		.uleb128 0x2
+ 980 00ec 17       		.uleb128 0x17
+ 981 00ed 00       		.byte	0
+ 982 00ee 00       		.byte	0
+ 983 00ef 10       		.uleb128 0x10
+ 984 00f0 2E       		.uleb128 0x2e
+ 985 00f1 01       		.byte	0x1
+ 986 00f2 3F       		.uleb128 0x3f
+ 987 00f3 19       		.uleb128 0x19
+ 988 00f4 03       		.uleb128 0x3
+ 989 00f5 0E       		.uleb128 0xe
+ 990 00f6 3A       		.uleb128 0x3a
+ 991 00f7 0B       		.uleb128 0xb
+ 992 00f8 3B       		.uleb128 0x3b
+ 993 00f9 05       		.uleb128 0x5
+ 994 00fa 27       		.uleb128 0x27
+ 995 00fb 19       		.uleb128 0x19
+ 996 00fc 49       		.uleb128 0x49
+ 997 00fd 13       		.uleb128 0x13
+ 998 00fe 11       		.uleb128 0x11
+ 999 00ff 01       		.uleb128 0x1
+ 1000 0100 12       		.uleb128 0x12
+ 1001 0101 06       		.uleb128 0x6
+ 1002 0102 40       		.uleb128 0x40
+ 1003 0103 18       		.uleb128 0x18
+ 1004 0104 9742     		.uleb128 0x2117
+ 1005 0106 19       		.uleb128 0x19
+ 1006 0107 01       		.uleb128 0x1
+ 1007 0108 13       		.uleb128 0x13
+ 1008 0109 00       		.byte	0
+ 1009 010a 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 26
+
+
+ 1010 010b 11       		.uleb128 0x11
+ 1011 010c 34       		.uleb128 0x34
+ 1012 010d 00       		.byte	0
+ 1013 010e 03       		.uleb128 0x3
+ 1014 010f 0E       		.uleb128 0xe
+ 1015 0110 3A       		.uleb128 0x3a
+ 1016 0111 0B       		.uleb128 0xb
+ 1017 0112 3B       		.uleb128 0x3b
+ 1018 0113 05       		.uleb128 0x5
+ 1019 0114 49       		.uleb128 0x49
+ 1020 0115 13       		.uleb128 0x13
+ 1021 0116 02       		.uleb128 0x2
+ 1022 0117 17       		.uleb128 0x17
+ 1023 0118 00       		.byte	0
+ 1024 0119 00       		.byte	0
+ 1025 011a 12       		.uleb128 0x12
+ 1026 011b 2E       		.uleb128 0x2e
+ 1027 011c 00       		.byte	0
+ 1028 011d 3F       		.uleb128 0x3f
+ 1029 011e 19       		.uleb128 0x19
+ 1030 011f 03       		.uleb128 0x3
+ 1031 0120 0E       		.uleb128 0xe
+ 1032 0121 3A       		.uleb128 0x3a
+ 1033 0122 0B       		.uleb128 0xb
+ 1034 0123 3B       		.uleb128 0x3b
+ 1035 0124 05       		.uleb128 0x5
+ 1036 0125 27       		.uleb128 0x27
+ 1037 0126 19       		.uleb128 0x19
+ 1038 0127 11       		.uleb128 0x11
+ 1039 0128 01       		.uleb128 0x1
+ 1040 0129 12       		.uleb128 0x12
+ 1041 012a 06       		.uleb128 0x6
+ 1042 012b 40       		.uleb128 0x40
+ 1043 012c 18       		.uleb128 0x18
+ 1044 012d 9742     		.uleb128 0x2117
+ 1045 012f 19       		.uleb128 0x19
+ 1046 0130 00       		.byte	0
+ 1047 0131 00       		.byte	0
+ 1048 0132 13       		.uleb128 0x13
+ 1049 0133 2E       		.uleb128 0x2e
+ 1050 0134 00       		.byte	0
+ 1051 0135 3F       		.uleb128 0x3f
+ 1052 0136 19       		.uleb128 0x19
+ 1053 0137 03       		.uleb128 0x3
+ 1054 0138 0E       		.uleb128 0xe
+ 1055 0139 3A       		.uleb128 0x3a
+ 1056 013a 0B       		.uleb128 0xb
+ 1057 013b 3B       		.uleb128 0x3b
+ 1058 013c 05       		.uleb128 0x5
+ 1059 013d 27       		.uleb128 0x27
+ 1060 013e 19       		.uleb128 0x19
+ 1061 013f 49       		.uleb128 0x49
+ 1062 0140 13       		.uleb128 0x13
+ 1063 0141 11       		.uleb128 0x11
+ 1064 0142 01       		.uleb128 0x1
+ 1065 0143 12       		.uleb128 0x12
+ 1066 0144 06       		.uleb128 0x6
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 27
+
+
+ 1067 0145 40       		.uleb128 0x40
+ 1068 0146 18       		.uleb128 0x18
+ 1069 0147 9742     		.uleb128 0x2117
+ 1070 0149 19       		.uleb128 0x19
+ 1071 014a 00       		.byte	0
+ 1072 014b 00       		.byte	0
+ 1073 014c 14       		.uleb128 0x14
+ 1074 014d 898201   		.uleb128 0x4109
+ 1075 0150 00       		.byte	0
+ 1076 0151 11       		.uleb128 0x11
+ 1077 0152 01       		.uleb128 0x1
+ 1078 0153 31       		.uleb128 0x31
+ 1079 0154 13       		.uleb128 0x13
+ 1080 0155 00       		.byte	0
+ 1081 0156 00       		.byte	0
+ 1082 0157 15       		.uleb128 0x15
+ 1083 0158 898201   		.uleb128 0x4109
+ 1084 015b 01       		.byte	0x1
+ 1085 015c 11       		.uleb128 0x11
+ 1086 015d 01       		.uleb128 0x1
+ 1087 015e 31       		.uleb128 0x31
+ 1088 015f 13       		.uleb128 0x13
+ 1089 0160 01       		.uleb128 0x1
+ 1090 0161 13       		.uleb128 0x13
+ 1091 0162 00       		.byte	0
+ 1092 0163 00       		.byte	0
+ 1093 0164 16       		.uleb128 0x16
+ 1094 0165 8A8201   		.uleb128 0x410a
+ 1095 0168 00       		.byte	0
+ 1096 0169 02       		.uleb128 0x2
+ 1097 016a 18       		.uleb128 0x18
+ 1098 016b 9142     		.uleb128 0x2111
+ 1099 016d 18       		.uleb128 0x18
+ 1100 016e 00       		.byte	0
+ 1101 016f 00       		.byte	0
+ 1102 0170 17       		.uleb128 0x17
+ 1103 0171 05       		.uleb128 0x5
+ 1104 0172 00       		.byte	0
+ 1105 0173 03       		.uleb128 0x3
+ 1106 0174 0E       		.uleb128 0xe
+ 1107 0175 3A       		.uleb128 0x3a
+ 1108 0176 0B       		.uleb128 0xb
+ 1109 0177 3B       		.uleb128 0x3b
+ 1110 0178 0B       		.uleb128 0xb
+ 1111 0179 49       		.uleb128 0x49
+ 1112 017a 13       		.uleb128 0x13
+ 1113 017b 02       		.uleb128 0x2
+ 1114 017c 17       		.uleb128 0x17
+ 1115 017d 00       		.byte	0
+ 1116 017e 00       		.byte	0
+ 1117 017f 18       		.uleb128 0x18
+ 1118 0180 34       		.uleb128 0x34
+ 1119 0181 00       		.byte	0
+ 1120 0182 03       		.uleb128 0x3
+ 1121 0183 0E       		.uleb128 0xe
+ 1122 0184 3A       		.uleb128 0x3a
+ 1123 0185 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 28
+
+
+ 1124 0186 3B       		.uleb128 0x3b
+ 1125 0187 0B       		.uleb128 0xb
+ 1126 0188 49       		.uleb128 0x49
+ 1127 0189 13       		.uleb128 0x13
+ 1128 018a 3F       		.uleb128 0x3f
+ 1129 018b 19       		.uleb128 0x19
+ 1130 018c 02       		.uleb128 0x2
+ 1131 018d 18       		.uleb128 0x18
+ 1132 018e 00       		.byte	0
+ 1133 018f 00       		.byte	0
+ 1134 0190 00       		.byte	0
+ 1135              		.section	.debug_loc,"",%progbits
+ 1136              	.Ldebug_loc0:
+ 1137              	.LLST0:
+ 1138 0000 00000000 		.4byte	.LVL3
+ 1139 0004 02000000 		.4byte	.LVL4
+ 1140 0008 0100     		.2byte	0x1
+ 1141 000a 50       		.byte	0x50
+ 1142 000b 02000000 		.4byte	.LVL4
+ 1143 000f 10000000 		.4byte	.LFE6
+ 1144 0013 0400     		.2byte	0x4
+ 1145 0015 F3       		.byte	0xf3
+ 1146 0016 01       		.uleb128 0x1
+ 1147 0017 50       		.byte	0x50
+ 1148 0018 9F       		.byte	0x9f
+ 1149 0019 00000000 		.4byte	0
+ 1150 001d 00000000 		.4byte	0
+ 1151              	.LLST1:
+ 1152 0021 04000000 		.4byte	.LVL5
+ 1153 0025 06000000 		.4byte	.LVL6
+ 1154 0029 0500     		.2byte	0x5
+ 1155 002b 70       		.byte	0x70
+ 1156 002c 00       		.sleb128 0
+ 1157 002d 35       		.byte	0x35
+ 1158 002e 25       		.byte	0x25
+ 1159 002f 9F       		.byte	0x9f
+ 1160 0030 00000000 		.4byte	0
+ 1161 0034 00000000 		.4byte	0
+ 1162              	.LLST2:
+ 1163 0038 00000000 		.4byte	.LVL11
+ 1164 003c 07000000 		.4byte	.LVL12-1
+ 1165 0040 0100     		.2byte	0x1
+ 1166 0042 50       		.byte	0x50
+ 1167 0043 07000000 		.4byte	.LVL12-1
+ 1168 0047 1A000000 		.4byte	.LFE1
+ 1169 004b 0100     		.2byte	0x1
+ 1170 004d 54       		.byte	0x54
+ 1171 004e 00000000 		.4byte	0
+ 1172 0052 00000000 		.4byte	0
+ 1173              		.section	.debug_aranges,"",%progbits
+ 1174 0000 7C000000 		.4byte	0x7c
+ 1175 0004 0200     		.2byte	0x2
+ 1176 0006 00000000 		.4byte	.Ldebug_info0
+ 1177 000a 04       		.byte	0x4
+ 1178 000b 00       		.byte	0
+ 1179 000c 0000     		.2byte	0
+ 1180 000e 0000     		.2byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 29
+
+
+ 1181 0010 00000000 		.4byte	.LFB3
+ 1182 0014 02000000 		.4byte	.LFE3-.LFB3
+ 1183 0018 00000000 		.4byte	.LFB4
+ 1184 001c 0C000000 		.4byte	.LFE4-.LFB4
+ 1185 0020 00000000 		.4byte	.LFB5
+ 1186 0024 0C000000 		.4byte	.LFE5-.LFB5
+ 1187 0028 00000000 		.4byte	.LFB6
+ 1188 002c 10000000 		.4byte	.LFE6-.LFB6
+ 1189 0030 00000000 		.4byte	.LFB7
+ 1190 0034 0C000000 		.4byte	.LFE7-.LFB7
+ 1191 0038 00000000 		.4byte	.LFB8
+ 1192 003c 0C000000 		.4byte	.LFE8-.LFB8
+ 1193 0040 00000000 		.4byte	.LFB9
+ 1194 0044 18000000 		.4byte	.LFE9-.LFB9
+ 1195 0048 00000000 		.4byte	.LFB10
+ 1196 004c 0C000000 		.4byte	.LFE10-.LFB10
+ 1197 0050 00000000 		.4byte	.LFB0
+ 1198 0054 1C000000 		.4byte	.LFE0-.LFB0
+ 1199 0058 00000000 		.4byte	.LFB1
+ 1200 005c 1A000000 		.4byte	.LFE1-.LFB1
+ 1201 0060 00000000 		.4byte	.LFB2
+ 1202 0064 14000000 		.4byte	.LFE2-.LFB2
+ 1203 0068 00000000 		.4byte	.LFB11
+ 1204 006c 0C000000 		.4byte	.LFE11-.LFB11
+ 1205 0070 00000000 		.4byte	.LFB12
+ 1206 0074 0C000000 		.4byte	.LFE12-.LFB12
+ 1207 0078 00000000 		.4byte	0
+ 1208 007c 00000000 		.4byte	0
+ 1209              		.section	.debug_ranges,"",%progbits
+ 1210              	.Ldebug_ranges0:
+ 1211 0000 00000000 		.4byte	.LFB3
+ 1212 0004 02000000 		.4byte	.LFE3
+ 1213 0008 00000000 		.4byte	.LFB4
+ 1214 000c 0C000000 		.4byte	.LFE4
+ 1215 0010 00000000 		.4byte	.LFB5
+ 1216 0014 0C000000 		.4byte	.LFE5
+ 1217 0018 00000000 		.4byte	.LFB6
+ 1218 001c 10000000 		.4byte	.LFE6
+ 1219 0020 00000000 		.4byte	.LFB7
+ 1220 0024 0C000000 		.4byte	.LFE7
+ 1221 0028 00000000 		.4byte	.LFB8
+ 1222 002c 0C000000 		.4byte	.LFE8
+ 1223 0030 00000000 		.4byte	.LFB9
+ 1224 0034 18000000 		.4byte	.LFE9
+ 1225 0038 00000000 		.4byte	.LFB10
+ 1226 003c 0C000000 		.4byte	.LFE10
+ 1227 0040 00000000 		.4byte	.LFB0
+ 1228 0044 1C000000 		.4byte	.LFE0
+ 1229 0048 00000000 		.4byte	.LFB1
+ 1230 004c 1A000000 		.4byte	.LFE1
+ 1231 0050 00000000 		.4byte	.LFB2
+ 1232 0054 14000000 		.4byte	.LFE2
+ 1233 0058 00000000 		.4byte	.LFB11
+ 1234 005c 0C000000 		.4byte	.LFE11
+ 1235 0060 00000000 		.4byte	.LFB12
+ 1236 0064 0C000000 		.4byte	.LFE12
+ 1237 0068 00000000 		.4byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 30
+
+
+ 1238 006c 00000000 		.4byte	0
+ 1239              		.section	.debug_line,"",%progbits
+ 1240              	.Ldebug_line0:
+ 1241 0000 3F020000 		.section	.debug_str,"MS",%progbits,1
+ 1241      02005301 
+ 1241      00000201 
+ 1241      FB0E0D00 
+ 1241      01010101 
+ 1242              	.LASF39:
+ 1243 0000 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_GetState\000"
+ 1243      636C6542 
+ 1243      61747456 
+ 1243      6F6C7461 
+ 1243      67654164 
+ 1244              	.LASF19:
+ 1245 0023 72656733 		.ascii	"reg32\000"
+ 1245      3200
+ 1246              	.LASF12:
+ 1247 0029 5F5F7569 		.ascii	"__uint8_t\000"
+ 1247      6E74385F 
+ 1247      7400
+ 1248              	.LASF28:
+ 1249 0033 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_Interrupt\000"
+ 1249      636C6542 
+ 1249      61747456 
+ 1249      6F6C7461 
+ 1249      67654164 
+ 1250              	.LASF7:
+ 1251 0057 6C6F6E67 		.ascii	"long int\000"
+ 1251      20696E74 
+ 1251      00
+ 1252              	.LASF6:
+ 1253 0060 73686F72 		.ascii	"short unsigned int\000"
+ 1253      7420756E 
+ 1253      7369676E 
+ 1253      65642069 
+ 1253      6E7400
+ 1254              	.LASF33:
+ 1255 0073 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_Stop\000"
+ 1255      636C6542 
+ 1255      61747456 
+ 1255      6F6C7461 
+ 1255      67654164 
+ 1256              	.LASF0:
+ 1257 0092 756E7369 		.ascii	"unsigned int\000"
+ 1257      676E6564 
+ 1257      20696E74 
+ 1257      00
+ 1258              	.LASF22:
+ 1259 009f 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_SetVector\000"
+ 1259      636C6542 
+ 1259      61747456 
+ 1259      6F6C7461 
+ 1259      67654164 
+ 1260              	.LASF23:
+ 1261 00c3 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_SetPriority\000"
+ 1261      636C6542 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 31
+
+
+ 1261      61747456 
+ 1261      6F6C7461 
+ 1261      67654164 
+ 1262              	.LASF34:
+ 1263 00e9 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_SetPending\000"
+ 1263      636C6542 
+ 1263      61747456 
+ 1263      6F6C7461 
+ 1263      67654164 
+ 1264              	.LASF16:
+ 1265 010e 666C6F61 		.ascii	"float\000"
+ 1265      7400
+ 1266              	.LASF4:
+ 1267 0114 756E7369 		.ascii	"unsigned char\000"
+ 1267      676E6564 
+ 1267      20636861 
+ 1267      7200
+ 1268              	.LASF36:
+ 1269 0122 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1269      43313120 
+ 1269      352E342E 
+ 1269      31203230 
+ 1269      31363036 
+ 1270 0155 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1270      20726576 
+ 1270      6973696F 
+ 1270      6E203233 
+ 1270      37373135 
+ 1271 0188 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1271      66756E63 
+ 1271      74696F6E 
+ 1271      2D736563 
+ 1271      74696F6E 
+ 1272              	.LASF40:
+ 1273 01b0 74657373 		.ascii	"tessst\000"
+ 1273      737400
+ 1274              	.LASF8:
+ 1275 01b7 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1275      20756E73 
+ 1275      69676E65 
+ 1275      6420696E 
+ 1275      7400
+ 1276              	.LASF35:
+ 1277 01c9 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_ClearPending\000"
+ 1277      636C6542 
+ 1277      61747456 
+ 1277      6F6C7461 
+ 1277      67654164 
+ 1278              	.LASF14:
+ 1279 01f0 75696E74 		.ascii	"uint8\000"
+ 1279      3800
+ 1280              	.LASF29:
+ 1281 01f6 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_Enable\000"
+ 1281      636C6542 
+ 1281      61747456 
+ 1281      6F6C7461 
+ 1281      67654164 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 32
+
+
+ 1282              	.LASF25:
+ 1283 0217 7072696F 		.ascii	"priority\000"
+ 1283      72697479 
+ 1283      00
+ 1284              	.LASF17:
+ 1285 0220 646F7562 		.ascii	"double\000"
+ 1285      6C6500
+ 1286              	.LASF15:
+ 1287 0227 75696E74 		.ascii	"uint32\000"
+ 1287      333200
+ 1288              	.LASF32:
+ 1289 022e 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_StartEx\000"
+ 1289      636C6542 
+ 1289      61747456 
+ 1289      6F6C7461 
+ 1289      67654164 
+ 1290              	.LASF26:
+ 1291 0250 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_GetVector\000"
+ 1291      636C6542 
+ 1291      61747456 
+ 1291      6F6C7461 
+ 1291      67654164 
+ 1292              	.LASF24:
+ 1293 0274 61646472 		.ascii	"address\000"
+ 1293      65737300 
+ 1294              	.LASF9:
+ 1295 027c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1295      206C6F6E 
+ 1295      6720756E 
+ 1295      7369676E 
+ 1295      65642069 
+ 1296              	.LASF13:
+ 1297 0293 75696E74 		.ascii	"uint8_t\000"
+ 1297      385F7400 
+ 1298              	.LASF20:
+ 1299 029b 63796973 		.ascii	"cyisraddress\000"
+ 1299      72616464 
+ 1299      72657373 
+ 1299      00
+ 1300              	.LASF18:
+ 1301 02a8 72656738 		.ascii	"reg8\000"
+ 1301      00
+ 1302              	.LASF10:
+ 1303 02ad 73697A65 		.ascii	"sizetype\000"
+ 1303      74797065 
+ 1303      00
+ 1304              	.LASF1:
+ 1305 02b6 6C6F6E67 		.ascii	"long long int\000"
+ 1305      206C6F6E 
+ 1305      6720696E 
+ 1305      7400
+ 1306              	.LASF30:
+ 1307 02c4 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_Disable\000"
+ 1307      636C6542 
+ 1307      61747456 
+ 1307      6F6C7461 
+ 1307      67654164 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccEc71LL.s 			page 33
+
+
+ 1308              	.LASF11:
+ 1309 02e6 63686172 		.ascii	"char\000"
+ 1309      00
+ 1310              	.LASF21:
+ 1311 02eb 72616D56 		.ascii	"ramVectorTable\000"
+ 1311      6563746F 
+ 1311      72546162 
+ 1311      6C6500
+ 1312              	.LASF37:
+ 1313 02fa 47656E65 		.ascii	"Generated_Source\\PSoC5\\VehicleBattVoltageAdc_IRQ."
+ 1313      72617465 
+ 1313      645F536F 
+ 1313      75726365 
+ 1313      5C50536F 
+ 1314 032b 6300     		.ascii	"c\000"
+ 1315              	.LASF38:
+ 1316 032d 453A5C47 		.ascii	"E:\\GIT Hub Project\\protocov\\Protocov\\Protocov.c"
+ 1316      49542048 
+ 1316      75622050 
+ 1316      726F6A65 
+ 1316      63745C70 
+ 1317 035c 7964736E 		.ascii	"ydsn\000"
+ 1317      00
+ 1318              	.LASF5:
+ 1319 0361 73686F72 		.ascii	"short int\000"
+ 1319      7420696E 
+ 1319      7400
+ 1320              	.LASF31:
+ 1321 036b 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_Start\000"
+ 1321      636C6542 
+ 1321      61747456 
+ 1321      6F6C7461 
+ 1321      67654164 
+ 1322              	.LASF2:
+ 1323 038b 6C6F6E67 		.ascii	"long double\000"
+ 1323      20646F75 
+ 1323      626C6500 
+ 1324              	.LASF3:
+ 1325 0397 7369676E 		.ascii	"signed char\000"
+ 1325      65642063 
+ 1325      68617200 
+ 1326              	.LASF27:
+ 1327 03a3 56656869 		.ascii	"VehicleBattVoltageAdc_IRQ_GetPriority\000"
+ 1327      636C6542 
+ 1327      61747456 
+ 1327      6F6C7461 
+ 1327      67654164 
+ 1328              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

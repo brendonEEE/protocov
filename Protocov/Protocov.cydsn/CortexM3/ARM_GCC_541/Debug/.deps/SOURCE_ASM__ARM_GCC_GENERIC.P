@@ -1,0 +1,10 @@
+E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/CortexM3/ARM_GCC_541/Debug/CyBootAsmGnu.o : E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/cydevicegnu.inc E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/cyfittergnu.inc 
+
+E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s : 
+
+E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/cydevicegnu.inc : 
+
+E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc : 
+
+E:/GIT\ Hub\ Project/protocov/Protocov/Protocov.cydsn/Generated_Source/PSoC5/cyfittergnu.inc : 
+
