@@ -23,7 +23,7 @@ uint8_t bluetoothUserDataBuff[64];
 TickType_t bluetoothRecTimeout_ms = 5;
 
 
-TaskHandle_t xHandle = NULL;
+static TaskHandle_t xHandle = NULL;
 
 
 

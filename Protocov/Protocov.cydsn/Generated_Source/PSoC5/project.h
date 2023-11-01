@@ -53,6 +53,8 @@
 #include "Clock_2.h"
 #include "VehicleBattVoltageAdc.h"
 #include "ClockVehicleBattVoltageADC.h"
+#include "BlueLedd_aliases.h"
+#include "BlueLedd.h"
 #include "BluetoothUART_IntClock.h"
 #include "ProtocovUSB_Dm_aliases.h"
 #include "ProtocovUSB_Dm.h"

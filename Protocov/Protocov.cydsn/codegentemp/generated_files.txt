@@ -93,6 +93,9 @@
   <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\VehicleBattVoltageAdc_PM.c" value="SOURCE_C;CortexM3;;;;VehicleBattVoltageAdc" />
   <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\ClockVehicleBattVoltageADC.c" value="SOURCE_C;CortexM3;;;;ClockVehicleBattVoltageADC" />
   <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\ClockVehicleBattVoltageADC.h" value="HEADER;;;;;ClockVehicleBattVoltageADC" />
+  <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\BlueLedd_aliases.h" value="HEADER;;;;;BlueLedd" />
+  <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\BlueLedd.c" value="SOURCE_C;CortexM3;;;;BlueLedd" />
+  <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\BlueLedd.h" value="HEADER;;;;;BlueLedd" />
   <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\BluetoothUART_IntClock.c" value="SOURCE_C;CortexM3;;;;BluetoothUART_IntClock" />
   <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\BluetoothUART_IntClock.h" value="HEADER;;;;;BluetoothUART_IntClock" />
   <file name="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\codegentemp\ProtocovUSB_Dm_aliases.h" value="HEADER;;;;;ProtocovUSB_Dm" />

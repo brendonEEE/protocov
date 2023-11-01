@@ -37,6 +37,7 @@ CM_  SG_ 470 RT_button "Radio/Telephone Button";
 
 extern CANBusRXMessage_t canbusRecMgsBuffer[20];
 
+
 static void TaskCanbusMessageRead( void *pvParameters )
 {
 	
@@ -45,6 +46,7 @@ static void TaskCanbusMessageRead( void *pvParameters )
     VehicleCAN_Start();
     
     uint8_t recMsgBufferPos = 0;
+    
     
 	for( ;; )
 	{

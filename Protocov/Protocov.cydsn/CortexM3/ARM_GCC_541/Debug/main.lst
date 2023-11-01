@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 1
 
 
    1              		.syntax unified
@@ -46,67 +46,70 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   17:main.c        **** #include "UserButtonControl.h"
   18:main.c        **** #include "VehicleBatteryVoltage.h"
   19:main.c        **** #include "SystemMessenger.h"
-  20:main.c        **** 
-  21:main.c        **** static void prvHardwareSetup( void );
-  22:main.c        **** 
+  20:main.c        **** #include "PowerMonitoringAndControl.h"
+  21:main.c        **** 
+  22:main.c        **** static void prvHardwareSetup( void );
   23:main.c        **** 
   24:main.c        **** 
-  25:main.c        **** static void startSystemTasks();
-  26:main.c        **** 
-  27:main.c        **** int main(void)
-  28:main.c        **** 
+  25:main.c        **** 
+  26:main.c        **** static void startSystemTasks();
+  27:main.c        **** 
+  28:main.c        **** int main(void)
   29:main.c        **** 
-  30:main.c        **** {
-  31:main.c        ****     CyDelay(500);
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 2
+  30:main.c        **** 
+  31:main.c        **** {
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 2
 
 
-  32:main.c        ****     
-  33:main.c        **** 	CyGlobalIntEnable; /* Enable global interrupts. */
-  34:main.c        **** 	
-  35:main.c        **** 	prvHardwareSetup();
-  36:main.c        **** 	
-  37:main.c        ****     /*Place all stasts to run in this function*/
-  38:main.c        ****     startSystemTasks();
+  32:main.c        ****     CyDelay(500);
+  33:main.c        ****     
+  34:main.c        ****     BlueLedd_Write(1);
+  35:main.c        ****     
+  36:main.c        **** 	CyGlobalIntEnable; /* Enable global interrupts. */
+  37:main.c        **** 	
+  38:main.c        **** 	prvHardwareSetup();
   39:main.c        **** 	
-  40:main.c        **** 	vTaskStartScheduler();
-  41:main.c        **** 	
+  40:main.c        ****     /*Place all stasts to run in this function*/
+  41:main.c        ****     startSystemTasks();
   42:main.c        **** 	
-  43:main.c        **** 	for(;;)
+  43:main.c        **** 	vTaskStartScheduler();
   44:main.c        **** 	
-  45:main.c        **** 	{
-  46:main.c        **** 		/* Place your application code here. */
-  47:main.c        **** 		
-  48:main.c        **** 	}
-  49:main.c        **** }
-  50:main.c        **** 
-  51:main.c        **** static void prvHardwareSetup( void )
-  52:main.c        **** {
-  27              		.loc 1 52 0
+  45:main.c        **** 	
+  46:main.c        **** 	for(;;)
+  47:main.c        **** 	
+  48:main.c        **** 	{
+  49:main.c        **** 		/* Place your application code here. */
+  50:main.c        **** 		
+  51:main.c        **** 	}
+  52:main.c        **** }
+  53:main.c        **** 
+  54:main.c        **** static void prvHardwareSetup( void )
+  55:main.c        **** {
+  27              		.loc 1 55 0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
   31              		@ link register save eliminated.
-  53:main.c        **** 	
-  54:main.c        **** 	/* Port layer functions that need to be copied into the vector table. */
-  55:main.c        **** 	
-  56:main.c        **** 	extern void xPortPendSVHandler( void );
-  57:main.c        **** 	extern void xPortSysTickHandler( void );
-  58:main.c        **** 	extern void vPortSVCHandler( void );
-  59:main.c        **** 	extern cyisraddress CyRamVectors[];
-  60:main.c        **** 	
-  61:main.c        **** 	/* Install the OS Interrupt Handlers. */
-  62:main.c        **** 	CyRamVectors[ 11 ] = ( cyisraddress ) vPortSVCHandler;
-  32              		.loc 1 62 0
+  56:main.c        **** 	
+  57:main.c        **** 	/* Port layer functions that need to be copied into the vector table. */
+  58:main.c        **** 	
+  59:main.c        **** 	extern void xPortPendSVHandler( void );
+  60:main.c        **** 	extern void xPortSysTickHandler( void );
+  61:main.c        **** 	extern void vPortSVCHandler( void );
+  62:main.c        **** 	extern cyisraddress CyRamVectors[];
+  63:main.c        **** 	
+  64:main.c        **** 	/* Install the OS Interrupt Handlers. */
+  65:main.c        **** 	CyRamVectors[ 11 ] = ( cyisraddress ) vPortSVCHandler;
+  32              		.loc 1 65 0
   33 0000 034B     		ldr	r3, .L2
   34 0002 044A     		ldr	r2, .L2+4
   35 0004 DA62     		str	r2, [r3, #44]
-  63:main.c        **** 	CyRamVectors[ 14 ] = ( cyisraddress ) xPortPendSVHandler;
-  36              		.loc 1 63 0
+  66:main.c        **** 	CyRamVectors[ 14 ] = ( cyisraddress ) xPortPendSVHandler;
+  36              		.loc 1 66 0
   37 0006 044A     		ldr	r2, .L2+8
   38 0008 9A63     		str	r2, [r3, #56]
-  64:main.c        **** 	CyRamVectors[ 15 ] = ( cyisraddress ) xPortSysTickHandler;
-  39              		.loc 1 64 0
+  67:main.c        **** 	CyRamVectors[ 15 ] = ( cyisraddress ) xPortSysTickHandler;
+  39              		.loc 1 67 0
   40 000a 044A     		ldr	r2, .L2+12
   41 000c DA63     		str	r2, [r3, #60]
   42 000e 7047     		bx	lr
@@ -115,12 +118,12 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   45              	.L2:
   46 0010 00000000 		.word	CyRamVectors
   47 0014 00000000 		.word	vPortSVCHandler
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 3
+
+
   48 0018 00000000 		.word	xPortPendSVHandler
   49 001c 00000000 		.word	xPortSysTickHandler
   50              		.cfi_endproc
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 3
-
-
   51              	.LFE69:
   52              		.size	prvHardwareSetup, .-prvHardwareSetup
   53              		.section	.text.startSystemTasks,"ax",%progbits
@@ -130,25 +133,25 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   57              		.type	startSystemTasks, %function
   58              	startSystemTasks:
   59              	.LFB71:
-  65:main.c        **** 	
-  66:main.c        **** 	/* Start-up the peripherals. */
-  67:main.c        **** 	
   68:main.c        **** 	
-  69:main.c        **** }
-  70:main.c        **** /*---------------------------------------------------------------------------*/
-  71:main.c        **** 
-  72:main.c        **** void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTaskName )
-  73:main.c        **** {
-  74:main.c        **** 	/* The stack space has been exceeded for a task, considering allocating more. */
-  75:main.c        **** 	taskDISABLE_INTERRUPTS();
-  76:main.c        **** 	for( ;; );
-  77:main.c        **** }
-  78:main.c        **** /*---------------------------------------------------------------------------*/
-  79:main.c        **** 
-  80:main.c        **** 
-  81:main.c        **** static void startSystemTasks()
-  82:main.c        **** {
-  60              		.loc 1 82 0
+  69:main.c        **** 	/* Start-up the peripherals. */
+  70:main.c        **** 	
+  71:main.c        **** 	
+  72:main.c        **** }
+  73:main.c        **** /*---------------------------------------------------------------------------*/
+  74:main.c        **** 
+  75:main.c        **** void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTaskName )
+  76:main.c        **** {
+  77:main.c        **** 	/* The stack space has been exceeded for a task, considering allocating more. */
+  78:main.c        **** 	taskDISABLE_INTERRUPTS();
+  79:main.c        **** 	for( ;; );
+  80:main.c        **** }
+  81:main.c        **** /*---------------------------------------------------------------------------*/
+  82:main.c        **** 
+  83:main.c        **** 
+  84:main.c        **** static void startSystemTasks()
+  85:main.c        **** {
+  60              		.loc 1 85 0
   61              		.cfi_startproc
   62              		@ args = 0, pretend = 0, frame = 0
   63              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -156,99 +159,108 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   65              		.cfi_def_cfa_offset 8
   66              		.cfi_offset 3, -8
   67              		.cfi_offset 14, -4
-  83:main.c        ****     startTaskBluetoothComms();
-  68              		.loc 1 83 0
+  86:main.c        ****     startTaskBluetoothComms();
+  68              		.loc 1 86 0
   69 0002 FFF7FEFF 		bl	startTaskBluetoothComms
   70              	.LVL0:
-  84:main.c        ****     startTaskUserButtonControl();
-  71              		.loc 1 84 0
+  87:main.c        ****     startTaskUserButtonControl();
+  71              		.loc 1 87 0
   72 0006 FFF7FEFF 		bl	startTaskUserButtonControl
   73              	.LVL1:
-  85:main.c        ****     startTaskVehicleBatteryVoltage();
-  74              		.loc 1 85 0
+  88:main.c        ****     startTaskVehicleBatteryVoltage();
+  74              		.loc 1 88 0
   75 000a FFF7FEFF 		bl	startTaskVehicleBatteryVoltage
   76              	.LVL2:
-  86:main.c        ****     startTaskSystemMessenger();
-  77              		.loc 1 86 0
+  89:main.c        ****     startTaskSystemMessenger();
+  77              		.loc 1 89 0
   78 000e FFF7FEFF 		bl	startTaskSystemMessenger
   79              	.LVL3:
-  80 0012 08BD     		pop	{r3, pc}
-  81              		.cfi_endproc
-  82              	.LFE71:
-  83              		.size	startSystemTasks, .-startSystemTasks
-  84              		.section	.text.main,"ax",%progbits
-  85              		.align	2
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 4
+  90:main.c        ****     startTaskPowerMonitoringAndControl();
+  80              		.loc 1 90 0
+  81 0012 FFF7FEFF 		bl	startTaskPowerMonitoringAndControl
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 4
 
 
-  86              		.global	main
-  87              		.thumb
-  88              		.thumb_func
-  89              		.type	main, %function
-  90              	main:
-  91              	.LFB68:
-  30:main.c        ****     CyDelay(500);
-  92              		.loc 1 30 0
-  93              		.cfi_startproc
-  94              		@ Volatile: function does not return.
-  95              		@ args = 0, pretend = 0, frame = 0
-  96              		@ frame_needed = 0, uses_anonymous_args = 0
-  97 0000 08B5     		push	{r3, lr}
-  98              		.cfi_def_cfa_offset 8
-  99              		.cfi_offset 3, -8
- 100              		.cfi_offset 14, -4
-  31:main.c        ****     
- 101              		.loc 1 31 0
- 102 0002 4FF4FA70 		mov	r0, #500
- 103 0006 FFF7FEFF 		bl	CyDelay
- 104              	.LVL4:
-  33:main.c        **** 	
- 105              		.loc 1 33 0
- 106              		.syntax unified
- 107              	@ 33 "main.c" 1
- 108 000a 62B6     		CPSIE   i
- 109              	@ 0 "" 2
-  35:main.c        **** 	
- 110              		.loc 1 35 0
- 111              		.thumb
- 112              		.syntax unified
- 113 000c FFF7FEFF 		bl	prvHardwareSetup
- 114              	.LVL5:
+  82              	.LVL4:
+  83 0016 08BD     		pop	{r3, pc}
+  84              		.cfi_endproc
+  85              	.LFE71:
+  86              		.size	startSystemTasks, .-startSystemTasks
+  87              		.section	.text.main,"ax",%progbits
+  88              		.align	2
+  89              		.global	main
+  90              		.thumb
+  91              		.thumb_func
+  92              		.type	main, %function
+  93              	main:
+  94              	.LFB68:
+  31:main.c        ****     CyDelay(500);
+  95              		.loc 1 31 0
+  96              		.cfi_startproc
+  97              		@ Volatile: function does not return.
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100 0000 08B5     		push	{r3, lr}
+ 101              		.cfi_def_cfa_offset 8
+ 102              		.cfi_offset 3, -8
+ 103              		.cfi_offset 14, -4
+  32:main.c        ****     
+ 104              		.loc 1 32 0
+ 105 0002 4FF4FA70 		mov	r0, #500
+ 106 0006 FFF7FEFF 		bl	CyDelay
+ 107              	.LVL5:
+  34:main.c        ****     
+ 108              		.loc 1 34 0
+ 109 000a 0120     		movs	r0, #1
+ 110 000c FFF7FEFF 		bl	BlueLedd_Write
+ 111              	.LVL6:
+  36:main.c        **** 	
+ 112              		.loc 1 36 0
+ 113              		.syntax unified
+ 114              	@ 36 "main.c" 1
+ 115 0010 62B6     		CPSIE   i
+ 116              	@ 0 "" 2
   38:main.c        **** 	
- 115              		.loc 1 38 0
- 116 0010 FFF7FEFF 		bl	startSystemTasks
- 117              	.LVL6:
-  40:main.c        **** 	
- 118              		.loc 1 40 0
- 119 0014 FFF7FEFF 		bl	vTaskStartScheduler
- 120              	.LVL7:
- 121              	.L7:
- 122 0018 FEE7     		b	.L7
- 123              		.cfi_endproc
- 124              	.LFE68:
- 125              		.size	main, .-main
- 126 001a 00BF     		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
- 127              		.align	2
- 128              		.global	vApplicationStackOverflowHook
- 129              		.thumb
- 130              		.thumb_func
- 131              		.type	vApplicationStackOverflowHook, %function
- 132              	vApplicationStackOverflowHook:
- 133              	.LFB70:
-  73:main.c        **** 	/* The stack space has been exceeded for a task, considering allocating more. */
- 134              		.loc 1 73 0
- 135              		.cfi_startproc
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 5
+ 117              		.loc 1 38 0
+ 118              		.thumb
+ 119              		.syntax unified
+ 120 0012 FFF7FEFF 		bl	prvHardwareSetup
+ 121              	.LVL7:
+  41:main.c        **** 	
+ 122              		.loc 1 41 0
+ 123 0016 FFF7FEFF 		bl	startSystemTasks
+ 124              	.LVL8:
+  43:main.c        **** 	
+ 125              		.loc 1 43 0
+ 126 001a FFF7FEFF 		bl	vTaskStartScheduler
+ 127              	.LVL9:
+ 128              	.L7:
+ 129 001e FEE7     		b	.L7
+ 130              		.cfi_endproc
+ 131              	.LFE68:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 5
 
 
- 136              		@ Volatile: function does not return.
- 137              		@ args = 0, pretend = 0, frame = 0
- 138              		@ frame_needed = 0, uses_anonymous_args = 0
- 139              		@ link register save eliminated.
- 140              	.LVL8:
- 141              	.LBB4:
- 142              	.LBB5:
- 143              		.file 2 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\portable\\GCC\\ARM_CM3/portmacro.h"
+ 132              		.size	main, .-main
+ 133              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
+ 134              		.align	2
+ 135              		.global	vApplicationStackOverflowHook
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.type	vApplicationStackOverflowHook, %function
+ 139              	vApplicationStackOverflowHook:
+ 140              	.LFB70:
+  76:main.c        **** 	/* The stack space has been exceeded for a task, considering allocating more. */
+ 141              		.loc 1 76 0
+ 142              		.cfi_startproc
+ 143              		@ Volatile: function does not return.
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		@ link register save eliminated.
+ 147              	.LVL10:
+ 148              	.LBB4:
+ 149              	.LBB5:
+ 150              		.file 2 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\portable\\GCC\\ARM_CM3/portmacro.h"
    1:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** /*
    2:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****  * FreeRTOS Kernel <DEVELOPMENT BRANCH>
    3:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
@@ -286,6 +298,9 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   35:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     extern "C" {
   36:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** #endif
   37:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** /* *INDENT-ON* */
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 6
+
+
   38:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
   39:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** /*-----------------------------------------------------------
   40:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****  * Port specific definitions.
@@ -298,9 +313,6 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   47:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****  */
   48:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
   49:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** /* Type definitions. */
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 6
-
-
   50:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portCHAR          char
   51:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portFLOAT         float
   52:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portDOUBLE        double
@@ -346,6 +358,9 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
   92:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         __asm volatile ( "dsb" ::: "memory" );                     \
   93:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         __asm volatile ( "isb" );                                  \
   94:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     }
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 7
+
+
   95:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
   96:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portNVIC_INT_CTRL_REG     ( *( ( volatile uint32_t * ) 0xe000ed04 ) )
   97:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portNVIC_PENDSVSET_BIT    ( 1UL << 28UL )
@@ -358,9 +373,6 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
  104:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     extern void vPortExitCritical( void );
  105:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portSET_INTERRUPT_MASK_FROM_ISR()         ulPortRaiseBASEPRI()
  106:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portCLEAR_INTERRUPT_MASK_FROM_ISR( x )    vPortSetBASEPRI( x )
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 7
-
-
  107:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portDISABLE_INTERRUPTS()                  vPortRaiseBASEPRI()
  108:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portENABLE_INTERRUPTS()                   vPortSetBASEPRI( 0 )
  109:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #define portENTER_CRITICAL()                      vPortEnterCritical()
@@ -406,6 +418,9 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
  149:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
  150:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** /* Store/clear the ready priorities in a bit map. */
  151:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         #define portRECORD_READY_PRIORITY( uxPriority, uxReadyPriorities )    ( uxReadyPriorities )
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 8
+
+
  152:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         #define portRESET_READY_PRIORITY( uxPriority, uxReadyPriorities )     ( uxReadyPriorities )
  153:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
  154:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** /*-----------------------------------------------------------*/
@@ -418,9 +433,6 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
  161:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
  162:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #ifdef configASSERT
  163:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         void vPortValidateInterruptPriority( void );
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 8
-
-
  164:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         #define portASSERT_IF_INTERRUPT_PRIORITY_INVALID()    vPortValidateInterruptPriority()
  165:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****     #endif
  166:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
@@ -462,1044 +474,1153 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 1
  202:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         uint32_t ulNewBASEPRI;
  203:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h **** 
  204:..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h ****         __asm volatile
- 144              		.loc 2 204 0
- 145              		.syntax unified
- 146              	@ 204 "..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h" 1
- 147 0000 4FF0A003 		   mov r3, #160                                              
- 148 0004 83F31188 	   msr basepri, r3                                         
- 149 0008 BFF36F8F 	   isb                                                     
- 150 000c BFF34F8F 	   dsb                                                     
- 151              	
- 152              	@ 0 "" 2
- 153              	.LVL9:
- 154              		.thumb
- 155              		.syntax unified
- 156              	.L10:
- 157 0010 FEE7     		b	.L10
- 158              	.LBE5:
- 159              	.LBE4:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 9
+ 151              		.loc 2 204 0
+ 152              		.syntax unified
+ 153              	@ 204 "..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3/portmacro.h" 1
+ 154 0000 4FF0A003 		   mov r3, #160                                              
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 9
 
 
- 160              		.cfi_endproc
- 161              	.LFE70:
- 162              		.size	vApplicationStackOverflowHook, .-vApplicationStackOverflowHook
- 163 0012 00BF     		.text
- 164              	.Letext0:
- 165              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 166              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 167              		.file 5 "Generated_Source\\PSoC5/cytypes.h"
- 168              		.file 6 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\include/task.h"
- 169              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
- 170              		.file 8 "BluetoothComms.h"
- 171              		.file 9 "UserButtonControl.h"
- 172              		.file 10 "VehicleBatteryVoltage.h"
- 173              		.file 11 "SystemMessenger.h"
- 174              		.file 12 "Generated_Source\\PSoC5/CyLib.h"
- 175              		.section	.debug_info,"",%progbits
- 176              	.Ldebug_info0:
- 177 0000 71020000 		.4byte	0x271
- 178 0004 0400     		.2byte	0x4
- 179 0006 00000000 		.4byte	.Ldebug_abbrev0
- 180 000a 04       		.byte	0x4
- 181 000b 01       		.uleb128 0x1
- 182 000c 83000000 		.4byte	.LASF33
- 183 0010 0C       		.byte	0xc
- 184 0011 14020000 		.4byte	.LASF34
- 185 0015 50020000 		.4byte	.LASF35
- 186 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 187 001d 00000000 		.4byte	0
- 188 0021 00000000 		.4byte	.Ldebug_line0
- 189 0025 02       		.uleb128 0x2
- 190 0026 01       		.byte	0x1
- 191 0027 06       		.byte	0x6
- 192 0028 D3020000 		.4byte	.LASF0
- 193 002c 02       		.uleb128 0x2
- 194 002d 01       		.byte	0x1
- 195 002e 08       		.byte	0x8
- 196 002f 75000000 		.4byte	.LASF1
- 197 0033 02       		.uleb128 0x2
- 198 0034 02       		.byte	0x2
- 199 0035 05       		.byte	0x5
- 200 0036 84020000 		.4byte	.LASF2
- 201 003a 02       		.uleb128 0x2
- 202 003b 02       		.byte	0x2
- 203 003c 07       		.byte	0x7
- 204 003d 2E010000 		.4byte	.LASF3
- 205 0041 03       		.uleb128 0x3
- 206 0042 1E000000 		.4byte	.LASF5
- 207 0046 03       		.byte	0x3
- 208 0047 3F       		.byte	0x3f
- 209 0048 4C000000 		.4byte	0x4c
- 210 004c 02       		.uleb128 0x2
- 211 004d 04       		.byte	0x4
- 212 004e 05       		.byte	0x5
- 213 004f AF020000 		.4byte	.LASF4
- 214 0053 03       		.uleb128 0x3
- 215 0054 11010000 		.4byte	.LASF6
- 216 0058 03       		.byte	0x3
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 10
+ 155 0004 83F31188 	   msr basepri, r3                                         
+ 156 0008 BFF36F8F 	   isb                                                     
+ 157 000c BFF34F8F 	   dsb                                                     
+ 158              	
+ 159              	@ 0 "" 2
+ 160              	.LVL11:
+ 161              		.thumb
+ 162              		.syntax unified
+ 163              	.L10:
+ 164 0010 FEE7     		b	.L10
+ 165              	.LBE5:
+ 166              	.LBE4:
+ 167              		.cfi_endproc
+ 168              	.LFE70:
+ 169              		.size	vApplicationStackOverflowHook, .-vApplicationStackOverflowHook
+ 170              		.comm	powerMonConMessegesQ,4,4
+ 171              		.comm	taskMessegesQ,4,4
+ 172 0012 00BF     		.text
+ 173              	.Letext0:
+ 174              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 175              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 176              		.file 5 "Generated_Source\\PSoC5/cytypes.h"
+ 177              		.file 6 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\include/task.h"
+ 178              		.file 7 "..\\..\\..\\FreeRTOS\\FreeRTOS-Kernel\\include/queue.h"
+ 179              		.file 8 "Generated_Source\\PSoC5/core_cm3.h"
+ 180              		.file 9 "SystemMessenger.h"
+ 181              		.file 10 "BluetoothComms.h"
+ 182              		.file 11 "UserButtonControl.h"
+ 183              		.file 12 "VehicleBatteryVoltage.h"
+ 184              		.file 13 "PowerMonitoringAndControl.h"
+ 185              		.file 14 "Generated_Source\\PSoC5/CyLib.h"
+ 186              		.file 15 "Generated_Source\\PSoC5/BlueLedd.h"
+ 187              		.section	.debug_info,"",%progbits
+ 188              	.Ldebug_info0:
+ 189 0000 DB020000 		.4byte	0x2db
+ 190 0004 0400     		.2byte	0x4
+ 191 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 192 000a 04       		.byte	0x4
+ 193 000b 01       		.uleb128 0x1
+ 194 000c 9F000000 		.4byte	.LASF40
+ 195 0010 0C       		.byte	0xc
+ 196 0011 64020000 		.4byte	.LASF41
+ 197 0015 A0020000 		.4byte	.LASF42
+ 198 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 199 001d 00000000 		.4byte	0
+ 200 0021 00000000 		.4byte	.Ldebug_line0
+ 201 0025 02       		.uleb128 0x2
+ 202 0026 01       		.byte	0x1
+ 203 0027 06       		.byte	0x6
+ 204 0028 23030000 		.4byte	.LASF0
+ 205 002c 02       		.uleb128 0x2
+ 206 002d 01       		.byte	0x1
+ 207 002e 08       		.byte	0x8
+ 208 002f 91000000 		.4byte	.LASF1
+ 209 0033 02       		.uleb128 0x2
+ 210 0034 02       		.byte	0x2
+ 211 0035 05       		.byte	0x5
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 10
 
 
- 217 0059 41       		.byte	0x41
- 218 005a 5E000000 		.4byte	0x5e
- 219 005e 02       		.uleb128 0x2
- 220 005f 04       		.byte	0x4
- 221 0060 07       		.byte	0x7
- 222 0061 1C010000 		.4byte	.LASF7
- 223 0065 02       		.uleb128 0x2
- 224 0066 08       		.byte	0x8
- 225 0067 05       		.byte	0x5
- 226 0068 06020000 		.4byte	.LASF8
- 227 006c 02       		.uleb128 0x2
- 228 006d 08       		.byte	0x8
- 229 006e 07       		.byte	0x7
- 230 006f BB010000 		.4byte	.LASF9
- 231 0073 04       		.uleb128 0x4
- 232 0074 04       		.byte	0x4
- 233 0075 05       		.byte	0x5
- 234 0076 696E7400 		.ascii	"int\000"
- 235 007a 02       		.uleb128 0x2
- 236 007b 04       		.byte	0x4
- 237 007c 07       		.byte	0x7
- 238 007d AE010000 		.4byte	.LASF10
- 239 0081 03       		.uleb128 0x3
- 240 0082 67000000 		.4byte	.LASF11
- 241 0086 04       		.byte	0x4
- 242 0087 2C       		.byte	0x2c
- 243 0088 41000000 		.4byte	0x41
- 244 008c 03       		.uleb128 0x3
- 245 008d A6020000 		.4byte	.LASF12
- 246 0091 04       		.byte	0x4
- 247 0092 30       		.byte	0x30
- 248 0093 53000000 		.4byte	0x53
- 249 0097 02       		.uleb128 0x2
- 250 0098 04       		.byte	0x4
- 251 0099 04       		.byte	0x4
- 252 009a 6F000000 		.4byte	.LASF13
- 253 009e 02       		.uleb128 0x2
- 254 009f 08       		.byte	0x8
- 255 00a0 04       		.byte	0x4
- 256 00a1 6D010000 		.4byte	.LASF14
- 257 00a5 02       		.uleb128 0x2
- 258 00a6 01       		.byte	0x1
- 259 00a7 08       		.byte	0x8
- 260 00a8 1B020000 		.4byte	.LASF15
- 261 00ac 05       		.uleb128 0x5
- 262 00ad E4010000 		.4byte	.LASF16
- 263 00b1 05       		.byte	0x5
- 264 00b2 A502     		.2byte	0x2a5
- 265 00b4 B8000000 		.4byte	0xb8
- 266 00b8 06       		.uleb128 0x6
- 267 00b9 04       		.byte	0x4
- 268 00ba BE000000 		.4byte	0xbe
- 269 00be 07       		.uleb128 0x7
- 270 00bf 02       		.uleb128 0x2
- 271 00c0 08       		.byte	0x8
- 272 00c1 04       		.byte	0x4
- 273 00c2 F1010000 		.4byte	.LASF17
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 11
+ 212 0036 D4020000 		.4byte	.LASF2
+ 213 003a 02       		.uleb128 0x2
+ 214 003b 02       		.byte	0x2
+ 215 003c 07       		.byte	0x7
+ 216 003d 4A010000 		.4byte	.LASF3
+ 217 0041 03       		.uleb128 0x3
+ 218 0042 2C000000 		.4byte	.LASF5
+ 219 0046 03       		.byte	0x3
+ 220 0047 3F       		.byte	0x3f
+ 221 0048 4C000000 		.4byte	0x4c
+ 222 004c 02       		.uleb128 0x2
+ 223 004d 04       		.byte	0x4
+ 224 004e 05       		.byte	0x5
+ 225 004f FF020000 		.4byte	.LASF4
+ 226 0053 03       		.uleb128 0x3
+ 227 0054 2D010000 		.4byte	.LASF6
+ 228 0058 03       		.byte	0x3
+ 229 0059 41       		.byte	0x41
+ 230 005a 5E000000 		.4byte	0x5e
+ 231 005e 02       		.uleb128 0x2
+ 232 005f 04       		.byte	0x4
+ 233 0060 07       		.byte	0x7
+ 234 0061 38010000 		.4byte	.LASF7
+ 235 0065 02       		.uleb128 0x2
+ 236 0066 08       		.byte	0x8
+ 237 0067 05       		.byte	0x5
+ 238 0068 56020000 		.4byte	.LASF8
+ 239 006c 02       		.uleb128 0x2
+ 240 006d 08       		.byte	0x8
+ 241 006e 07       		.byte	0x7
+ 242 006f 06020000 		.4byte	.LASF9
+ 243 0073 04       		.uleb128 0x4
+ 244 0074 04       		.byte	0x4
+ 245 0075 05       		.byte	0x5
+ 246 0076 696E7400 		.ascii	"int\000"
+ 247 007a 02       		.uleb128 0x2
+ 248 007b 04       		.byte	0x4
+ 249 007c 07       		.byte	0x7
+ 250 007d EA010000 		.4byte	.LASF10
+ 251 0081 03       		.uleb128 0x3
+ 252 0082 83000000 		.4byte	.LASF11
+ 253 0086 04       		.byte	0x4
+ 254 0087 2C       		.byte	0x2c
+ 255 0088 41000000 		.4byte	0x41
+ 256 008c 03       		.uleb128 0x3
+ 257 008d F6020000 		.4byte	.LASF12
+ 258 0091 04       		.byte	0x4
+ 259 0092 30       		.byte	0x30
+ 260 0093 53000000 		.4byte	0x53
+ 261 0097 02       		.uleb128 0x2
+ 262 0098 04       		.byte	0x4
+ 263 0099 04       		.byte	0x4
+ 264 009a 8B000000 		.4byte	.LASF13
+ 265 009e 02       		.uleb128 0x2
+ 266 009f 08       		.byte	0x8
+ 267 00a0 04       		.byte	0x4
+ 268 00a1 9E010000 		.4byte	.LASF14
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 11
 
 
- 274 00c6 02       		.uleb128 0x2
- 275 00c7 04       		.byte	0x4
- 276 00c8 07       		.byte	0x7
- 277 00c9 FD010000 		.4byte	.LASF18
- 278 00cd 06       		.uleb128 0x6
- 279 00ce 04       		.byte	0x4
- 280 00cf A5000000 		.4byte	0xa5
- 281 00d3 03       		.uleb128 0x3
- 282 00d4 99020000 		.4byte	.LASF19
- 283 00d8 06       		.byte	0x6
- 284 00d9 57       		.byte	0x57
- 285 00da DE000000 		.4byte	0xde
- 286 00de 06       		.uleb128 0x6
- 287 00df 04       		.byte	0x4
- 288 00e0 E4000000 		.4byte	0xe4
- 289 00e4 08       		.uleb128 0x8
- 290 00e5 81010000 		.4byte	.LASF36
- 291 00e9 09       		.uleb128 0x9
- 292 00ea D2010000 		.4byte	.LASF37
- 293 00ee 02       		.byte	0x2
- 294 00ef C8       		.byte	0xc8
- 295 00f0 03       		.byte	0x3
- 296 00f1 01010000 		.4byte	0x101
- 297 00f5 0A       		.uleb128 0xa
- 298 00f6 74010000 		.4byte	.LASF38
- 299 00fa 02       		.byte	0x2
- 300 00fb CA       		.byte	0xca
- 301 00fc 8C000000 		.4byte	0x8c
- 302 0100 00       		.byte	0
- 303 0101 0B       		.uleb128 0xb
- 304 0102 FD020000 		.4byte	.LASF39
- 305 0106 01       		.byte	0x1
- 306 0107 33       		.byte	0x33
- 307 0108 00000000 		.4byte	.LFB69
- 308 010c 20000000 		.4byte	.LFE69-.LFB69
- 309 0110 01       		.uleb128 0x1
- 310 0111 9C       		.byte	0x9c
- 311 0112 37010000 		.4byte	0x137
- 312 0116 0C       		.uleb128 0xc
- 313 0117 54000000 		.4byte	.LASF20
- 314 011b 01       		.byte	0x1
- 315 011c 38       		.byte	0x38
- 316 011d 0C       		.uleb128 0xc
- 317 011e 9A010000 		.4byte	.LASF21
- 318 0122 01       		.byte	0x1
- 319 0123 39       		.byte	0x39
- 320 0124 0C       		.uleb128 0xc
- 321 0125 20020000 		.4byte	.LASF22
- 322 0129 01       		.byte	0x1
- 323 012a 3A       		.byte	0x3a
- 324 012b 0D       		.uleb128 0xd
- 325 012c 11000000 		.4byte	.LASF25
- 326 0130 01       		.byte	0x1
- 327 0131 3B       		.byte	0x3b
- 328 0132 37010000 		.4byte	0x137
- 329 0136 00       		.byte	0
- 330 0137 0E       		.uleb128 0xe
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 12
+ 269 00a5 02       		.uleb128 0x2
+ 270 00a6 01       		.byte	0x1
+ 271 00a7 08       		.byte	0x8
+ 272 00a8 6B020000 		.4byte	.LASF15
+ 273 00ac 05       		.uleb128 0x5
+ 274 00ad 2F020000 		.4byte	.LASF16
+ 275 00b1 05       		.byte	0x5
+ 276 00b2 A502     		.2byte	0x2a5
+ 277 00b4 B8000000 		.4byte	0xb8
+ 278 00b8 06       		.uleb128 0x6
+ 279 00b9 04       		.byte	0x4
+ 280 00ba BE000000 		.4byte	0xbe
+ 281 00be 07       		.uleb128 0x7
+ 282 00bf 02       		.uleb128 0x2
+ 283 00c0 08       		.byte	0x8
+ 284 00c1 04       		.byte	0x4
+ 285 00c2 41020000 		.4byte	.LASF17
+ 286 00c6 02       		.uleb128 0x2
+ 287 00c7 04       		.byte	0x4
+ 288 00c8 07       		.byte	0x7
+ 289 00c9 4D020000 		.4byte	.LASF18
+ 290 00cd 06       		.uleb128 0x6
+ 291 00ce 04       		.byte	0x4
+ 292 00cf A5000000 		.4byte	0xa5
+ 293 00d3 03       		.uleb128 0x3
+ 294 00d4 E9020000 		.4byte	.LASF19
+ 295 00d8 06       		.byte	0x6
+ 296 00d9 57       		.byte	0x57
+ 297 00da DE000000 		.4byte	0xde
+ 298 00de 06       		.uleb128 0x6
+ 299 00df 04       		.byte	0x4
+ 300 00e0 E4000000 		.4byte	0xe4
+ 301 00e4 08       		.uleb128 0x8
+ 302 00e5 B2010000 		.4byte	.LASF21
+ 303 00e9 03       		.uleb128 0x3
+ 304 00ea 36000000 		.4byte	.LASF20
+ 305 00ee 07       		.byte	0x7
+ 306 00ef 33       		.byte	0x33
+ 307 00f0 F4000000 		.4byte	0xf4
+ 308 00f4 06       		.uleb128 0x6
+ 309 00f5 04       		.byte	0x4
+ 310 00f6 FA000000 		.4byte	0xfa
+ 311 00fa 08       		.uleb128 0x8
+ 312 00fb C6010000 		.4byte	.LASF22
+ 313 00ff 09       		.uleb128 0x9
+ 314 0100 1D020000 		.4byte	.LASF43
+ 315 0104 02       		.byte	0x2
+ 316 0105 C8       		.byte	0xc8
+ 317 0106 03       		.byte	0x3
+ 318 0107 17010000 		.4byte	0x117
+ 319 010b 0A       		.uleb128 0xa
+ 320 010c A5010000 		.4byte	.LASF44
+ 321 0110 02       		.byte	0x2
+ 322 0111 CA       		.byte	0xca
+ 323 0112 8C000000 		.4byte	0x8c
+ 324 0116 00       		.byte	0
+ 325 0117 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 12
 
 
- 331 0138 AC000000 		.4byte	0xac
- 332 013c 42010000 		.4byte	0x142
- 333 0140 0F       		.uleb128 0xf
- 334 0141 00       		.byte	0
- 335 0142 10       		.uleb128 0x10
- 336 0143 00000000 		.4byte	.LASF40
- 337 0147 01       		.byte	0x1
- 338 0148 51       		.byte	0x51
- 339 0149 00000000 		.4byte	.LFB71
- 340 014d 14000000 		.4byte	.LFE71-.LFB71
- 341 0151 01       		.uleb128 0x1
- 342 0152 9C       		.byte	0x9c
- 343 0153 7C010000 		.4byte	0x17c
- 344 0157 11       		.uleb128 0x11
- 345 0158 06000000 		.4byte	.LVL0
- 346 015c 31020000 		.4byte	0x231
- 347 0160 11       		.uleb128 0x11
- 348 0161 0A000000 		.4byte	.LVL1
- 349 0165 3C020000 		.4byte	0x23c
- 350 0169 11       		.uleb128 0x11
- 351 016a 0E000000 		.4byte	.LVL2
- 352 016e 47020000 		.4byte	0x247
- 353 0172 11       		.uleb128 0x11
- 354 0173 12000000 		.4byte	.LVL3
- 355 0177 52020000 		.4byte	0x252
- 356 017b 00       		.byte	0
- 357 017c 12       		.uleb128 0x12
- 358 017d 95010000 		.4byte	.LASF41
- 359 0181 01       		.byte	0x1
- 360 0182 1B       		.byte	0x1b
- 361 0183 73000000 		.4byte	0x73
- 362 0187 00000000 		.4byte	.LFB68
- 363 018b 1A000000 		.4byte	.LFE68-.LFB68
- 364 018f 01       		.uleb128 0x1
- 365 0190 9C       		.byte	0x9c
- 366 0191 C6010000 		.4byte	0x1c6
- 367 0195 13       		.uleb128 0x13
- 368 0196 0A000000 		.4byte	.LVL4
- 369 019a 5D020000 		.4byte	0x25d
- 370 019e AA010000 		.4byte	0x1aa
- 371 01a2 14       		.uleb128 0x14
- 372 01a3 01       		.uleb128 0x1
- 373 01a4 50       		.byte	0x50
- 374 01a5 03       		.uleb128 0x3
- 375 01a6 0A       		.byte	0xa
- 376 01a7 F401     		.2byte	0x1f4
- 377 01a9 00       		.byte	0
- 378 01aa 11       		.uleb128 0x11
- 379 01ab 10000000 		.4byte	.LVL5
- 380 01af 01010000 		.4byte	0x101
- 381 01b3 11       		.uleb128 0x11
- 382 01b4 14000000 		.4byte	.LVL6
- 383 01b8 42010000 		.4byte	0x142
- 384 01bc 11       		.uleb128 0x11
- 385 01bd 18000000 		.4byte	.LVL7
- 386 01c1 68020000 		.4byte	0x268
- 387 01c5 00       		.byte	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 13
+ 326 0118 70030000 		.4byte	.LASF45
+ 327 011c 01       		.byte	0x1
+ 328 011d 36       		.byte	0x36
+ 329 011e 00000000 		.4byte	.LFB69
+ 330 0122 20000000 		.4byte	.LFE69-.LFB69
+ 331 0126 01       		.uleb128 0x1
+ 332 0127 9C       		.byte	0x9c
+ 333 0128 4D010000 		.4byte	0x14d
+ 334 012c 0C       		.uleb128 0xc
+ 335 012d 70000000 		.4byte	.LASF23
+ 336 0131 01       		.byte	0x1
+ 337 0132 3B       		.byte	0x3b
+ 338 0133 0C       		.uleb128 0xc
+ 339 0134 D6010000 		.4byte	.LASF24
+ 340 0138 01       		.byte	0x1
+ 341 0139 3C       		.byte	0x3c
+ 342 013a 0C       		.uleb128 0xc
+ 343 013b 70020000 		.4byte	.LASF25
+ 344 013f 01       		.byte	0x1
+ 345 0140 3D       		.byte	0x3d
+ 346 0141 0D       		.uleb128 0xd
+ 347 0142 1F000000 		.4byte	.LASF28
+ 348 0146 01       		.byte	0x1
+ 349 0147 3E       		.byte	0x3e
+ 350 0148 4D010000 		.4byte	0x14d
+ 351 014c 00       		.byte	0
+ 352 014d 0E       		.uleb128 0xe
+ 353 014e AC000000 		.4byte	0xac
+ 354 0152 58010000 		.4byte	0x158
+ 355 0156 0F       		.uleb128 0xf
+ 356 0157 00       		.byte	0
+ 357 0158 10       		.uleb128 0x10
+ 358 0159 00000000 		.4byte	.LASF46
+ 359 015d 01       		.byte	0x1
+ 360 015e 54       		.byte	0x54
+ 361 015f 00000000 		.4byte	.LFB71
+ 362 0163 18000000 		.4byte	.LFE71-.LFB71
+ 363 0167 01       		.uleb128 0x1
+ 364 0168 9C       		.byte	0x9c
+ 365 0169 9B010000 		.4byte	0x19b
+ 366 016d 11       		.uleb128 0x11
+ 367 016e 06000000 		.4byte	.LVL0
+ 368 0172 85020000 		.4byte	0x285
+ 369 0176 11       		.uleb128 0x11
+ 370 0177 0A000000 		.4byte	.LVL1
+ 371 017b 90020000 		.4byte	0x290
+ 372 017f 11       		.uleb128 0x11
+ 373 0180 0E000000 		.4byte	.LVL2
+ 374 0184 9B020000 		.4byte	0x29b
+ 375 0188 11       		.uleb128 0x11
+ 376 0189 12000000 		.4byte	.LVL3
+ 377 018d A6020000 		.4byte	0x2a6
+ 378 0191 11       		.uleb128 0x11
+ 379 0192 16000000 		.4byte	.LVL4
+ 380 0196 B1020000 		.4byte	0x2b1
+ 381 019a 00       		.byte	0
+ 382 019b 12       		.uleb128 0x12
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 13
 
 
- 388 01c6 15       		.uleb128 0x15
- 389 01c7 DF020000 		.4byte	.LASF42
- 390 01cb 01       		.byte	0x1
- 391 01cc 48       		.byte	0x48
- 392 01cd 00000000 		.4byte	.LFB70
- 393 01d1 12000000 		.4byte	.LFE70-.LFB70
- 394 01d5 01       		.uleb128 0x1
- 395 01d6 9C       		.byte	0x9c
- 396 01d7 15020000 		.4byte	0x215
- 397 01db 16       		.uleb128 0x16
- 398 01dc 49020000 		.4byte	.LASF23
- 399 01e0 01       		.byte	0x1
- 400 01e1 48       		.byte	0x48
- 401 01e2 D3000000 		.4byte	0xd3
- 402 01e6 01       		.uleb128 0x1
- 403 01e7 50       		.byte	0x50
- 404 01e8 16       		.uleb128 0x16
- 405 01e9 8E020000 		.4byte	.LASF24
- 406 01ed 01       		.byte	0x1
- 407 01ee 48       		.byte	0x48
- 408 01ef CD000000 		.4byte	0xcd
- 409 01f3 01       		.uleb128 0x1
- 410 01f4 51       		.byte	0x51
- 411 01f5 17       		.uleb128 0x17
- 412 01f6 E9000000 		.4byte	0xe9
- 413 01fa 00000000 		.4byte	.LBB4
- 414 01fe 12000000 		.4byte	.LBE4-.LBB4
- 415 0202 01       		.byte	0x1
- 416 0203 4B       		.byte	0x4b
- 417 0204 18       		.uleb128 0x18
- 418 0205 00000000 		.4byte	.LBB5
- 419 0209 12000000 		.4byte	.LBE5-.LBB5
- 420 020d 19       		.uleb128 0x19
- 421 020e F5000000 		.4byte	0xf5
- 422 0212 00       		.byte	0
- 423 0213 00       		.byte	0
- 424 0214 00       		.byte	0
- 425 0215 1A       		.uleb128 0x1a
- 426 0216 41010000 		.4byte	.LASF26
- 427 021a 07       		.byte	0x7
- 428 021b 1207     		.2byte	0x712
- 429 021d 21020000 		.4byte	0x221
- 430 0221 1B       		.uleb128 0x1b
- 431 0222 81000000 		.4byte	0x81
- 432 0226 0D       		.uleb128 0xd
- 433 0227 11000000 		.4byte	.LASF25
- 434 022b 01       		.byte	0x1
- 435 022c 3B       		.byte	0x3b
- 436 022d 37010000 		.4byte	0x137
- 437 0231 1C       		.uleb128 0x1c
- 438 0232 3C000000 		.4byte	.LASF27
- 439 0236 3C000000 		.4byte	.LASF27
- 440 023a 08       		.byte	0x8
- 441 023b 13       		.byte	0x13
- 442 023c 1C       		.uleb128 0x1c
- 443 023d B8020000 		.4byte	.LASF28
- 444 0241 B8020000 		.4byte	.LASF28
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 14
+ 383 019c 3C020000 		.4byte	.LASF47
+ 384 01a0 01       		.byte	0x1
+ 385 01a1 1C       		.byte	0x1c
+ 386 01a2 73000000 		.4byte	0x73
+ 387 01a6 00000000 		.4byte	.LFB68
+ 388 01aa 20000000 		.4byte	.LFE68-.LFB68
+ 389 01ae 01       		.uleb128 0x1
+ 390 01af 9C       		.byte	0x9c
+ 391 01b0 F8010000 		.4byte	0x1f8
+ 392 01b4 13       		.uleb128 0x13
+ 393 01b5 0A000000 		.4byte	.LVL5
+ 394 01b9 BC020000 		.4byte	0x2bc
+ 395 01bd C9010000 		.4byte	0x1c9
+ 396 01c1 14       		.uleb128 0x14
+ 397 01c2 01       		.uleb128 0x1
+ 398 01c3 50       		.byte	0x50
+ 399 01c4 03       		.uleb128 0x3
+ 400 01c5 0A       		.byte	0xa
+ 401 01c6 F401     		.2byte	0x1f4
+ 402 01c8 00       		.byte	0
+ 403 01c9 13       		.uleb128 0x13
+ 404 01ca 10000000 		.4byte	.LVL6
+ 405 01ce C7020000 		.4byte	0x2c7
+ 406 01d2 DC010000 		.4byte	0x1dc
+ 407 01d6 14       		.uleb128 0x14
+ 408 01d7 01       		.uleb128 0x1
+ 409 01d8 50       		.byte	0x50
+ 410 01d9 01       		.uleb128 0x1
+ 411 01da 31       		.byte	0x31
+ 412 01db 00       		.byte	0
+ 413 01dc 11       		.uleb128 0x11
+ 414 01dd 16000000 		.4byte	.LVL7
+ 415 01e1 17010000 		.4byte	0x117
+ 416 01e5 11       		.uleb128 0x11
+ 417 01e6 1A000000 		.4byte	.LVL8
+ 418 01ea 58010000 		.4byte	0x158
+ 419 01ee 11       		.uleb128 0x11
+ 420 01ef 1E000000 		.4byte	.LVL9
+ 421 01f3 D2020000 		.4byte	0x2d2
+ 422 01f7 00       		.byte	0
+ 423 01f8 15       		.uleb128 0x15
+ 424 01f9 52030000 		.4byte	.LASF48
+ 425 01fd 01       		.byte	0x1
+ 426 01fe 4B       		.byte	0x4b
+ 427 01ff 00000000 		.4byte	.LFB70
+ 428 0203 12000000 		.4byte	.LFE70-.LFB70
+ 429 0207 01       		.uleb128 0x1
+ 430 0208 9C       		.byte	0x9c
+ 431 0209 47020000 		.4byte	0x247
+ 432 020d 16       		.uleb128 0x16
+ 433 020e 99020000 		.4byte	.LASF26
+ 434 0212 01       		.byte	0x1
+ 435 0213 4B       		.byte	0x4b
+ 436 0214 D3000000 		.4byte	0xd3
+ 437 0218 01       		.uleb128 0x1
+ 438 0219 50       		.byte	0x50
+ 439 021a 16       		.uleb128 0x16
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 14
 
 
- 445 0245 09       		.byte	0x9
- 446 0246 14       		.byte	0x14
- 447 0247 1C       		.uleb128 0x1c
- 448 0248 4E010000 		.4byte	.LASF29
- 449 024c 4E010000 		.4byte	.LASF29
- 450 0250 0A       		.byte	0xa
- 451 0251 14       		.byte	0x14
- 452 0252 1C       		.uleb128 0x1c
- 453 0253 30020000 		.4byte	.LASF30
- 454 0257 30020000 		.4byte	.LASF30
- 455 025b 0B       		.byte	0xb
- 456 025c 2F       		.byte	0x2f
- 457 025d 1C       		.uleb128 0x1c
- 458 025e 0E030000 		.4byte	.LASF31
- 459 0262 0E030000 		.4byte	.LASF31
- 460 0266 0C       		.byte	0xc
- 461 0267 76       		.byte	0x76
- 462 0268 1D       		.uleb128 0x1d
- 463 0269 28000000 		.4byte	.LASF32
- 464 026d 28000000 		.4byte	.LASF32
- 465 0271 06       		.byte	0x6
- 466 0272 EB04     		.2byte	0x4eb
- 467 0274 00       		.byte	0
- 468              		.section	.debug_abbrev,"",%progbits
- 469              	.Ldebug_abbrev0:
- 470 0000 01       		.uleb128 0x1
- 471 0001 11       		.uleb128 0x11
- 472 0002 01       		.byte	0x1
- 473 0003 25       		.uleb128 0x25
- 474 0004 0E       		.uleb128 0xe
- 475 0005 13       		.uleb128 0x13
- 476 0006 0B       		.uleb128 0xb
- 477 0007 03       		.uleb128 0x3
- 478 0008 0E       		.uleb128 0xe
- 479 0009 1B       		.uleb128 0x1b
- 480 000a 0E       		.uleb128 0xe
- 481 000b 55       		.uleb128 0x55
- 482 000c 17       		.uleb128 0x17
- 483 000d 11       		.uleb128 0x11
- 484 000e 01       		.uleb128 0x1
- 485 000f 10       		.uleb128 0x10
- 486 0010 17       		.uleb128 0x17
- 487 0011 00       		.byte	0
- 488 0012 00       		.byte	0
- 489 0013 02       		.uleb128 0x2
- 490 0014 24       		.uleb128 0x24
- 491 0015 00       		.byte	0
- 492 0016 0B       		.uleb128 0xb
- 493 0017 0B       		.uleb128 0xb
- 494 0018 3E       		.uleb128 0x3e
- 495 0019 0B       		.uleb128 0xb
- 496 001a 03       		.uleb128 0x3
- 497 001b 0E       		.uleb128 0xe
- 498 001c 00       		.byte	0
- 499 001d 00       		.byte	0
- 500 001e 03       		.uleb128 0x3
- 501 001f 16       		.uleb128 0x16
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 15
+ 440 021b DE020000 		.4byte	.LASF27
+ 441 021f 01       		.byte	0x1
+ 442 0220 4B       		.byte	0x4b
+ 443 0221 CD000000 		.4byte	0xcd
+ 444 0225 01       		.uleb128 0x1
+ 445 0226 51       		.byte	0x51
+ 446 0227 17       		.uleb128 0x17
+ 447 0228 FF000000 		.4byte	0xff
+ 448 022c 00000000 		.4byte	.LBB4
+ 449 0230 12000000 		.4byte	.LBE4-.LBB4
+ 450 0234 01       		.byte	0x1
+ 451 0235 4E       		.byte	0x4e
+ 452 0236 18       		.uleb128 0x18
+ 453 0237 00000000 		.4byte	.LBB5
+ 454 023b 12000000 		.4byte	.LBE5-.LBB5
+ 455 023f 19       		.uleb128 0x19
+ 456 0240 0B010000 		.4byte	0x10b
+ 457 0244 00       		.byte	0
+ 458 0245 00       		.byte	0
+ 459 0246 00       		.byte	0
+ 460 0247 1A       		.uleb128 0x1a
+ 461 0248 72010000 		.4byte	.LASF29
+ 462 024c 08       		.byte	0x8
+ 463 024d 1207     		.2byte	0x712
+ 464 024f 53020000 		.4byte	0x253
+ 465 0253 1B       		.uleb128 0x1b
+ 466 0254 81000000 		.4byte	0x81
+ 467 0258 1C       		.uleb128 0x1c
+ 468 0259 11000000 		.4byte	.LASF30
+ 469 025d 09       		.byte	0x9
+ 470 025e 3F       		.byte	0x3f
+ 471 025f E9000000 		.4byte	0xe9
+ 472 0263 05       		.uleb128 0x5
+ 473 0264 03       		.byte	0x3
+ 474 0265 00000000 		.4byte	taskMessegesQ
+ 475 0269 1C       		.uleb128 0x1c
+ 476 026a 5D010000 		.4byte	.LASF31
+ 477 026e 09       		.byte	0x9
+ 478 026f 40       		.byte	0x40
+ 479 0270 E9000000 		.4byte	0xe9
+ 480 0274 05       		.uleb128 0x5
+ 481 0275 03       		.byte	0x3
+ 482 0276 00000000 		.4byte	powerMonConMessegesQ
+ 483 027a 0D       		.uleb128 0xd
+ 484 027b 1F000000 		.4byte	.LASF28
+ 485 027f 01       		.byte	0x1
+ 486 0280 3E       		.byte	0x3e
+ 487 0281 4D010000 		.4byte	0x14d
+ 488 0285 1D       		.uleb128 0x1d
+ 489 0286 58000000 		.4byte	.LASF32
+ 490 028a 58000000 		.4byte	.LASF32
+ 491 028e 0A       		.byte	0xa
+ 492 028f 13       		.byte	0x13
+ 493 0290 1D       		.uleb128 0x1d
+ 494 0291 08030000 		.4byte	.LASF33
+ 495 0295 08030000 		.4byte	.LASF33
+ 496 0299 0B       		.byte	0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 15
 
 
- 502 0020 00       		.byte	0
- 503 0021 03       		.uleb128 0x3
- 504 0022 0E       		.uleb128 0xe
- 505 0023 3A       		.uleb128 0x3a
- 506 0024 0B       		.uleb128 0xb
- 507 0025 3B       		.uleb128 0x3b
- 508 0026 0B       		.uleb128 0xb
- 509 0027 49       		.uleb128 0x49
- 510 0028 13       		.uleb128 0x13
- 511 0029 00       		.byte	0
- 512 002a 00       		.byte	0
- 513 002b 04       		.uleb128 0x4
- 514 002c 24       		.uleb128 0x24
- 515 002d 00       		.byte	0
- 516 002e 0B       		.uleb128 0xb
- 517 002f 0B       		.uleb128 0xb
- 518 0030 3E       		.uleb128 0x3e
- 519 0031 0B       		.uleb128 0xb
- 520 0032 03       		.uleb128 0x3
- 521 0033 08       		.uleb128 0x8
- 522 0034 00       		.byte	0
- 523 0035 00       		.byte	0
- 524 0036 05       		.uleb128 0x5
- 525 0037 16       		.uleb128 0x16
- 526 0038 00       		.byte	0
- 527 0039 03       		.uleb128 0x3
- 528 003a 0E       		.uleb128 0xe
- 529 003b 3A       		.uleb128 0x3a
- 530 003c 0B       		.uleb128 0xb
- 531 003d 3B       		.uleb128 0x3b
- 532 003e 05       		.uleb128 0x5
- 533 003f 49       		.uleb128 0x49
- 534 0040 13       		.uleb128 0x13
- 535 0041 00       		.byte	0
- 536 0042 00       		.byte	0
- 537 0043 06       		.uleb128 0x6
- 538 0044 0F       		.uleb128 0xf
- 539 0045 00       		.byte	0
- 540 0046 0B       		.uleb128 0xb
- 541 0047 0B       		.uleb128 0xb
- 542 0048 49       		.uleb128 0x49
- 543 0049 13       		.uleb128 0x13
- 544 004a 00       		.byte	0
- 545 004b 00       		.byte	0
- 546 004c 07       		.uleb128 0x7
- 547 004d 15       		.uleb128 0x15
- 548 004e 00       		.byte	0
- 549 004f 27       		.uleb128 0x27
- 550 0050 19       		.uleb128 0x19
- 551 0051 00       		.byte	0
- 552 0052 00       		.byte	0
- 553 0053 08       		.uleb128 0x8
- 554 0054 13       		.uleb128 0x13
- 555 0055 00       		.byte	0
- 556 0056 03       		.uleb128 0x3
- 557 0057 0E       		.uleb128 0xe
- 558 0058 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 16
+ 497 029a 14       		.byte	0x14
+ 498 029b 1D       		.uleb128 0x1d
+ 499 029c 7F010000 		.4byte	.LASF34
+ 500 02a0 7F010000 		.4byte	.LASF34
+ 501 02a4 0C       		.byte	0xc
+ 502 02a5 14       		.byte	0x14
+ 503 02a6 1D       		.uleb128 0x1d
+ 504 02a7 80020000 		.4byte	.LASF35
+ 505 02ab 80020000 		.4byte	.LASF35
+ 506 02af 09       		.byte	0x9
+ 507 02b0 44       		.byte	0x44
+ 508 02b1 1D       		.uleb128 0x1d
+ 509 02b2 2F030000 		.4byte	.LASF36
+ 510 02b6 2F030000 		.4byte	.LASF36
+ 511 02ba 0D       		.byte	0xd
+ 512 02bb 14       		.byte	0x14
+ 513 02bc 1D       		.uleb128 0x1d
+ 514 02bd 81030000 		.4byte	.LASF37
+ 515 02c1 81030000 		.4byte	.LASF37
+ 516 02c5 0E       		.byte	0xe
+ 517 02c6 76       		.byte	0x76
+ 518 02c7 1D       		.uleb128 0x1d
+ 519 02c8 F7010000 		.4byte	.LASF38
+ 520 02cc F7010000 		.4byte	.LASF38
+ 521 02d0 0F       		.byte	0xf
+ 522 02d1 26       		.byte	0x26
+ 523 02d2 1E       		.uleb128 0x1e
+ 524 02d3 44000000 		.4byte	.LASF39
+ 525 02d7 44000000 		.4byte	.LASF39
+ 526 02db 06       		.byte	0x6
+ 527 02dc EB04     		.2byte	0x4eb
+ 528 02de 00       		.byte	0
+ 529              		.section	.debug_abbrev,"",%progbits
+ 530              	.Ldebug_abbrev0:
+ 531 0000 01       		.uleb128 0x1
+ 532 0001 11       		.uleb128 0x11
+ 533 0002 01       		.byte	0x1
+ 534 0003 25       		.uleb128 0x25
+ 535 0004 0E       		.uleb128 0xe
+ 536 0005 13       		.uleb128 0x13
+ 537 0006 0B       		.uleb128 0xb
+ 538 0007 03       		.uleb128 0x3
+ 539 0008 0E       		.uleb128 0xe
+ 540 0009 1B       		.uleb128 0x1b
+ 541 000a 0E       		.uleb128 0xe
+ 542 000b 55       		.uleb128 0x55
+ 543 000c 17       		.uleb128 0x17
+ 544 000d 11       		.uleb128 0x11
+ 545 000e 01       		.uleb128 0x1
+ 546 000f 10       		.uleb128 0x10
+ 547 0010 17       		.uleb128 0x17
+ 548 0011 00       		.byte	0
+ 549 0012 00       		.byte	0
+ 550 0013 02       		.uleb128 0x2
+ 551 0014 24       		.uleb128 0x24
+ 552 0015 00       		.byte	0
+ 553 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 16
 
 
- 559 0059 19       		.uleb128 0x19
- 560 005a 00       		.byte	0
- 561 005b 00       		.byte	0
- 562 005c 09       		.uleb128 0x9
- 563 005d 2E       		.uleb128 0x2e
- 564 005e 01       		.byte	0x1
- 565 005f 03       		.uleb128 0x3
- 566 0060 0E       		.uleb128 0xe
- 567 0061 3A       		.uleb128 0x3a
- 568 0062 0B       		.uleb128 0xb
- 569 0063 3B       		.uleb128 0x3b
- 570 0064 0B       		.uleb128 0xb
- 571 0065 27       		.uleb128 0x27
- 572 0066 19       		.uleb128 0x19
- 573 0067 20       		.uleb128 0x20
- 574 0068 0B       		.uleb128 0xb
- 575 0069 01       		.uleb128 0x1
- 576 006a 13       		.uleb128 0x13
- 577 006b 00       		.byte	0
- 578 006c 00       		.byte	0
- 579 006d 0A       		.uleb128 0xa
- 580 006e 34       		.uleb128 0x34
- 581 006f 00       		.byte	0
- 582 0070 03       		.uleb128 0x3
- 583 0071 0E       		.uleb128 0xe
- 584 0072 3A       		.uleb128 0x3a
- 585 0073 0B       		.uleb128 0xb
- 586 0074 3B       		.uleb128 0x3b
- 587 0075 0B       		.uleb128 0xb
- 588 0076 49       		.uleb128 0x49
- 589 0077 13       		.uleb128 0x13
- 590 0078 00       		.byte	0
- 591 0079 00       		.byte	0
- 592 007a 0B       		.uleb128 0xb
- 593 007b 2E       		.uleb128 0x2e
- 594 007c 01       		.byte	0x1
- 595 007d 03       		.uleb128 0x3
- 596 007e 0E       		.uleb128 0xe
- 597 007f 3A       		.uleb128 0x3a
- 598 0080 0B       		.uleb128 0xb
- 599 0081 3B       		.uleb128 0x3b
- 600 0082 0B       		.uleb128 0xb
- 601 0083 27       		.uleb128 0x27
- 602 0084 19       		.uleb128 0x19
- 603 0085 11       		.uleb128 0x11
- 604 0086 01       		.uleb128 0x1
- 605 0087 12       		.uleb128 0x12
- 606 0088 06       		.uleb128 0x6
- 607 0089 40       		.uleb128 0x40
- 608 008a 18       		.uleb128 0x18
- 609 008b 9742     		.uleb128 0x2117
- 610 008d 19       		.uleb128 0x19
- 611 008e 01       		.uleb128 0x1
- 612 008f 13       		.uleb128 0x13
- 613 0090 00       		.byte	0
- 614 0091 00       		.byte	0
- 615 0092 0C       		.uleb128 0xc
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 17
+ 554 0017 0B       		.uleb128 0xb
+ 555 0018 3E       		.uleb128 0x3e
+ 556 0019 0B       		.uleb128 0xb
+ 557 001a 03       		.uleb128 0x3
+ 558 001b 0E       		.uleb128 0xe
+ 559 001c 00       		.byte	0
+ 560 001d 00       		.byte	0
+ 561 001e 03       		.uleb128 0x3
+ 562 001f 16       		.uleb128 0x16
+ 563 0020 00       		.byte	0
+ 564 0021 03       		.uleb128 0x3
+ 565 0022 0E       		.uleb128 0xe
+ 566 0023 3A       		.uleb128 0x3a
+ 567 0024 0B       		.uleb128 0xb
+ 568 0025 3B       		.uleb128 0x3b
+ 569 0026 0B       		.uleb128 0xb
+ 570 0027 49       		.uleb128 0x49
+ 571 0028 13       		.uleb128 0x13
+ 572 0029 00       		.byte	0
+ 573 002a 00       		.byte	0
+ 574 002b 04       		.uleb128 0x4
+ 575 002c 24       		.uleb128 0x24
+ 576 002d 00       		.byte	0
+ 577 002e 0B       		.uleb128 0xb
+ 578 002f 0B       		.uleb128 0xb
+ 579 0030 3E       		.uleb128 0x3e
+ 580 0031 0B       		.uleb128 0xb
+ 581 0032 03       		.uleb128 0x3
+ 582 0033 08       		.uleb128 0x8
+ 583 0034 00       		.byte	0
+ 584 0035 00       		.byte	0
+ 585 0036 05       		.uleb128 0x5
+ 586 0037 16       		.uleb128 0x16
+ 587 0038 00       		.byte	0
+ 588 0039 03       		.uleb128 0x3
+ 589 003a 0E       		.uleb128 0xe
+ 590 003b 3A       		.uleb128 0x3a
+ 591 003c 0B       		.uleb128 0xb
+ 592 003d 3B       		.uleb128 0x3b
+ 593 003e 05       		.uleb128 0x5
+ 594 003f 49       		.uleb128 0x49
+ 595 0040 13       		.uleb128 0x13
+ 596 0041 00       		.byte	0
+ 597 0042 00       		.byte	0
+ 598 0043 06       		.uleb128 0x6
+ 599 0044 0F       		.uleb128 0xf
+ 600 0045 00       		.byte	0
+ 601 0046 0B       		.uleb128 0xb
+ 602 0047 0B       		.uleb128 0xb
+ 603 0048 49       		.uleb128 0x49
+ 604 0049 13       		.uleb128 0x13
+ 605 004a 00       		.byte	0
+ 606 004b 00       		.byte	0
+ 607 004c 07       		.uleb128 0x7
+ 608 004d 15       		.uleb128 0x15
+ 609 004e 00       		.byte	0
+ 610 004f 27       		.uleb128 0x27
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 17
 
 
- 616 0093 2E       		.uleb128 0x2e
- 617 0094 00       		.byte	0
- 618 0095 3F       		.uleb128 0x3f
- 619 0096 19       		.uleb128 0x19
- 620 0097 03       		.uleb128 0x3
- 621 0098 0E       		.uleb128 0xe
- 622 0099 3A       		.uleb128 0x3a
- 623 009a 0B       		.uleb128 0xb
- 624 009b 3B       		.uleb128 0x3b
- 625 009c 0B       		.uleb128 0xb
- 626 009d 27       		.uleb128 0x27
- 627 009e 19       		.uleb128 0x19
- 628 009f 3C       		.uleb128 0x3c
- 629 00a0 19       		.uleb128 0x19
- 630 00a1 00       		.byte	0
- 631 00a2 00       		.byte	0
- 632 00a3 0D       		.uleb128 0xd
- 633 00a4 34       		.uleb128 0x34
- 634 00a5 00       		.byte	0
- 635 00a6 03       		.uleb128 0x3
- 636 00a7 0E       		.uleb128 0xe
- 637 00a8 3A       		.uleb128 0x3a
- 638 00a9 0B       		.uleb128 0xb
- 639 00aa 3B       		.uleb128 0x3b
- 640 00ab 0B       		.uleb128 0xb
- 641 00ac 49       		.uleb128 0x49
- 642 00ad 13       		.uleb128 0x13
- 643 00ae 3F       		.uleb128 0x3f
- 644 00af 19       		.uleb128 0x19
- 645 00b0 3C       		.uleb128 0x3c
- 646 00b1 19       		.uleb128 0x19
- 647 00b2 00       		.byte	0
- 648 00b3 00       		.byte	0
- 649 00b4 0E       		.uleb128 0xe
- 650 00b5 01       		.uleb128 0x1
- 651 00b6 01       		.byte	0x1
- 652 00b7 49       		.uleb128 0x49
- 653 00b8 13       		.uleb128 0x13
- 654 00b9 01       		.uleb128 0x1
- 655 00ba 13       		.uleb128 0x13
- 656 00bb 00       		.byte	0
- 657 00bc 00       		.byte	0
- 658 00bd 0F       		.uleb128 0xf
- 659 00be 21       		.uleb128 0x21
- 660 00bf 00       		.byte	0
- 661 00c0 00       		.byte	0
- 662 00c1 00       		.byte	0
- 663 00c2 10       		.uleb128 0x10
- 664 00c3 2E       		.uleb128 0x2e
- 665 00c4 01       		.byte	0x1
- 666 00c5 03       		.uleb128 0x3
- 667 00c6 0E       		.uleb128 0xe
- 668 00c7 3A       		.uleb128 0x3a
- 669 00c8 0B       		.uleb128 0xb
- 670 00c9 3B       		.uleb128 0x3b
- 671 00ca 0B       		.uleb128 0xb
- 672 00cb 11       		.uleb128 0x11
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 18
+ 611 0050 19       		.uleb128 0x19
+ 612 0051 00       		.byte	0
+ 613 0052 00       		.byte	0
+ 614 0053 08       		.uleb128 0x8
+ 615 0054 13       		.uleb128 0x13
+ 616 0055 00       		.byte	0
+ 617 0056 03       		.uleb128 0x3
+ 618 0057 0E       		.uleb128 0xe
+ 619 0058 3C       		.uleb128 0x3c
+ 620 0059 19       		.uleb128 0x19
+ 621 005a 00       		.byte	0
+ 622 005b 00       		.byte	0
+ 623 005c 09       		.uleb128 0x9
+ 624 005d 2E       		.uleb128 0x2e
+ 625 005e 01       		.byte	0x1
+ 626 005f 03       		.uleb128 0x3
+ 627 0060 0E       		.uleb128 0xe
+ 628 0061 3A       		.uleb128 0x3a
+ 629 0062 0B       		.uleb128 0xb
+ 630 0063 3B       		.uleb128 0x3b
+ 631 0064 0B       		.uleb128 0xb
+ 632 0065 27       		.uleb128 0x27
+ 633 0066 19       		.uleb128 0x19
+ 634 0067 20       		.uleb128 0x20
+ 635 0068 0B       		.uleb128 0xb
+ 636 0069 01       		.uleb128 0x1
+ 637 006a 13       		.uleb128 0x13
+ 638 006b 00       		.byte	0
+ 639 006c 00       		.byte	0
+ 640 006d 0A       		.uleb128 0xa
+ 641 006e 34       		.uleb128 0x34
+ 642 006f 00       		.byte	0
+ 643 0070 03       		.uleb128 0x3
+ 644 0071 0E       		.uleb128 0xe
+ 645 0072 3A       		.uleb128 0x3a
+ 646 0073 0B       		.uleb128 0xb
+ 647 0074 3B       		.uleb128 0x3b
+ 648 0075 0B       		.uleb128 0xb
+ 649 0076 49       		.uleb128 0x49
+ 650 0077 13       		.uleb128 0x13
+ 651 0078 00       		.byte	0
+ 652 0079 00       		.byte	0
+ 653 007a 0B       		.uleb128 0xb
+ 654 007b 2E       		.uleb128 0x2e
+ 655 007c 01       		.byte	0x1
+ 656 007d 03       		.uleb128 0x3
+ 657 007e 0E       		.uleb128 0xe
+ 658 007f 3A       		.uleb128 0x3a
+ 659 0080 0B       		.uleb128 0xb
+ 660 0081 3B       		.uleb128 0x3b
+ 661 0082 0B       		.uleb128 0xb
+ 662 0083 27       		.uleb128 0x27
+ 663 0084 19       		.uleb128 0x19
+ 664 0085 11       		.uleb128 0x11
+ 665 0086 01       		.uleb128 0x1
+ 666 0087 12       		.uleb128 0x12
+ 667 0088 06       		.uleb128 0x6
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 18
 
 
- 673 00cc 01       		.uleb128 0x1
- 674 00cd 12       		.uleb128 0x12
- 675 00ce 06       		.uleb128 0x6
- 676 00cf 40       		.uleb128 0x40
- 677 00d0 18       		.uleb128 0x18
- 678 00d1 9742     		.uleb128 0x2117
- 679 00d3 19       		.uleb128 0x19
- 680 00d4 01       		.uleb128 0x1
- 681 00d5 13       		.uleb128 0x13
- 682 00d6 00       		.byte	0
- 683 00d7 00       		.byte	0
- 684 00d8 11       		.uleb128 0x11
- 685 00d9 898201   		.uleb128 0x4109
- 686 00dc 00       		.byte	0
- 687 00dd 11       		.uleb128 0x11
- 688 00de 01       		.uleb128 0x1
- 689 00df 31       		.uleb128 0x31
- 690 00e0 13       		.uleb128 0x13
- 691 00e1 00       		.byte	0
- 692 00e2 00       		.byte	0
- 693 00e3 12       		.uleb128 0x12
- 694 00e4 2E       		.uleb128 0x2e
- 695 00e5 01       		.byte	0x1
- 696 00e6 3F       		.uleb128 0x3f
- 697 00e7 19       		.uleb128 0x19
- 698 00e8 03       		.uleb128 0x3
- 699 00e9 0E       		.uleb128 0xe
- 700 00ea 3A       		.uleb128 0x3a
- 701 00eb 0B       		.uleb128 0xb
- 702 00ec 3B       		.uleb128 0x3b
- 703 00ed 0B       		.uleb128 0xb
- 704 00ee 27       		.uleb128 0x27
- 705 00ef 19       		.uleb128 0x19
- 706 00f0 49       		.uleb128 0x49
- 707 00f1 13       		.uleb128 0x13
- 708 00f2 8701     		.uleb128 0x87
- 709 00f4 19       		.uleb128 0x19
- 710 00f5 11       		.uleb128 0x11
- 711 00f6 01       		.uleb128 0x1
- 712 00f7 12       		.uleb128 0x12
- 713 00f8 06       		.uleb128 0x6
- 714 00f9 40       		.uleb128 0x40
- 715 00fa 18       		.uleb128 0x18
- 716 00fb 9742     		.uleb128 0x2117
- 717 00fd 19       		.uleb128 0x19
- 718 00fe 01       		.uleb128 0x1
- 719 00ff 13       		.uleb128 0x13
- 720 0100 00       		.byte	0
- 721 0101 00       		.byte	0
- 722 0102 13       		.uleb128 0x13
- 723 0103 898201   		.uleb128 0x4109
- 724 0106 01       		.byte	0x1
- 725 0107 11       		.uleb128 0x11
- 726 0108 01       		.uleb128 0x1
- 727 0109 31       		.uleb128 0x31
- 728 010a 13       		.uleb128 0x13
- 729 010b 01       		.uleb128 0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 19
+ 668 0089 40       		.uleb128 0x40
+ 669 008a 18       		.uleb128 0x18
+ 670 008b 9742     		.uleb128 0x2117
+ 671 008d 19       		.uleb128 0x19
+ 672 008e 01       		.uleb128 0x1
+ 673 008f 13       		.uleb128 0x13
+ 674 0090 00       		.byte	0
+ 675 0091 00       		.byte	0
+ 676 0092 0C       		.uleb128 0xc
+ 677 0093 2E       		.uleb128 0x2e
+ 678 0094 00       		.byte	0
+ 679 0095 3F       		.uleb128 0x3f
+ 680 0096 19       		.uleb128 0x19
+ 681 0097 03       		.uleb128 0x3
+ 682 0098 0E       		.uleb128 0xe
+ 683 0099 3A       		.uleb128 0x3a
+ 684 009a 0B       		.uleb128 0xb
+ 685 009b 3B       		.uleb128 0x3b
+ 686 009c 0B       		.uleb128 0xb
+ 687 009d 27       		.uleb128 0x27
+ 688 009e 19       		.uleb128 0x19
+ 689 009f 3C       		.uleb128 0x3c
+ 690 00a0 19       		.uleb128 0x19
+ 691 00a1 00       		.byte	0
+ 692 00a2 00       		.byte	0
+ 693 00a3 0D       		.uleb128 0xd
+ 694 00a4 34       		.uleb128 0x34
+ 695 00a5 00       		.byte	0
+ 696 00a6 03       		.uleb128 0x3
+ 697 00a7 0E       		.uleb128 0xe
+ 698 00a8 3A       		.uleb128 0x3a
+ 699 00a9 0B       		.uleb128 0xb
+ 700 00aa 3B       		.uleb128 0x3b
+ 701 00ab 0B       		.uleb128 0xb
+ 702 00ac 49       		.uleb128 0x49
+ 703 00ad 13       		.uleb128 0x13
+ 704 00ae 3F       		.uleb128 0x3f
+ 705 00af 19       		.uleb128 0x19
+ 706 00b0 3C       		.uleb128 0x3c
+ 707 00b1 19       		.uleb128 0x19
+ 708 00b2 00       		.byte	0
+ 709 00b3 00       		.byte	0
+ 710 00b4 0E       		.uleb128 0xe
+ 711 00b5 01       		.uleb128 0x1
+ 712 00b6 01       		.byte	0x1
+ 713 00b7 49       		.uleb128 0x49
+ 714 00b8 13       		.uleb128 0x13
+ 715 00b9 01       		.uleb128 0x1
+ 716 00ba 13       		.uleb128 0x13
+ 717 00bb 00       		.byte	0
+ 718 00bc 00       		.byte	0
+ 719 00bd 0F       		.uleb128 0xf
+ 720 00be 21       		.uleb128 0x21
+ 721 00bf 00       		.byte	0
+ 722 00c0 00       		.byte	0
+ 723 00c1 00       		.byte	0
+ 724 00c2 10       		.uleb128 0x10
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 19
 
 
- 730 010c 13       		.uleb128 0x13
- 731 010d 00       		.byte	0
- 732 010e 00       		.byte	0
- 733 010f 14       		.uleb128 0x14
- 734 0110 8A8201   		.uleb128 0x410a
- 735 0113 00       		.byte	0
- 736 0114 02       		.uleb128 0x2
- 737 0115 18       		.uleb128 0x18
- 738 0116 9142     		.uleb128 0x2111
- 739 0118 18       		.uleb128 0x18
- 740 0119 00       		.byte	0
- 741 011a 00       		.byte	0
- 742 011b 15       		.uleb128 0x15
- 743 011c 2E       		.uleb128 0x2e
- 744 011d 01       		.byte	0x1
- 745 011e 3F       		.uleb128 0x3f
- 746 011f 19       		.uleb128 0x19
- 747 0120 03       		.uleb128 0x3
- 748 0121 0E       		.uleb128 0xe
- 749 0122 3A       		.uleb128 0x3a
- 750 0123 0B       		.uleb128 0xb
- 751 0124 3B       		.uleb128 0x3b
- 752 0125 0B       		.uleb128 0xb
- 753 0126 27       		.uleb128 0x27
- 754 0127 19       		.uleb128 0x19
- 755 0128 8701     		.uleb128 0x87
- 756 012a 19       		.uleb128 0x19
- 757 012b 11       		.uleb128 0x11
- 758 012c 01       		.uleb128 0x1
- 759 012d 12       		.uleb128 0x12
- 760 012e 06       		.uleb128 0x6
- 761 012f 40       		.uleb128 0x40
- 762 0130 18       		.uleb128 0x18
- 763 0131 9742     		.uleb128 0x2117
- 764 0133 19       		.uleb128 0x19
- 765 0134 01       		.uleb128 0x1
- 766 0135 13       		.uleb128 0x13
- 767 0136 00       		.byte	0
- 768 0137 00       		.byte	0
- 769 0138 16       		.uleb128 0x16
- 770 0139 05       		.uleb128 0x5
- 771 013a 00       		.byte	0
- 772 013b 03       		.uleb128 0x3
- 773 013c 0E       		.uleb128 0xe
- 774 013d 3A       		.uleb128 0x3a
- 775 013e 0B       		.uleb128 0xb
- 776 013f 3B       		.uleb128 0x3b
- 777 0140 0B       		.uleb128 0xb
- 778 0141 49       		.uleb128 0x49
- 779 0142 13       		.uleb128 0x13
- 780 0143 02       		.uleb128 0x2
- 781 0144 18       		.uleb128 0x18
- 782 0145 00       		.byte	0
- 783 0146 00       		.byte	0
- 784 0147 17       		.uleb128 0x17
- 785 0148 1D       		.uleb128 0x1d
- 786 0149 01       		.byte	0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 20
+ 725 00c3 2E       		.uleb128 0x2e
+ 726 00c4 01       		.byte	0x1
+ 727 00c5 03       		.uleb128 0x3
+ 728 00c6 0E       		.uleb128 0xe
+ 729 00c7 3A       		.uleb128 0x3a
+ 730 00c8 0B       		.uleb128 0xb
+ 731 00c9 3B       		.uleb128 0x3b
+ 732 00ca 0B       		.uleb128 0xb
+ 733 00cb 11       		.uleb128 0x11
+ 734 00cc 01       		.uleb128 0x1
+ 735 00cd 12       		.uleb128 0x12
+ 736 00ce 06       		.uleb128 0x6
+ 737 00cf 40       		.uleb128 0x40
+ 738 00d0 18       		.uleb128 0x18
+ 739 00d1 9742     		.uleb128 0x2117
+ 740 00d3 19       		.uleb128 0x19
+ 741 00d4 01       		.uleb128 0x1
+ 742 00d5 13       		.uleb128 0x13
+ 743 00d6 00       		.byte	0
+ 744 00d7 00       		.byte	0
+ 745 00d8 11       		.uleb128 0x11
+ 746 00d9 898201   		.uleb128 0x4109
+ 747 00dc 00       		.byte	0
+ 748 00dd 11       		.uleb128 0x11
+ 749 00de 01       		.uleb128 0x1
+ 750 00df 31       		.uleb128 0x31
+ 751 00e0 13       		.uleb128 0x13
+ 752 00e1 00       		.byte	0
+ 753 00e2 00       		.byte	0
+ 754 00e3 12       		.uleb128 0x12
+ 755 00e4 2E       		.uleb128 0x2e
+ 756 00e5 01       		.byte	0x1
+ 757 00e6 3F       		.uleb128 0x3f
+ 758 00e7 19       		.uleb128 0x19
+ 759 00e8 03       		.uleb128 0x3
+ 760 00e9 0E       		.uleb128 0xe
+ 761 00ea 3A       		.uleb128 0x3a
+ 762 00eb 0B       		.uleb128 0xb
+ 763 00ec 3B       		.uleb128 0x3b
+ 764 00ed 0B       		.uleb128 0xb
+ 765 00ee 27       		.uleb128 0x27
+ 766 00ef 19       		.uleb128 0x19
+ 767 00f0 49       		.uleb128 0x49
+ 768 00f1 13       		.uleb128 0x13
+ 769 00f2 8701     		.uleb128 0x87
+ 770 00f4 19       		.uleb128 0x19
+ 771 00f5 11       		.uleb128 0x11
+ 772 00f6 01       		.uleb128 0x1
+ 773 00f7 12       		.uleb128 0x12
+ 774 00f8 06       		.uleb128 0x6
+ 775 00f9 40       		.uleb128 0x40
+ 776 00fa 18       		.uleb128 0x18
+ 777 00fb 9742     		.uleb128 0x2117
+ 778 00fd 19       		.uleb128 0x19
+ 779 00fe 01       		.uleb128 0x1
+ 780 00ff 13       		.uleb128 0x13
+ 781 0100 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 20
 
 
- 787 014a 31       		.uleb128 0x31
- 788 014b 13       		.uleb128 0x13
- 789 014c 11       		.uleb128 0x11
- 790 014d 01       		.uleb128 0x1
- 791 014e 12       		.uleb128 0x12
- 792 014f 06       		.uleb128 0x6
- 793 0150 58       		.uleb128 0x58
- 794 0151 0B       		.uleb128 0xb
- 795 0152 59       		.uleb128 0x59
- 796 0153 0B       		.uleb128 0xb
- 797 0154 00       		.byte	0
- 798 0155 00       		.byte	0
- 799 0156 18       		.uleb128 0x18
- 800 0157 0B       		.uleb128 0xb
- 801 0158 01       		.byte	0x1
- 802 0159 11       		.uleb128 0x11
- 803 015a 01       		.uleb128 0x1
- 804 015b 12       		.uleb128 0x12
- 805 015c 06       		.uleb128 0x6
- 806 015d 00       		.byte	0
- 807 015e 00       		.byte	0
- 808 015f 19       		.uleb128 0x19
- 809 0160 34       		.uleb128 0x34
- 810 0161 00       		.byte	0
- 811 0162 31       		.uleb128 0x31
- 812 0163 13       		.uleb128 0x13
- 813 0164 00       		.byte	0
- 814 0165 00       		.byte	0
- 815 0166 1A       		.uleb128 0x1a
- 816 0167 34       		.uleb128 0x34
- 817 0168 00       		.byte	0
- 818 0169 03       		.uleb128 0x3
- 819 016a 0E       		.uleb128 0xe
- 820 016b 3A       		.uleb128 0x3a
- 821 016c 0B       		.uleb128 0xb
- 822 016d 3B       		.uleb128 0x3b
- 823 016e 05       		.uleb128 0x5
- 824 016f 49       		.uleb128 0x49
- 825 0170 13       		.uleb128 0x13
- 826 0171 3F       		.uleb128 0x3f
- 827 0172 19       		.uleb128 0x19
- 828 0173 3C       		.uleb128 0x3c
- 829 0174 19       		.uleb128 0x19
- 830 0175 00       		.byte	0
- 831 0176 00       		.byte	0
- 832 0177 1B       		.uleb128 0x1b
- 833 0178 35       		.uleb128 0x35
- 834 0179 00       		.byte	0
- 835 017a 49       		.uleb128 0x49
- 836 017b 13       		.uleb128 0x13
- 837 017c 00       		.byte	0
- 838 017d 00       		.byte	0
- 839 017e 1C       		.uleb128 0x1c
- 840 017f 2E       		.uleb128 0x2e
- 841 0180 00       		.byte	0
- 842 0181 3F       		.uleb128 0x3f
- 843 0182 19       		.uleb128 0x19
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 21
+ 782 0101 00       		.byte	0
+ 783 0102 13       		.uleb128 0x13
+ 784 0103 898201   		.uleb128 0x4109
+ 785 0106 01       		.byte	0x1
+ 786 0107 11       		.uleb128 0x11
+ 787 0108 01       		.uleb128 0x1
+ 788 0109 31       		.uleb128 0x31
+ 789 010a 13       		.uleb128 0x13
+ 790 010b 01       		.uleb128 0x1
+ 791 010c 13       		.uleb128 0x13
+ 792 010d 00       		.byte	0
+ 793 010e 00       		.byte	0
+ 794 010f 14       		.uleb128 0x14
+ 795 0110 8A8201   		.uleb128 0x410a
+ 796 0113 00       		.byte	0
+ 797 0114 02       		.uleb128 0x2
+ 798 0115 18       		.uleb128 0x18
+ 799 0116 9142     		.uleb128 0x2111
+ 800 0118 18       		.uleb128 0x18
+ 801 0119 00       		.byte	0
+ 802 011a 00       		.byte	0
+ 803 011b 15       		.uleb128 0x15
+ 804 011c 2E       		.uleb128 0x2e
+ 805 011d 01       		.byte	0x1
+ 806 011e 3F       		.uleb128 0x3f
+ 807 011f 19       		.uleb128 0x19
+ 808 0120 03       		.uleb128 0x3
+ 809 0121 0E       		.uleb128 0xe
+ 810 0122 3A       		.uleb128 0x3a
+ 811 0123 0B       		.uleb128 0xb
+ 812 0124 3B       		.uleb128 0x3b
+ 813 0125 0B       		.uleb128 0xb
+ 814 0126 27       		.uleb128 0x27
+ 815 0127 19       		.uleb128 0x19
+ 816 0128 8701     		.uleb128 0x87
+ 817 012a 19       		.uleb128 0x19
+ 818 012b 11       		.uleb128 0x11
+ 819 012c 01       		.uleb128 0x1
+ 820 012d 12       		.uleb128 0x12
+ 821 012e 06       		.uleb128 0x6
+ 822 012f 40       		.uleb128 0x40
+ 823 0130 18       		.uleb128 0x18
+ 824 0131 9742     		.uleb128 0x2117
+ 825 0133 19       		.uleb128 0x19
+ 826 0134 01       		.uleb128 0x1
+ 827 0135 13       		.uleb128 0x13
+ 828 0136 00       		.byte	0
+ 829 0137 00       		.byte	0
+ 830 0138 16       		.uleb128 0x16
+ 831 0139 05       		.uleb128 0x5
+ 832 013a 00       		.byte	0
+ 833 013b 03       		.uleb128 0x3
+ 834 013c 0E       		.uleb128 0xe
+ 835 013d 3A       		.uleb128 0x3a
+ 836 013e 0B       		.uleb128 0xb
+ 837 013f 3B       		.uleb128 0x3b
+ 838 0140 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 21
 
 
- 844 0183 3C       		.uleb128 0x3c
- 845 0184 19       		.uleb128 0x19
- 846 0185 6E       		.uleb128 0x6e
- 847 0186 0E       		.uleb128 0xe
- 848 0187 03       		.uleb128 0x3
- 849 0188 0E       		.uleb128 0xe
- 850 0189 3A       		.uleb128 0x3a
- 851 018a 0B       		.uleb128 0xb
- 852 018b 3B       		.uleb128 0x3b
- 853 018c 0B       		.uleb128 0xb
- 854 018d 00       		.byte	0
- 855 018e 00       		.byte	0
- 856 018f 1D       		.uleb128 0x1d
- 857 0190 2E       		.uleb128 0x2e
- 858 0191 00       		.byte	0
- 859 0192 3F       		.uleb128 0x3f
- 860 0193 19       		.uleb128 0x19
- 861 0194 3C       		.uleb128 0x3c
- 862 0195 19       		.uleb128 0x19
- 863 0196 6E       		.uleb128 0x6e
- 864 0197 0E       		.uleb128 0xe
- 865 0198 03       		.uleb128 0x3
- 866 0199 0E       		.uleb128 0xe
- 867 019a 3A       		.uleb128 0x3a
- 868 019b 0B       		.uleb128 0xb
- 869 019c 3B       		.uleb128 0x3b
- 870 019d 05       		.uleb128 0x5
- 871 019e 00       		.byte	0
- 872 019f 00       		.byte	0
- 873 01a0 00       		.byte	0
- 874              		.section	.debug_aranges,"",%progbits
- 875 0000 34000000 		.4byte	0x34
- 876 0004 0200     		.2byte	0x2
- 877 0006 00000000 		.4byte	.Ldebug_info0
- 878 000a 04       		.byte	0x4
- 879 000b 00       		.byte	0
- 880 000c 0000     		.2byte	0
- 881 000e 0000     		.2byte	0
- 882 0010 00000000 		.4byte	.LFB69
- 883 0014 20000000 		.4byte	.LFE69-.LFB69
- 884 0018 00000000 		.4byte	.LFB71
- 885 001c 14000000 		.4byte	.LFE71-.LFB71
- 886 0020 00000000 		.4byte	.LFB68
- 887 0024 1A000000 		.4byte	.LFE68-.LFB68
- 888 0028 00000000 		.4byte	.LFB70
- 889 002c 12000000 		.4byte	.LFE70-.LFB70
- 890 0030 00000000 		.4byte	0
- 891 0034 00000000 		.4byte	0
- 892              		.section	.debug_ranges,"",%progbits
- 893              	.Ldebug_ranges0:
- 894 0000 00000000 		.4byte	.LFB69
- 895 0004 20000000 		.4byte	.LFE69
- 896 0008 00000000 		.4byte	.LFB71
- 897 000c 14000000 		.4byte	.LFE71
- 898 0010 00000000 		.4byte	.LFB68
- 899 0014 1A000000 		.4byte	.LFE68
- 900 0018 00000000 		.4byte	.LFB70
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 22
+ 839 0141 49       		.uleb128 0x49
+ 840 0142 13       		.uleb128 0x13
+ 841 0143 02       		.uleb128 0x2
+ 842 0144 18       		.uleb128 0x18
+ 843 0145 00       		.byte	0
+ 844 0146 00       		.byte	0
+ 845 0147 17       		.uleb128 0x17
+ 846 0148 1D       		.uleb128 0x1d
+ 847 0149 01       		.byte	0x1
+ 848 014a 31       		.uleb128 0x31
+ 849 014b 13       		.uleb128 0x13
+ 850 014c 11       		.uleb128 0x11
+ 851 014d 01       		.uleb128 0x1
+ 852 014e 12       		.uleb128 0x12
+ 853 014f 06       		.uleb128 0x6
+ 854 0150 58       		.uleb128 0x58
+ 855 0151 0B       		.uleb128 0xb
+ 856 0152 59       		.uleb128 0x59
+ 857 0153 0B       		.uleb128 0xb
+ 858 0154 00       		.byte	0
+ 859 0155 00       		.byte	0
+ 860 0156 18       		.uleb128 0x18
+ 861 0157 0B       		.uleb128 0xb
+ 862 0158 01       		.byte	0x1
+ 863 0159 11       		.uleb128 0x11
+ 864 015a 01       		.uleb128 0x1
+ 865 015b 12       		.uleb128 0x12
+ 866 015c 06       		.uleb128 0x6
+ 867 015d 00       		.byte	0
+ 868 015e 00       		.byte	0
+ 869 015f 19       		.uleb128 0x19
+ 870 0160 34       		.uleb128 0x34
+ 871 0161 00       		.byte	0
+ 872 0162 31       		.uleb128 0x31
+ 873 0163 13       		.uleb128 0x13
+ 874 0164 00       		.byte	0
+ 875 0165 00       		.byte	0
+ 876 0166 1A       		.uleb128 0x1a
+ 877 0167 34       		.uleb128 0x34
+ 878 0168 00       		.byte	0
+ 879 0169 03       		.uleb128 0x3
+ 880 016a 0E       		.uleb128 0xe
+ 881 016b 3A       		.uleb128 0x3a
+ 882 016c 0B       		.uleb128 0xb
+ 883 016d 3B       		.uleb128 0x3b
+ 884 016e 05       		.uleb128 0x5
+ 885 016f 49       		.uleb128 0x49
+ 886 0170 13       		.uleb128 0x13
+ 887 0171 3F       		.uleb128 0x3f
+ 888 0172 19       		.uleb128 0x19
+ 889 0173 3C       		.uleb128 0x3c
+ 890 0174 19       		.uleb128 0x19
+ 891 0175 00       		.byte	0
+ 892 0176 00       		.byte	0
+ 893 0177 1B       		.uleb128 0x1b
+ 894 0178 35       		.uleb128 0x35
+ 895 0179 00       		.byte	0
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 22
 
 
- 901 001c 12000000 		.4byte	.LFE70
- 902 0020 00000000 		.4byte	0
- 903 0024 00000000 		.4byte	0
- 904              		.section	.debug_line,"",%progbits
- 905              	.Ldebug_line0:
- 906 0000 84020000 		.section	.debug_str,"MS",%progbits,1
- 906      02002C02 
- 906      00000201 
- 906      FB0E0D00 
- 906      01010101 
- 907              	.LASF40:
- 908 0000 73746172 		.ascii	"startSystemTasks\000"
- 908      74537973 
- 908      74656D54 
- 908      61736B73 
- 908      00
- 909              	.LASF25:
- 910 0011 43795261 		.ascii	"CyRamVectors\000"
- 910      6D566563 
- 910      746F7273 
- 910      00
- 911              	.LASF5:
- 912 001e 5F5F696E 		.ascii	"__int32_t\000"
- 912      7433325F 
- 912      7400
- 913              	.LASF32:
- 914 0028 76546173 		.ascii	"vTaskStartScheduler\000"
- 914      6B537461 
- 914      72745363 
- 914      68656475 
- 914      6C657200 
- 915              	.LASF27:
- 916 003c 73746172 		.ascii	"startTaskBluetoothComms\000"
- 916      74546173 
- 916      6B426C75 
- 916      65746F6F 
- 916      7468436F 
- 917              	.LASF20:
- 918 0054 78506F72 		.ascii	"xPortPendSVHandler\000"
- 918      7450656E 
- 918      64535648 
- 918      616E646C 
- 918      657200
- 919              	.LASF11:
- 920 0067 696E7433 		.ascii	"int32_t\000"
- 920      325F7400 
- 921              	.LASF13:
- 922 006f 666C6F61 		.ascii	"float\000"
- 922      7400
- 923              	.LASF1:
- 924 0075 756E7369 		.ascii	"unsigned char\000"
- 924      676E6564 
- 924      20636861 
- 924      7200
- 925              	.LASF33:
- 926 0083 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 926      43313120 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 23
+ 896 017a 49       		.uleb128 0x49
+ 897 017b 13       		.uleb128 0x13
+ 898 017c 00       		.byte	0
+ 899 017d 00       		.byte	0
+ 900 017e 1C       		.uleb128 0x1c
+ 901 017f 34       		.uleb128 0x34
+ 902 0180 00       		.byte	0
+ 903 0181 03       		.uleb128 0x3
+ 904 0182 0E       		.uleb128 0xe
+ 905 0183 3A       		.uleb128 0x3a
+ 906 0184 0B       		.uleb128 0xb
+ 907 0185 3B       		.uleb128 0x3b
+ 908 0186 0B       		.uleb128 0xb
+ 909 0187 49       		.uleb128 0x49
+ 910 0188 13       		.uleb128 0x13
+ 911 0189 3F       		.uleb128 0x3f
+ 912 018a 19       		.uleb128 0x19
+ 913 018b 02       		.uleb128 0x2
+ 914 018c 18       		.uleb128 0x18
+ 915 018d 00       		.byte	0
+ 916 018e 00       		.byte	0
+ 917 018f 1D       		.uleb128 0x1d
+ 918 0190 2E       		.uleb128 0x2e
+ 919 0191 00       		.byte	0
+ 920 0192 3F       		.uleb128 0x3f
+ 921 0193 19       		.uleb128 0x19
+ 922 0194 3C       		.uleb128 0x3c
+ 923 0195 19       		.uleb128 0x19
+ 924 0196 6E       		.uleb128 0x6e
+ 925 0197 0E       		.uleb128 0xe
+ 926 0198 03       		.uleb128 0x3
+ 927 0199 0E       		.uleb128 0xe
+ 928 019a 3A       		.uleb128 0x3a
+ 929 019b 0B       		.uleb128 0xb
+ 930 019c 3B       		.uleb128 0x3b
+ 931 019d 0B       		.uleb128 0xb
+ 932 019e 00       		.byte	0
+ 933 019f 00       		.byte	0
+ 934 01a0 1E       		.uleb128 0x1e
+ 935 01a1 2E       		.uleb128 0x2e
+ 936 01a2 00       		.byte	0
+ 937 01a3 3F       		.uleb128 0x3f
+ 938 01a4 19       		.uleb128 0x19
+ 939 01a5 3C       		.uleb128 0x3c
+ 940 01a6 19       		.uleb128 0x19
+ 941 01a7 6E       		.uleb128 0x6e
+ 942 01a8 0E       		.uleb128 0xe
+ 943 01a9 03       		.uleb128 0x3
+ 944 01aa 0E       		.uleb128 0xe
+ 945 01ab 3A       		.uleb128 0x3a
+ 946 01ac 0B       		.uleb128 0xb
+ 947 01ad 3B       		.uleb128 0x3b
+ 948 01ae 05       		.uleb128 0x5
+ 949 01af 00       		.byte	0
+ 950 01b0 00       		.byte	0
+ 951 01b1 00       		.byte	0
+ 952              		.section	.debug_aranges,"",%progbits
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 23
 
 
- 926      352E342E 
- 926      31203230 
- 926      31363036 
- 927 00b6 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 927      20726576 
- 927      6973696F 
- 927      6E203233 
- 927      37373135 
- 928 00e9 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 928      66756E63 
- 928      74696F6E 
- 928      2D736563 
- 928      74696F6E 
- 929              	.LASF6:
- 930 0111 5F5F7569 		.ascii	"__uint32_t\000"
- 930      6E743332 
- 930      5F7400
- 931              	.LASF7:
- 932 011c 6C6F6E67 		.ascii	"long unsigned int\000"
- 932      20756E73 
- 932      69676E65 
- 932      6420696E 
- 932      7400
- 933              	.LASF3:
- 934 012e 73686F72 		.ascii	"short unsigned int\000"
- 934      7420756E 
- 934      7369676E 
- 934      65642069 
- 934      6E7400
- 935              	.LASF26:
- 936 0141 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 936      52784275 
- 936      66666572 
- 936      00
- 937              	.LASF29:
- 938 014e 73746172 		.ascii	"startTaskVehicleBatteryVoltage\000"
- 938      74546173 
- 938      6B566568 
- 938      69636C65 
- 938      42617474 
- 939              	.LASF14:
- 940 016d 646F7562 		.ascii	"double\000"
- 940      6C6500
- 941              	.LASF38:
- 942 0174 756C4E65 		.ascii	"ulNewBASEPRI\000"
- 942      77424153 
- 942      45505249 
- 942      00
- 943              	.LASF36:
- 944 0181 74736B54 		.ascii	"tskTaskControlBlock\000"
- 944      61736B43 
- 944      6F6E7472 
- 944      6F6C426C 
- 944      6F636B00 
- 945              	.LASF41:
- 946 0195 6D61696E 		.ascii	"main\000"
- 946      00
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 24
+ 953 0000 34000000 		.4byte	0x34
+ 954 0004 0200     		.2byte	0x2
+ 955 0006 00000000 		.4byte	.Ldebug_info0
+ 956 000a 04       		.byte	0x4
+ 957 000b 00       		.byte	0
+ 958 000c 0000     		.2byte	0
+ 959 000e 0000     		.2byte	0
+ 960 0010 00000000 		.4byte	.LFB69
+ 961 0014 20000000 		.4byte	.LFE69-.LFB69
+ 962 0018 00000000 		.4byte	.LFB71
+ 963 001c 18000000 		.4byte	.LFE71-.LFB71
+ 964 0020 00000000 		.4byte	.LFB68
+ 965 0024 20000000 		.4byte	.LFE68-.LFB68
+ 966 0028 00000000 		.4byte	.LFB70
+ 967 002c 12000000 		.4byte	.LFE70-.LFB70
+ 968 0030 00000000 		.4byte	0
+ 969 0034 00000000 		.4byte	0
+ 970              		.section	.debug_ranges,"",%progbits
+ 971              	.Ldebug_ranges0:
+ 972 0000 00000000 		.4byte	.LFB69
+ 973 0004 20000000 		.4byte	.LFE69
+ 974 0008 00000000 		.4byte	.LFB71
+ 975 000c 18000000 		.4byte	.LFE71
+ 976 0010 00000000 		.4byte	.LFB68
+ 977 0014 20000000 		.4byte	.LFE68
+ 978 0018 00000000 		.4byte	.LFB70
+ 979 001c 12000000 		.4byte	.LFE70
+ 980 0020 00000000 		.4byte	0
+ 981 0024 00000000 		.4byte	0
+ 982              		.section	.debug_line,"",%progbits
+ 983              	.Ldebug_line0:
+ 984 0000 BE020000 		.section	.debug_str,"MS",%progbits,1
+ 984      02006402 
+ 984      00000201 
+ 984      FB0E0D00 
+ 984      01010101 
+ 985              	.LASF46:
+ 986 0000 73746172 		.ascii	"startSystemTasks\000"
+ 986      74537973 
+ 986      74656D54 
+ 986      61736B73 
+ 986      00
+ 987              	.LASF30:
+ 988 0011 7461736B 		.ascii	"taskMessegesQ\000"
+ 988      4D657373 
+ 988      65676573 
+ 988      5100
+ 989              	.LASF28:
+ 990 001f 43795261 		.ascii	"CyRamVectors\000"
+ 990      6D566563 
+ 990      746F7273 
+ 990      00
+ 991              	.LASF5:
+ 992 002c 5F5F696E 		.ascii	"__int32_t\000"
+ 992      7433325F 
+ 992      7400
+ 993              	.LASF20:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 24
 
 
- 947              	.LASF21:
- 948 019a 78506F72 		.ascii	"xPortSysTickHandler\000"
- 948      74537973 
- 948      5469636B 
- 948      48616E64 
- 948      6C657200 
- 949              	.LASF10:
- 950 01ae 756E7369 		.ascii	"unsigned int\000"
- 950      676E6564 
- 950      20696E74 
- 950      00
- 951              	.LASF9:
- 952 01bb 6C6F6E67 		.ascii	"long long unsigned int\000"
- 952      206C6F6E 
- 952      6720756E 
- 952      7369676E 
- 952      65642069 
- 953              	.LASF37:
- 954 01d2 76506F72 		.ascii	"vPortRaiseBASEPRI\000"
- 954      74526169 
- 954      73654241 
- 954      53455052 
- 954      4900
- 955              	.LASF16:
- 956 01e4 63796973 		.ascii	"cyisraddress\000"
- 956      72616464 
- 956      72657373 
- 956      00
- 957              	.LASF17:
- 958 01f1 6C6F6E67 		.ascii	"long double\000"
- 958      20646F75 
- 958      626C6500 
- 959              	.LASF18:
- 960 01fd 73697A65 		.ascii	"sizetype\000"
- 960      74797065 
- 960      00
- 961              	.LASF8:
- 962 0206 6C6F6E67 		.ascii	"long long int\000"
- 962      206C6F6E 
- 962      6720696E 
- 962      7400
- 963              	.LASF34:
- 964 0214 6D61696E 		.ascii	"main.c\000"
- 964      2E6300
- 965              	.LASF15:
- 966 021b 63686172 		.ascii	"char\000"
- 966      00
- 967              	.LASF22:
- 968 0220 76506F72 		.ascii	"vPortSVCHandler\000"
- 968      74535643 
- 968      48616E64 
- 968      6C657200 
- 969              	.LASF30:
- 970 0230 73746172 		.ascii	"startTaskSystemMessenger\000"
- 970      74546173 
- 970      6B537973 
- 970      74656D4D 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 25
+ 994 0036 51756575 		.ascii	"QueueHandle_t\000"
+ 994      6548616E 
+ 994      646C655F 
+ 994      7400
+ 995              	.LASF39:
+ 996 0044 76546173 		.ascii	"vTaskStartScheduler\000"
+ 996      6B537461 
+ 996      72745363 
+ 996      68656475 
+ 996      6C657200 
+ 997              	.LASF32:
+ 998 0058 73746172 		.ascii	"startTaskBluetoothComms\000"
+ 998      74546173 
+ 998      6B426C75 
+ 998      65746F6F 
+ 998      7468436F 
+ 999              	.LASF23:
+ 1000 0070 78506F72 		.ascii	"xPortPendSVHandler\000"
+ 1000      7450656E 
+ 1000      64535648 
+ 1000      616E646C 
+ 1000      657200
+ 1001              	.LASF11:
+ 1002 0083 696E7433 		.ascii	"int32_t\000"
+ 1002      325F7400 
+ 1003              	.LASF13:
+ 1004 008b 666C6F61 		.ascii	"float\000"
+ 1004      7400
+ 1005              	.LASF1:
+ 1006 0091 756E7369 		.ascii	"unsigned char\000"
+ 1006      676E6564 
+ 1006      20636861 
+ 1006      7200
+ 1007              	.LASF40:
+ 1008 009f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1008      43313120 
+ 1008      352E342E 
+ 1008      31203230 
+ 1008      31363036 
+ 1009 00d2 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1009      20726576 
+ 1009      6973696F 
+ 1009      6E203233 
+ 1009      37373135 
+ 1010 0105 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1010      66756E63 
+ 1010      74696F6E 
+ 1010      2D736563 
+ 1010      74696F6E 
+ 1011              	.LASF6:
+ 1012 012d 5F5F7569 		.ascii	"__uint32_t\000"
+ 1012      6E743332 
+ 1012      5F7400
+ 1013              	.LASF7:
+ 1014 0138 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1014      20756E73 
+ 1014      69676E65 
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 25
 
 
- 970      65737365 
- 971              	.LASF23:
- 972 0249 70785461 		.ascii	"pxTask\000"
- 972      736B00
- 973              	.LASF35:
- 974 0250 453A5C47 		.ascii	"E:\\GIT Hub Project\\protocov\\Protocov\\Protocov.c"
- 974      49542048 
- 974      75622050 
- 974      726F6A65 
- 974      63745C70 
- 975 027f 7964736E 		.ascii	"ydsn\000"
- 975      00
- 976              	.LASF2:
- 977 0284 73686F72 		.ascii	"short int\000"
- 977      7420696E 
- 977      7400
- 978              	.LASF24:
- 979 028e 70635461 		.ascii	"pcTaskName\000"
- 979      736B4E61 
- 979      6D6500
- 980              	.LASF19:
- 981 0299 5461736B 		.ascii	"TaskHandle_t\000"
- 981      48616E64 
- 981      6C655F74 
- 981      00
- 982              	.LASF12:
- 983 02a6 75696E74 		.ascii	"uint32_t\000"
- 983      33325F74 
- 983      00
- 984              	.LASF4:
- 985 02af 6C6F6E67 		.ascii	"long int\000"
- 985      20696E74 
- 985      00
- 986              	.LASF28:
- 987 02b8 73746172 		.ascii	"startTaskUserButtonControl\000"
- 987      74546173 
- 987      6B557365 
- 987      72427574 
- 987      746F6E43 
- 988              	.LASF0:
- 989 02d3 7369676E 		.ascii	"signed char\000"
- 989      65642063 
- 989      68617200 
- 990              	.LASF42:
- 991 02df 76417070 		.ascii	"vApplicationStackOverflowHook\000"
- 991      6C696361 
- 991      74696F6E 
- 991      53746163 
- 991      6B4F7665 
- 992              	.LASF39:
- 993 02fd 70727648 		.ascii	"prvHardwareSetup\000"
- 993      61726477 
- 993      61726553 
- 993      65747570 
- 993      00
- 994              	.LASF31:
- 995 030e 43794465 		.ascii	"CyDelay\000"
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccxoNoKL.s 			page 26
+ 1014      6420696E 
+ 1014      7400
+ 1015              	.LASF3:
+ 1016 014a 73686F72 		.ascii	"short unsigned int\000"
+ 1016      7420756E 
+ 1016      7369676E 
+ 1016      65642069 
+ 1016      6E7400
+ 1017              	.LASF31:
+ 1018 015d 706F7765 		.ascii	"powerMonConMessegesQ\000"
+ 1018      724D6F6E 
+ 1018      436F6E4D 
+ 1018      65737365 
+ 1018      67657351 
+ 1019              	.LASF29:
+ 1020 0172 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1020      52784275 
+ 1020      66666572 
+ 1020      00
+ 1021              	.LASF34:
+ 1022 017f 73746172 		.ascii	"startTaskVehicleBatteryVoltage\000"
+ 1022      74546173 
+ 1022      6B566568 
+ 1022      69636C65 
+ 1022      42617474 
+ 1023              	.LASF14:
+ 1024 019e 646F7562 		.ascii	"double\000"
+ 1024      6C6500
+ 1025              	.LASF44:
+ 1026 01a5 756C4E65 		.ascii	"ulNewBASEPRI\000"
+ 1026      77424153 
+ 1026      45505249 
+ 1026      00
+ 1027              	.LASF21:
+ 1028 01b2 74736B54 		.ascii	"tskTaskControlBlock\000"
+ 1028      61736B43 
+ 1028      6F6E7472 
+ 1028      6F6C426C 
+ 1028      6F636B00 
+ 1029              	.LASF22:
+ 1030 01c6 51756575 		.ascii	"QueueDefinition\000"
+ 1030      65446566 
+ 1030      696E6974 
+ 1030      696F6E00 
+ 1031              	.LASF24:
+ 1032 01d6 78506F72 		.ascii	"xPortSysTickHandler\000"
+ 1032      74537973 
+ 1032      5469636B 
+ 1032      48616E64 
+ 1032      6C657200 
+ 1033              	.LASF10:
+ 1034 01ea 756E7369 		.ascii	"unsigned int\000"
+ 1034      676E6564 
+ 1034      20696E74 
+ 1034      00
+ 1035              	.LASF38:
+ 1036 01f7 426C7565 		.ascii	"BlueLedd_Write\000"
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 26
 
 
- 995      6C617900 
- 996              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1036      4C656464 
+ 1036      5F577269 
+ 1036      746500
+ 1037              	.LASF9:
+ 1038 0206 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1038      206C6F6E 
+ 1038      6720756E 
+ 1038      7369676E 
+ 1038      65642069 
+ 1039              	.LASF43:
+ 1040 021d 76506F72 		.ascii	"vPortRaiseBASEPRI\000"
+ 1040      74526169 
+ 1040      73654241 
+ 1040      53455052 
+ 1040      4900
+ 1041              	.LASF16:
+ 1042 022f 63796973 		.ascii	"cyisraddress\000"
+ 1042      72616464 
+ 1042      72657373 
+ 1042      00
+ 1043              	.LASF47:
+ 1044 023c 6D61696E 		.ascii	"main\000"
+ 1044      00
+ 1045              	.LASF17:
+ 1046 0241 6C6F6E67 		.ascii	"long double\000"
+ 1046      20646F75 
+ 1046      626C6500 
+ 1047              	.LASF18:
+ 1048 024d 73697A65 		.ascii	"sizetype\000"
+ 1048      74797065 
+ 1048      00
+ 1049              	.LASF8:
+ 1050 0256 6C6F6E67 		.ascii	"long long int\000"
+ 1050      206C6F6E 
+ 1050      6720696E 
+ 1050      7400
+ 1051              	.LASF41:
+ 1052 0264 6D61696E 		.ascii	"main.c\000"
+ 1052      2E6300
+ 1053              	.LASF15:
+ 1054 026b 63686172 		.ascii	"char\000"
+ 1054      00
+ 1055              	.LASF25:
+ 1056 0270 76506F72 		.ascii	"vPortSVCHandler\000"
+ 1056      74535643 
+ 1056      48616E64 
+ 1056      6C657200 
+ 1057              	.LASF35:
+ 1058 0280 73746172 		.ascii	"startTaskSystemMessenger\000"
+ 1058      74546173 
+ 1058      6B537973 
+ 1058      74656D4D 
+ 1058      65737365 
+ 1059              	.LASF26:
+ 1060 0299 70785461 		.ascii	"pxTask\000"
+ 1060      736B00
+ 1061              	.LASF42:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 27
+
+
+ 1062 02a0 453A5C47 		.ascii	"E:\\GIT Hub Project\\protocov\\Protocov\\Protocov.c"
+ 1062      49542048 
+ 1062      75622050 
+ 1062      726F6A65 
+ 1062      63745C70 
+ 1063 02cf 7964736E 		.ascii	"ydsn\000"
+ 1063      00
+ 1064              	.LASF2:
+ 1065 02d4 73686F72 		.ascii	"short int\000"
+ 1065      7420696E 
+ 1065      7400
+ 1066              	.LASF27:
+ 1067 02de 70635461 		.ascii	"pcTaskName\000"
+ 1067      736B4E61 
+ 1067      6D6500
+ 1068              	.LASF19:
+ 1069 02e9 5461736B 		.ascii	"TaskHandle_t\000"
+ 1069      48616E64 
+ 1069      6C655F74 
+ 1069      00
+ 1070              	.LASF12:
+ 1071 02f6 75696E74 		.ascii	"uint32_t\000"
+ 1071      33325F74 
+ 1071      00
+ 1072              	.LASF4:
+ 1073 02ff 6C6F6E67 		.ascii	"long int\000"
+ 1073      20696E74 
+ 1073      00
+ 1074              	.LASF33:
+ 1075 0308 73746172 		.ascii	"startTaskUserButtonControl\000"
+ 1075      74546173 
+ 1075      6B557365 
+ 1075      72427574 
+ 1075      746F6E43 
+ 1076              	.LASF0:
+ 1077 0323 7369676E 		.ascii	"signed char\000"
+ 1077      65642063 
+ 1077      68617200 
+ 1078              	.LASF36:
+ 1079 032f 73746172 		.ascii	"startTaskPowerMonitoringAndControl\000"
+ 1079      74546173 
+ 1079      6B506F77 
+ 1079      65724D6F 
+ 1079      6E69746F 
+ 1080              	.LASF48:
+ 1081 0352 76417070 		.ascii	"vApplicationStackOverflowHook\000"
+ 1081      6C696361 
+ 1081      74696F6E 
+ 1081      53746163 
+ 1081      6B4F7665 
+ 1082              	.LASF45:
+ 1083 0370 70727648 		.ascii	"prvHardwareSetup\000"
+ 1083      61726477 
+ 1083      61726553 
+ 1083      65747570 
+ 1083      00
+ 1084              	.LASF37:
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccELuvJK.s 			page 28
+
+
+ 1085 0381 43794465 		.ascii	"CyDelay\000"
+ 1085      6C617900 
+ 1086              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

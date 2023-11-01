@@ -12,18 +12,28 @@
 
 #include "UserButtonControl.h"
 
+static TaskHandle_t xHandle;
+
 static void TaskUserButtonControl( void *pvParameters )
 {
 	
     (void)pvParameters;
     
-    PowerEnableBatt_Write( 1 );
-    PowerEnableSelf_Write( 1 );
-    PowerEnableACC_Write( 1 );
-    
     PlayPauseButton_SetDriveMode ( PIN_DM_DIG_HIZ  );
-    //PlayPauseButton_Write ( 0 );
     
+    uint8_t playPauseButton = 0;
+    uint8_t nextButton = 0;
+    uint8_t previousButton = 0;
+    
+    uint8_t volumePlusButton = 0;
+    uint8_t volumeMinusButton = 0;
+    uint8_t callButton = 0;
+    uint8_t talkButton = 0;
+    uint8_t airRecirculationButton = 0;
+    uint8_t upArrowButton = 0;
+    uint8_t downArrowButton = 0;
+    uint8_t inputChangeButton = 0;
+  
 	for( ;; )
 	{
 		
@@ -35,7 +45,7 @@ static void TaskUserButtonControl( void *pvParameters )
 
 void startTaskUserButtonControl()
 {
-    TaskHandle_t xHandle = NULL; 
+    xHandle = NULL; 
  	/* Create the task, storing the handle. */ 
 	xTaskCreate(
 		TaskUserButtonControl,    /* Function that implements the task. */ 

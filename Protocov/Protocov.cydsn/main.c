@@ -17,6 +17,7 @@
 #include "UserButtonControl.h"
 #include "VehicleBatteryVoltage.h"
 #include "SystemMessenger.h"
+#include "PowerMonitoringAndControl.h"
 
 static void prvHardwareSetup( void );
 
@@ -29,6 +30,8 @@ int main(void)
 
 {
     CyDelay(500);
+    
+    BlueLedd_Write(1);
     
 	CyGlobalIntEnable; /* Enable global interrupts. */
 	
@@ -84,6 +87,7 @@ static void startSystemTasks()
     startTaskUserButtonControl();
     startTaskVehicleBatteryVoltage();
     startTaskSystemMessenger();
+    startTaskPowerMonitoringAndControl();
 }
 
 

@@ -13,6 +13,8 @@
 #include "VehicleBatteryVoltage.h"
 #include "SystemMessenger.h"
 
+static TaskHandle_t xHandle = NULL; 
+
 static void TaskVehicleBatteryVoltage( void *pvParameters )
 {
 	
@@ -26,11 +28,12 @@ static void TaskVehicleBatteryVoltage( void *pvParameters )
     volatile uint16_t battVoltage_count = 0;
     
     systemMessagePacket_t datapack;
+    powerMoConDataPacket_t readVoltage;
     
     uint16_t RawData;
     float LPF_Beta = 0.05; // 0<ß<1
     
-    uint16_t filteredVoltage =0;
+    float filteredVoltage =0;
     
     
     battVoltage_count = VehicleBattVoltageAdc_GetResult16();
@@ -55,7 +58,9 @@ static void TaskVehicleBatteryVoltage( void *pvParameters )
         // Function that brings Fresh Data into RawData
         filteredVoltage = filteredVoltage - (LPF_Beta * (filteredVoltage - battVoltage_mV));
         
-        createSystemMsgPacket( &datapack, &filteredVoltage, sizeof(float), VEHICLE_BATT_VOLTAGE_ID,0,0,0);
+        readVoltage.vehicleBattVoltage = filteredVoltage;
+        
+        createSystemMsgPacket( &datapack, &readVoltage, sizeof(powerMoConDataPacket_t), VEHICLE_BATT_VOLTAGE_ID,0,0,0, 0);
         
         if( getSysMessegesgQ() == NULL ) continue;
         
@@ -75,7 +80,7 @@ static void TaskVehicleBatteryVoltage( void *pvParameters )
 
 void startTaskVehicleBatteryVoltage()
 {
-    TaskHandle_t xHandle = NULL; 
+    xHandle = NULL; 
  	/* Create the task, storing the handle. */ 
 	xTaskCreate(
 		TaskVehicleBatteryVoltage,    /* Function that implements the task. */ 

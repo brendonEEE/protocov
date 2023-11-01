@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: blueLed.h  
+* File Name: BlueLed.h  
 * Version 2.20
 *
 * Description:
@@ -15,8 +15,8 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#if !defined(CY_PINS_blueLed_ALIASES_H) /* Pins blueLed_ALIASES_H */
-#define CY_PINS_blueLed_ALIASES_H
+#if !defined(CY_PINS_BlueLed_ALIASES_H) /* Pins BlueLed_ALIASES_H */
+#define CY_PINS_BlueLed_ALIASES_H
 
 #include "cytypes.h"
 #include "cyfitter.h"
@@ -25,12 +25,12 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define blueLed_0			(blueLed__0__PC)
-#define blueLed_0_INTR	((uint16)((uint16)0x0001u << blueLed__0__SHIFT))
+#define BlueLed_0			(BlueLed__0__PC)
+#define BlueLed_0_INTR	((uint16)((uint16)0x0001u << BlueLed__0__SHIFT))
 
-#define blueLed_INTR_ALL	 ((uint16)(blueLed_0_INTR))
+#define BlueLed_INTR_ALL	 ((uint16)(BlueLed_0_INTR))
 
-#endif /* End Pins blueLed_ALIASES_H */
+#endif /* End Pins BlueLed_ALIASES_H */
 
 
 /* [] END OF FILE */

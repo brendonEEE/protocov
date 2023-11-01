@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: blueLed.c  
+* File Name: BlueLed.c  
 * Version 2.20
 *
 * Description:
@@ -15,15 +15,15 @@
 *******************************************************************************/
 
 #include "cytypes.h"
-#include "blueLed.h"
+#include "BlueLed.h"
 
 /* APIs are not generated for P15[7:6] on PSoC 5 */
 #if !(CY_PSOC5A &&\
-	 blueLed__PORT == 15 && ((blueLed__MASK & 0xC0) != 0))
+	 BlueLed__PORT == 15 && ((BlueLed__MASK & 0xC0) != 0))
 
 
 /*******************************************************************************
-* Function Name: blueLed_Write
+* Function Name: BlueLed_Write
 ****************************************************************************//**
 *
 * \brief Writes the value to the physical port (data output register), masking
@@ -52,17 +52,17 @@
 *  this function.
 *
 * \funcusage
-*  \snippet blueLed_SUT.c usage_blueLed_Write
+*  \snippet BlueLed_SUT.c usage_BlueLed_Write
 *******************************************************************************/
-void blueLed_Write(uint8 value)
+void BlueLed_Write(uint8 value)
 {
-    uint8 staticBits = (blueLed_DR & (uint8)(~blueLed_MASK));
-    blueLed_DR = staticBits | ((uint8)(value << blueLed_SHIFT) & blueLed_MASK);
+    uint8 staticBits = (BlueLed_DR & (uint8)(~BlueLed_MASK));
+    BlueLed_DR = staticBits | ((uint8)(value << BlueLed_SHIFT) & BlueLed_MASK);
 }
 
 
 /*******************************************************************************
-* Function Name: blueLed_SetDriveMode
+* Function Name: BlueLed_SetDriveMode
 ****************************************************************************//**
 *
 * \brief Sets the drive mode for each of the Pins component's pins.
@@ -85,16 +85,16 @@ void blueLed_Write(uint8 value)
 *  APIs (primary method) or disable interrupts around this function.
 *
 * \funcusage
-*  \snippet blueLed_SUT.c usage_blueLed_SetDriveMode
+*  \snippet BlueLed_SUT.c usage_BlueLed_SetDriveMode
 *******************************************************************************/
-void blueLed_SetDriveMode(uint8 mode)
+void BlueLed_SetDriveMode(uint8 mode)
 {
-	CyPins_SetPinDriveMode(blueLed_0, mode);
+	CyPins_SetPinDriveMode(BlueLed_0, mode);
 }
 
 
 /*******************************************************************************
-* Function Name: blueLed_Read
+* Function Name: BlueLed_Read
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port (pin status register) and masks 
@@ -108,16 +108,16 @@ void blueLed_SetDriveMode(uint8 mode)
 *  The current value for the pins in the component as a right justified number.
 *
 * \funcusage
-*  \snippet blueLed_SUT.c usage_blueLed_Read  
+*  \snippet BlueLed_SUT.c usage_BlueLed_Read  
 *******************************************************************************/
-uint8 blueLed_Read(void)
+uint8 BlueLed_Read(void)
 {
-    return (blueLed_PS & blueLed_MASK) >> blueLed_SHIFT;
+    return (BlueLed_PS & BlueLed_MASK) >> BlueLed_SHIFT;
 }
 
 
 /*******************************************************************************
-* Function Name: blueLed_ReadDataReg
+* Function Name: BlueLed_ReadDataReg
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port's data output register and masks 
@@ -126,8 +126,8 @@ uint8 blueLed_Read(void)
 *
 * The data output register controls the signal applied to the physical pin in 
 * conjunction with the drive mode parameter. This is not the same as the 
-* preferred blueLed_Read() API because the 
-* blueLed_ReadDataReg() reads the data register instead of the status 
+* preferred BlueLed_Read() API because the 
+* BlueLed_ReadDataReg() reads the data register instead of the status 
 * register. For output pins this is a useful function to determine the value 
 * just written to the pin.
 *
@@ -136,19 +136,19 @@ uint8 blueLed_Read(void)
 *  justified number for the component instance.
 *
 * \funcusage
-*  \snippet blueLed_SUT.c usage_blueLed_ReadDataReg 
+*  \snippet BlueLed_SUT.c usage_BlueLed_ReadDataReg 
 *******************************************************************************/
-uint8 blueLed_ReadDataReg(void)
+uint8 BlueLed_ReadDataReg(void)
 {
-    return (blueLed_DR & blueLed_MASK) >> blueLed_SHIFT;
+    return (BlueLed_DR & BlueLed_MASK) >> BlueLed_SHIFT;
 }
 
 
 /* If interrupt is connected for this Pins component */ 
-#if defined(blueLed_INTSTAT) 
+#if defined(BlueLed_INTSTAT) 
 
     /*******************************************************************************
-    * Function Name: blueLed_SetInterruptMode
+    * Function Name: BlueLed_SetInterruptMode
     ****************************************************************************//**
     *
     * \brief Configures the interrupt mode for each of the Pins component's
@@ -161,12 +161,12 @@ uint8 blueLed_ReadDataReg(void)
     * \param position
     *  The pin position as listed in the Pins component. You may OR these to be 
     *  able to configure the interrupt mode of multiple pins within a Pins 
-    *  component. Or you may use blueLed_INTR_ALL to configure the
+    *  component. Or you may use BlueLed_INTR_ALL to configure the
     *  interrupt mode of all the pins in the Pins component.       
-    *  - blueLed_0_INTR       (First pin in the list)
-    *  - blueLed_1_INTR       (Second pin in the list)
+    *  - BlueLed_0_INTR       (First pin in the list)
+    *  - BlueLed_1_INTR       (Second pin in the list)
     *  - ...
-    *  - blueLed_INTR_ALL     (All pins in Pins component)
+    *  - BlueLed_INTR_ALL     (All pins in Pins component)
     *
     * \param mode
     *  Interrupt mode for the selected pins. Valid options are documented in
@@ -182,19 +182,19 @@ uint8 blueLed_ReadDataReg(void)
     *  port.
     *
     * \funcusage
-    *  \snippet blueLed_SUT.c usage_blueLed_SetInterruptMode
+    *  \snippet BlueLed_SUT.c usage_BlueLed_SetInterruptMode
     *******************************************************************************/
-    void blueLed_SetInterruptMode(uint16 position, uint16 mode)
+    void BlueLed_SetInterruptMode(uint16 position, uint16 mode)
     {
-		if((position & blueLed_0_INTR) != 0u) 
+		if((position & BlueLed_0_INTR) != 0u) 
 		{ 
-			 blueLed_0_INTTYPE_REG = (uint8)mode; 
+			 BlueLed_0_INTTYPE_REG = (uint8)mode; 
 		}
     }
     
     
     /*******************************************************************************
-    * Function Name: blueLed_ClearInterrupt
+    * Function Name: BlueLed_ClearInterrupt
     ****************************************************************************//**
     *
     * \brief Clears any active interrupts attached with the component and returns 
@@ -211,11 +211,11 @@ uint8 blueLed_ReadDataReg(void)
     *  those associated with the Pins component.
     *
     * \funcusage
-    *  \snippet blueLed_SUT.c usage_blueLed_ClearInterrupt
+    *  \snippet BlueLed_SUT.c usage_BlueLed_ClearInterrupt
     *******************************************************************************/
-    uint8 blueLed_ClearInterrupt(void)
+    uint8 BlueLed_ClearInterrupt(void)
     {
-        return (blueLed_INTSTAT & blueLed_MASK) >> blueLed_SHIFT;
+        return (BlueLed_INTSTAT & BlueLed_MASK) >> BlueLed_SHIFT;
     }
 
 #endif /* If Interrupts Are Enabled for this Pins component */ 

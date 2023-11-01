@@ -11,33 +11,98 @@
 */
 
 #include "SystemMessenger.h"
+#include "BluetoothComms.h"
+#include "UserButtonControl.h"
+#include "VehicleBatteryVoltage.h"
+#include "SystemMessenger.h"
+#include "PowerMonitoringAndControl.h"
 
 QueueHandle_t sysMessegesQ;
 
 volatile uint8_t sysQSize = 20;
+uint8_t taskMessageQSize = 5;
 
 const uint8_t msgStartSeq[2] = {0xF, 0xA};
 const uint8_t msgEndSeq[2] =  {0xC, 0xE};
+
+systemMessagePacket_t msgPacket;
+
+powerMoConDataPacket_t pwrMonControlPacket;
 
 
 static void TaskSystemMessenger( void *pvParameters )
 {
 	
     (void)pvParameters;
+    
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;  
+  
+    xTaskHandle temp;
       
     sysMessegesQ = xQueueCreate( sysQSize, sizeof( systemMessagePacket_t ) );
+    taskMessegesQ = xQueueCreate( sysQSize, sizeof( systemMessagePacket_t ) );
+    powerMonConMessegesQ = xQueueCreate( taskMessageQSize, sizeof( powerMoConDataPacket_t ) );
 
        
 	for( ;; )
 	{
 		
         
+        xQueueReceive( sysMessegesQ, &msgPacket, portMAX_DELAY);
+        
+        switch(msgPacket.sourceTaskAdd)
+        {
+            
+            case BLUETOOTH_COMMS_ID:
+            
+            break;
+            
+            case CANBUS_MESSAGE_READ_ID: 
+            
+            
+            break;
+            
+            case SYSTEM_MESSENGER_ID:
+            
+            break;
+            
+            case USER_BUTTON_CONTROL:
+            
+            
+            break;
+            case VEHICLE_BATT_VOLTAGE_ID:
+            
+            //memcpy( &pwrMonControlPacket, msgPacket.payload, sizeof(powerMoConDataPacket_t));
+            
+            pwrMonControlPacket = *(powerMoConDataPacket_t*)&msgPacket.payload;
+           
+            xQueueSendToFront(powerMonConMessegesQ, &pwrMonControlPacket, 10);
+            
+            temp = getPowerMonitoringAndControlTaskHandle();
+            
+            
+ 
+            xTaskNotifyGive(temp);
+            
+            break;
+            
+            default:
+            
+            break;
+            
+            
+            
+        }
+        
+        temp = getBluetoothCommsTaskHandle();
+        
+        
         vTaskDelay(1);
 	}
 	
 }
 
-uint64_t createSystemMsgPacket( systemMessagePacket_t * msg, void* payload , uint8_t size, uint8_t srcID, uint8_t pcktCount,  uint8_t pcktPos, uint64_t msgID  )
+uint64_t createSystemMsgPacket( systemMessagePacket_t * msg, void* payload , uint8_t size, uint8_t srcID, uint8_t pcktCount,  uint8_t pcktPos, uint64_t msgID, uint8_t priority )
 {
     
     
@@ -57,6 +122,7 @@ uint64_t createSystemMsgPacket( systemMessagePacket_t * msg, void* payload , uin
     msg->packetCount = pcktCount;
     msg->packetPos = pcktPos;
     msg->sourceTaskAdd = srcID;
+    msg->payloadpPriority = priority;
     
     return msg->packetId;
 }

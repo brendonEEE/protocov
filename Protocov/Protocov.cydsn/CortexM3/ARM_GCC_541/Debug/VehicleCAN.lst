@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
   28:Generated_Source\PSoC5/VehicleCAN.c **** *
   29:Generated_Source\PSoC5/VehicleCAN.c **** * Summary:
   30:Generated_Source\PSoC5/VehicleCAN.c **** *  Inits/Restores default CAN Rx and Tx Buffers control registers configuration
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 2
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 2
 
 
   31:Generated_Source\PSoC5/VehicleCAN.c **** *  provided by the customizer.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
   85:Generated_Source\PSoC5/VehicleCAN.c ****     /* Initialize TX mailboxes */
   86:Generated_Source\PSoC5/VehicleCAN.c ****     for (i = 0u; i < VehicleCAN_NUMBER_OF_TX_MAILBOXES; i++)
   87:Generated_Source\PSoC5/VehicleCAN.c ****     {
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 3
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 3
 
 
   88:Generated_Source\PSoC5/VehicleCAN.c ****         if (VehicleCAN_TxBufConfig((const VehicleCAN_TX_CFG *)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  142:Generated_Source\PSoC5/VehicleCAN.c **** 
  143:Generated_Source\PSoC5/VehicleCAN.c ****     #if (CY_PSOC3 || CY_PSOC5)
  144:Generated_Source\PSoC5/VehicleCAN.c ****         uint8 enableInterrupts;
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 4
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 4
 
 
  145:Generated_Source\PSoC5/VehicleCAN.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  199:Generated_Source\PSoC5/VehicleCAN.c ****                                     if (VehicleCAN_SetEdgeMode(VehicleCAN_SYNC_EDGE) == CYRET_SUCCE
  200:Generated_Source\PSoC5/VehicleCAN.c ****                                     {
  201:Generated_Source\PSoC5/VehicleCAN.c ****                                         localResult = CYRET_SUCCESS;
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 5
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 5
 
 
  202:Generated_Source\PSoC5/VehicleCAN.c ****                                     }
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  256:Generated_Source\PSoC5/VehicleCAN.c ****     uint32 timeout = VehicleCAN_MODE_STATE_RUN_TIMEOUT;
  257:Generated_Source\PSoC5/VehicleCAN.c ****     uint8 result = VehicleCAN_FAIL;
  258:Generated_Source\PSoC5/VehicleCAN.c **** 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 6
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 6
 
 
  259:Generated_Source\PSoC5/VehicleCAN.c ****     #if (CY_PSOC3 || CY_PSOC5)
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  313:Generated_Source\PSoC5/VehicleCAN.c **** *    VehicleCAN_FAIL              The function failed
  314:Generated_Source\PSoC5/VehicleCAN.c **** *
  315:Generated_Source\PSoC5/VehicleCAN.c **** * Global variables:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 7
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 7
 
 
  316:Generated_Source\PSoC5/VehicleCAN.c **** *  VehicleCAN_initVar - used to check the initial configuration, modified
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32 0000 08B5     		push	{r3, lr}
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 8
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 8
 
 
   33              		.cfi_def_cfa_offset 8
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  389:Generated_Source\PSoC5/VehicleCAN.c **** 
  390:Generated_Source\PSoC5/VehicleCAN.c ****         /* Disable isr */
  391:Generated_Source\PSoC5/VehicleCAN.c ****     CyIntDisable(VehicleCAN_ISR_NUMBER);
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 9
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 9
 
 
   63              		.loc 1 391 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
   99 0054 80E100E0 		.word	-536813184
  100 0058 A6430040 		.word	1073759142
  101              		.cfi_endproc
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 10
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 10
 
 
  102              	.LFE4:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  127              		.loc 1 429 0
  128 0012 0120     		movs	r0, #1
  129 0014 7047     		bx	lr
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 11
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 11
 
 
  130              	.L12:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  167 000e 1370     		strb	r3, [r2]
  268:Generated_Source\PSoC5/VehicleCAN.c **** 
  168              		.loc 1 268 0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 12
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 12
 
 
  169 0010 1032     		adds	r2, r2, #16
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  257:Generated_Source\PSoC5/VehicleCAN.c **** 
  212              		.loc 1 257 0
  213 0052 0120     		movs	r0, #1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 13
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 13
 
 
  214 0054 08BD     		pop	{r3, pc}
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  245              		@ link register save eliminated.
  246              	.LVL21:
  471:Generated_Source\PSoC5/VehicleCAN.c ****     uint8 result = VehicleCAN_FAIL;
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 14
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 14
 
 
  472:Generated_Source\PSoC5/VehicleCAN.c **** 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  279              	.LFB7:
  493:Generated_Source\PSoC5/VehicleCAN.c **** 
  494:Generated_Source\PSoC5/VehicleCAN.c **** 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 15
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 15
 
 
  495:Generated_Source\PSoC5/VehicleCAN.c **** /*******************************************************************************
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  296 000e 9842     		cmp	r0, r3
  297 0010 03D0     		beq	.L32
  525:Generated_Source\PSoC5/VehicleCAN.c **** 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 16
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 16
 
 
  298              		.loc 1 525 0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  554:Generated_Source\PSoC5/VehicleCAN.c **** /*******************************************************************************
  555:Generated_Source\PSoC5/VehicleCAN.c **** * FUNCTION NAME:   VehicleCAN_SetArbiter
  556:Generated_Source\PSoC5/VehicleCAN.c **** ********************************************************************************
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 17
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 17
 
 
  557:Generated_Source\PSoC5/VehicleCAN.c **** *
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  587:Generated_Source\PSoC5/VehicleCAN.c ****                 result = CYRET_SUCCESS;
  588:Generated_Source\PSoC5/VehicleCAN.c ****             }
  589:Generated_Source\PSoC5/VehicleCAN.c ****         }
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 18
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 18
 
 
  590:Generated_Source\PSoC5/VehicleCAN.c ****         else    /* Fixed Priority */
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  618:Generated_Source\PSoC5/VehicleCAN.c ****                 result = CYRET_SUCCESS;
  619:Generated_Source\PSoC5/VehicleCAN.c ****             }
  620:Generated_Source\PSoC5/VehicleCAN.c ****         }
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 19
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 19
 
 
  621:Generated_Source\PSoC5/VehicleCAN.c ****     #endif /* CY_PSOC3 || CY_PSOC5 */
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  397              		@ frame_needed = 0, uses_anonymous_args = 0
  398              		@ link register save eliminated.
  399              	.LVL38:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 20
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 20
 
 
  400 0000 30B4     		push	{r4, r5}
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  437              	.LVL42:
  672:Generated_Source\PSoC5/VehicleCAN.c ****                     cfgTemp |= cfgTseg1;
  438              		.loc 1 672 0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 21
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 21
 
 
  439 002c 2043     		orrs	r0, r0, r4
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  473 004e 1370     		strb	r3, [r2]
  691:Generated_Source\PSoC5/VehicleCAN.c **** 
  692:Generated_Source\PSoC5/VehicleCAN.c ****                         /* Verify 1st byte of VehicleCAN_CFG_REG register */
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 22
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 22
 
 
  693:Generated_Source\PSoC5/VehicleCAN.c ****                         if (VehicleCAN_CFG_REG.byte[0u] == cfgTemp)
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  522 0078 0020     		movs	r0, #0
  523              	.LVL64:
  524              	.L43:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 23
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 23
 
 
  696:Generated_Source\PSoC5/VehicleCAN.c ****                         }
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  533              	.L56:
  534 0080 14A00040 		.word	1073782804
  535              		.cfi_endproc
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 24
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 24
 
 
  536              	.LFE9:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  555 0002 0D4B     		ldr	r3, .L63
  556 0004 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
  557 0006 02F0EF02 		and	r2, r2, #239
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 25
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 25
 
 
  558 000a 1A70     		strb	r2, [r3]
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  793:Generated_Source\PSoC5/VehicleCAN.c ****         }
  794:Generated_Source\PSoC5/VehicleCAN.c ****     #else  /* CY_PSOC4 */
  795:Generated_Source\PSoC5/VehicleCAN.c ****         if (reset == VehicleCAN_MANUAL_RESTART)
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 26
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 26
 
 
  796:Generated_Source\PSoC5/VehicleCAN.c ****         {
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  833:Generated_Source\PSoC5/VehicleCAN.c **** *                                       synchronization
  834:Generated_Source\PSoC5/VehicleCAN.c **** *    VehicleCAN_BOTH_EDGES        Both edges are used
  835:Generated_Source\PSoC5/VehicleCAN.c **** *
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 27
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 27
 
 
  836:Generated_Source\PSoC5/VehicleCAN.c **** * Return:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  636 001c 42F00102 		orr	r2, r2, #1
  637 0020 1A70     		strb	r2, [r3]
  863:Generated_Source\PSoC5/VehicleCAN.c **** 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 28
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 28
 
 
  864:Generated_Source\PSoC5/VehicleCAN.c ****             /* Verify that bit is set */
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  657              		.loc 1 896 0
  658 0034 7047     		bx	lr
  659              	.L71:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 29
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 29
 
 
  660 0036 00BF     		.align	2
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  937:Generated_Source\PSoC5/VehicleCAN.c **** *******************************************************************************/
  938:Generated_Source\PSoC5/VehicleCAN.c **** uint8 VehicleCAN_SetOpMode(uint8 opMode) 
  939:Generated_Source\PSoC5/VehicleCAN.c **** {
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 30
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 30
 
 
  674              		.loc 1 939 0
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  709 0020 4FF44353 		mov	r3, #12480
  710 0024 00E0     		b	.L74
  711              	.LVL85:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 31
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 31
 
 
  712              	.L76:
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  973:Generated_Source\PSoC5/VehicleCAN.c ****             }
  974:Generated_Source\PSoC5/VehicleCAN.c **** 
  975:Generated_Source\PSoC5/VehicleCAN.c ****             if (runState == VehicleCAN_ACTIVE_RUN_MODE)
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 32
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 32
 
 
  748              		.loc 1 975 0
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  997:Generated_Source\PSoC5/VehicleCAN.c ****         }
  998:Generated_Source\PSoC5/VehicleCAN.c **** 
  999:Generated_Source\PSoC5/VehicleCAN.c ****         /* Sets CAN Component into the Stop mode */
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 33
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 33
 
 
 1000:Generated_Source\PSoC5/VehicleCAN.c ****         if (VehicleCAN_Stop() == CYRET_SUCCESS)
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1031:Generated_Source\PSoC5/VehicleCAN.c **** /*******************************************************************************
 1032:Generated_Source\PSoC5/VehicleCAN.c **** * FUNCTION NAME:   VehicleCAN_RXRegisterInit
 1033:Generated_Source\PSoC5/VehicleCAN.c **** ********************************************************************************
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 34
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 34
 
 
 1034:Generated_Source\PSoC5/VehicleCAN.c **** *
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1066:Generated_Source\PSoC5/VehicleCAN.c ****     /* Disable isr */
 1067:Generated_Source\PSoC5/VehicleCAN.c ****     CyIntDisable(VehicleCAN_ISR_NUMBER);
  823              		.loc 1 1067 0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 35
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 35
 
 
  824 0018 4FF48033 		mov	r3, #65536
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  852 0040 1360     		str	r3, [r2]
 1093:Generated_Source\PSoC5/VehicleCAN.c **** 
 1094:Generated_Source\PSoC5/VehicleCAN.c ****             /* Verify register */
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 36
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 36
 
 
 1095:Generated_Source\PSoC5/VehicleCAN.c ****             if (CY_GET_REG32(regAddr) == config)
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1104:Generated_Source\PSoC5/VehicleCAN.c **** 
 1105:Generated_Source\PSoC5/VehicleCAN.c **** 
 1106:Generated_Source\PSoC5/VehicleCAN.c **** /*******************************************************************************
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 37
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 37
 
 
 1107:Generated_Source\PSoC5/VehicleCAN.c **** * FUNCTION NAME:   VehicleCAN_SetIrqMask
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  904              		.loc 1 1151 0
  905 0004 1B88     		ldrh	r3, [r3]
  906 0006 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 38
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 38
 
 
  907 0008 9842     		cmp	r0, r3
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1177:Generated_Source\PSoC5/VehicleCAN.c **** *
 1178:Generated_Source\PSoC5/VehicleCAN.c **** * Parameters:
 1179:Generated_Source\PSoC5/VehicleCAN.c **** *  None.
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 39
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 39
 
 
 1180:Generated_Source\PSoC5/VehicleCAN.c **** *
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1204:Generated_Source\PSoC5/VehicleCAN.c **** * Summary:
 1205:Generated_Source\PSoC5/VehicleCAN.c **** *  This function returns the bit that indicates if the number of RX errors
 1206:Generated_Source\PSoC5/VehicleCAN.c **** *  exceeds 0x60.
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 40
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 40
 
 
 1207:Generated_Source\PSoC5/VehicleCAN.c **** *
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1231:Generated_Source\PSoC5/VehicleCAN.c **** * FUNCTION NAME:   VehicleCAN_GetTXErrorCount
 1232:Generated_Source\PSoC5/VehicleCAN.c **** ********************************************************************************
 1233:Generated_Source\PSoC5/VehicleCAN.c **** *
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 41
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 41
 
 
 1234:Generated_Source\PSoC5/VehicleCAN.c **** * Summary:
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1263:Generated_Source\PSoC5/VehicleCAN.c **** * Parameters:
 1264:Generated_Source\PSoC5/VehicleCAN.c **** *  None.
 1265:Generated_Source\PSoC5/VehicleCAN.c **** *
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 42
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 42
 
 
 1266:Generated_Source\PSoC5/VehicleCAN.c **** * Return:
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1295:Generated_Source\PSoC5/VehicleCAN.c **** *
 1296:Generated_Source\PSoC5/VehicleCAN.c **** *******************************************************************************/
 1297:Generated_Source\PSoC5/VehicleCAN.c **** uint8 VehicleCAN_GetErrorState(void) 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 43
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 43
 
 
 1298:Generated_Source\PSoC5/VehicleCAN.c **** {
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1326:Generated_Source\PSoC5/VehicleCAN.c **** *
 1327:Generated_Source\PSoC5/VehicleCAN.c **** *******************************************************************************/
 1328:Generated_Source\PSoC5/VehicleCAN.c **** uint8 VehicleCAN_RxBufConfig(const VehicleCAN_RX_CFG *rxConfig)
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 44
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 44
 
 
 1329:Generated_Source\PSoC5/VehicleCAN.c ****                                    
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1108 0038 C268     		ldr	r2, [r0, #12]
  1109 003a 5A61     		str	r2, [r3, #20]
 1345:Generated_Source\PSoC5/VehicleCAN.c ****             if (CY_GET_REG32((reg32 *) (&VehicleCAN_RX[rxConfig->rxmailbox].rxacr)) == rxConfig->rx
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 45
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 45
 
 
  1110              		.loc 1 1345 0
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1155 0080 7047     		bx	lr
  1156              	.LVL120:
  1157              	.L125:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 46
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 46
 
 
  1158 0082 0120     		movs	r0, #1
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
 1383:Generated_Source\PSoC5/VehicleCAN.c **** *
 1384:Generated_Source\PSoC5/VehicleCAN.c **** *******************************************************************************/
 1385:Generated_Source\PSoC5/VehicleCAN.c **** uint8 VehicleCAN_TxBufConfig(const VehicleCAN_TX_CFG *txConfig)
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 47
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 47
 
 
 1386:Generated_Source\PSoC5/VehicleCAN.c ****                                    
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1223 0040 0120     		movs	r0, #1
  1224              	.LVL125:
  1225 0042 7047     		bx	lr
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 48
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 48
 
 
  1226              	.LVL126:
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1270              		.loc 1 88 0
  1271 0006 04EB4402 		add	r2, r4, r4, lsl #1
  1272 000a 9300     		lsls	r3, r2, #2
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 49
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 49
 
 
  1273 000c 0E48     		ldr	r0, .L146
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1319              	.L144:
  104:Generated_Source\PSoC5/VehicleCAN.c ****                 break;
  1320              		.loc 1 104 0 is_stmt 1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 50
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 50
 
 
  1321 0042 0125     		movs	r5, #1
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  154:Generated_Source\PSoC5/VehicleCAN.c **** 
  1369              		.loc 1 154 0
  1370 001e 2E4A     		ldr	r2, .L165+4
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 51
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 51
 
 
  1371 0020 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  187:Generated_Source\PSoC5/VehicleCAN.c ****                 {
  1415              		.loc 1 187 0
  1416 0060 FFF7FEFF 		bl	VehicleCAN_SetArbiter
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 52
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 52
 
 
  1417              	.LVL151:
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1463              		.loc 1 214 0
  1464 00a2 41F20160 		movw	r0, #5633
  1465 00a6 FFF7FEFF 		bl	VehicleCAN_SetIrqMask
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 53
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 53
 
 
  1466              	.LVL157:
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1515              		.type	VehicleCAN_Start, %function
  1516              	VehicleCAN_Start:
  1517              	.LFB3:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 54
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 54
 
 
  324:Generated_Source\PSoC5/VehicleCAN.c ****     uint8 result = CYRET_SUCCESS;
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1564              		.type	VehicleCAN_TXConfigStruct.5055, %object
  1565              		.size	VehicleCAN_TXConfigStruct.5055, 96
  1566              	VehicleCAN_TXConfigStruct.5055:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 55
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 55
 
 
  1567 0000 00       		.byte	0
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1621 009c 00000000 		.word	0
  1622 00a0 04       		.byte	4
  1623 00a1 000000   		.space	3
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 56
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 56
 
 
  1624 00a4 00000000 		.word	0
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1678 0151 000000   		.space	3
  1679 0154 00000000 		.word	0
  1680 0158 00000000 		.word	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 57
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 57
 
 
  1681 015c 00000000 		.word	0
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1735 0056 02       		.uleb128 0x2
  1736 0057 08       		.byte	0x8
  1737 0058 07       		.byte	0x7
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 58
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 58
 
 
  1738 0059 8F000000 		.4byte	.LASF7
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1792 00ce D2000000 		.4byte	0xd2
  1793 00d2 05       		.uleb128 0x5
  1794 00d3 83000000 		.4byte	0x83
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 59
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 59
 
 
  1795 00d7 02       		.uleb128 0x2
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1849 0140 2F010000 		.4byte	0x12f
  1850 0144 0A       		.uleb128 0xa
  1851 0145 46010000 		.4byte	.LASF22
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 60
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 60
 
 
  1852 0149 03       		.byte	0x3
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1906 01b2 04       		.byte	0x4
  1907 01b3 07       		.uleb128 0x7
  1908 01b4 2A050000 		.4byte	.LASF30
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 61
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 61
 
 
  1909 01b8 03       		.byte	0x3
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  1963 0221 A8       		.byte	0xa8
  1964 0222 44010000 		.4byte	0x144
  1965 0226 1C       		.byte	0x1c
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 62
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 62
 
 
  1966 0227 00       		.byte	0
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2020 029b 7101     		.2byte	0x171
  2021 029d 6B000000 		.4byte	0x6b
  2022 02a1 2C000000 		.4byte	.LLST1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 63
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 63
 
 
  2023 02a5 0C       		.uleb128 0xc
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2077 0331 01       		.byte	0x1
  2078 0332 0401     		.2byte	0x104
  2079 0334 6B000000 		.4byte	0x6b
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 64
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 64
 
 
  2080 0338 D5000000 		.4byte	.LLST6
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2134 03c4 3F02     		.2byte	0x23f
  2135 03c6 6B000000 		.4byte	0x6b
  2136 03ca 00000000 		.4byte	.LFB8
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 65
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 65
 
 
  2137 03ce 3C000000 		.4byte	.LFE8-.LFB8
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2191 0455 01       		.byte	0x1
  2192 0456 8F02     		.2byte	0x28f
  2193 0458 6B000000 		.4byte	0x6b
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 66
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 66
 
 
  2194 045c 55030000 		.4byte	.LLST15
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2248 04e7 0B       		.uleb128 0xb
  2249 04e8 4A020000 		.4byte	.LASF58
  2250 04ec 01       		.byte	0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 67
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 67
 
 
  2251 04ed AA03     		.2byte	0x3aa
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2305 057c 0C       		.uleb128 0xc
  2306 057d 96050000 		.4byte	.LASF40
  2307 0581 01       		.byte	0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 68
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 68
 
 
  2308 0582 1D04     		.2byte	0x41d
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2362 060a 0C000000 		.4byte	.LFE17-.LFB17
  2363 060e 01       		.uleb128 0x1
  2364 060f 9C       		.byte	0x9c
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 69
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 69
 
 
  2365 0610 13       		.uleb128 0x13
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2419 0697 9C       		.byte	0x9c
  2420 0698 BD060000 		.4byte	0x6bd
  2421 069c 0F       		.uleb128 0xf
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 70
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 70
 
 
  2422 069d 10050000 		.4byte	.LASF74
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2476 071b 76080000 		.4byte	.LLST35
  2477 071f 18       		.uleb128 0x18
  2478 0720 14000000 		.4byte	.LVL132
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 71
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 71
 
 
  2479 0724 82060000 		.4byte	0x682
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2533 0784 5F020000 		.4byte	.LASF78
  2534 0788 01       		.byte	0x1
  2535 0789 89       		.byte	0x89
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 72
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 72
 
 
  2536 078a 6B000000 		.4byte	0x6b
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2590 080e 40       		.byte	0x40
  2591 080f 19       		.uleb128 0x19
  2592 0810 01       		.uleb128 0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 73
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 73
 
 
  2593 0811 51       		.byte	0x51
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2647 086b AC040000 		.4byte	0x4ac
  2648 086f 79080000 		.4byte	0x879
  2649 0873 19       		.uleb128 0x19
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 74
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 74
 
 
  2650 0874 01       		.uleb128 0x1
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2704 08ec 7D       		.byte	0x7d
  2705 08ed 1C       		.uleb128 0x1c
  2706 08ee 0D000000 		.4byte	.LASF82
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 75
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 75
 
 
  2707 08f2 0D000000 		.4byte	.LASF82
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2761 0026 08       		.uleb128 0x8
  2762 0027 00       		.byte	0
  2763 0028 00       		.byte	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 76
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 76
 
 
  2764 0029 04       		.uleb128 0x4
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2818 005f 13       		.uleb128 0x13
  2819 0060 00       		.byte	0
  2820 0061 00       		.byte	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 77
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 77
 
 
  2821 0062 09       		.uleb128 0x9
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2875 0099 3A       		.uleb128 0x3a
  2876 009a 0B       		.uleb128 0xb
  2877 009b 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 78
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 78
 
 
  2878 009c 05       		.uleb128 0x5
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2932 00d5 02       		.uleb128 0x2
  2933 00d6 17       		.uleb128 0x17
  2934 00d7 00       		.byte	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 79
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 79
 
 
  2935 00d8 00       		.byte	0
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  2989 010e 13       		.uleb128 0x13
  2990 010f 11       		.uleb128 0x11
  2991 0110 01       		.uleb128 0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 80
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 80
 
 
  2992 0111 12       		.uleb128 0x12
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3046 0148 49       		.uleb128 0x49
  3047 0149 13       		.uleb128 0x13
  3048 014a 02       		.uleb128 0x2
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 81
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 81
 
 
  3049 014b 17       		.uleb128 0x17
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3103 0188 3C       		.uleb128 0x3c
  3104 0189 19       		.uleb128 0x19
  3105 018a 6E       		.uleb128 0x6e
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 82
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 82
 
 
  3106 018b 0E       		.uleb128 0xe
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3160 006b 0100     		.2byte	0x1
  3161 006d 50       		.byte	0x50
  3162 006e 00000000 		.4byte	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 83
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 83
 
 
  3163 0072 00000000 		.4byte	0
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3217 00fe 50       		.byte	0x50
  3218 00ff 00000000 		.4byte	0
  3219 0103 00000000 		.4byte	0
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 84
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 84
 
 
  3220              	.LLST8:
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3274 0190 24000000 		.4byte	.LFE7
  3275 0194 0100     		.2byte	0x1
  3276 0196 50       		.byte	0x50
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 85
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 85
 
 
  3277 0197 00000000 		.4byte	0
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3331 0216 9F       		.byte	0x9f
  3332 0217 34000000 		.4byte	.LVL37
  3333 021b 3C000000 		.4byte	.LFE8
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 86
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 86
 
 
  3334 021f 0100     		.2byte	0x1
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3388 029d 6C000000 		.4byte	.LVL57
  3389 02a1 0400     		.2byte	0x4
  3390 02a3 F3       		.byte	0xf3
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 87
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 87
 
 
  3391 02a4 01       		.uleb128 0x1
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3445 031f 42000000 		.4byte	.LVL46
  3446 0323 0100     		.2byte	0x1
  3447 0325 53       		.byte	0x53
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 88
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 88
 
 
  3448 0326 42000000 		.4byte	.LVL46
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3502 03ab 0100     		.2byte	0x1
  3503 03ad 50       		.byte	0x50
  3504 03ae 38000000 		.4byte	.LVL44
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 89
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 89
 
 
  3505 03b2 40000000 		.4byte	.LVL45
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3559 0437 30000000 		.4byte	.LVL70
  3560 043b 32000000 		.4byte	.LVL71
  3561 043f 0400     		.2byte	0x4
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 90
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 90
 
 
  3562 0441 F3       		.byte	0xf3
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3616 04bf 0100     		.2byte	0x1
  3617 04c1 50       		.byte	0x50
  3618 04c2 30000000 		.4byte	.LVL78
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 91
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 91
 
 
  3619 04c6 32000000 		.4byte	.LVL79
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3673 0547 0100     		.2byte	0x1
  3674 0549 53       		.byte	0x53
  3675 054a 56000000 		.4byte	.LVL89
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 92
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 92
 
 
  3676 054e 5C000000 		.4byte	.LVL90
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3730 05d7 F3       		.byte	0xf3
  3731 05d8 01       		.uleb128 0x1
  3732 05d9 50       		.byte	0x50
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 93
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 93
 
 
  3733 05da 9F       		.byte	0x9f
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3787 0657 9F       		.byte	0x9f
  3788 0658 34000000 		.4byte	.LVL100
  3789 065c 50000000 		.4byte	.LVL104
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 94
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 94
 
 
  3790 0660 0100     		.2byte	0x1
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3844 06e3 04A00040 		.4byte	0x4000a004
  3845 06e7 10000000 		.4byte	.LVL110
  3846 06eb 12000000 		.4byte	.LVL111
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 95
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 95
 
 
  3847 06ef 0100     		.2byte	0x1
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3901 0772 9F       		.byte	0x9f
  3902 0773 7E000000 		.4byte	.LVL118
  3903 0777 80000000 		.4byte	.LVL119
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 96
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 96
 
 
  3904 077b 0100     		.2byte	0x1
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  3958 07fb 01       		.uleb128 0x1
  3959 07fc 50       		.byte	0x50
  3960 07fd 9F       		.byte	0x9f
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 97
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 97
 
 
  3961 07fe 44000000 		.4byte	.LVL126
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4015 0882 06000000 		.4byte	.LVL131
  4016 0886 18000000 		.4byte	.LVL133
  4017 088a 0100     		.2byte	0x1
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 98
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 98
 
 
  4018 088c 54       		.byte	0x54
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4072 0918 9F       		.byte	0x9f
  4073 0919 C2000000 		.4byte	.LVL159
  4074 091d C6000000 		.4byte	.LVL160
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 99
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 99
 
 
  4075 0921 0100     		.2byte	0x1
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4129 0038 00000000 		.4byte	.LFB8
  4130 003c 3C000000 		.4byte	.LFE8-.LFB8
  4131 0040 00000000 		.4byte	.LFB9
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 100
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 100
 
 
  4132 0044 84000000 		.4byte	.LFE9-.LFB9
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4186 004c 78000000 		.4byte	.LFE12
  4187 0050 00000000 		.4byte	.LFB13
  4188 0054 5C000000 		.4byte	.LFE13
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 101
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 101
 
 
  4189 0058 00000000 		.4byte	.LFB14
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4227      414E5F47 
  4227      65745458 
  4227      4572726F 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 102
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 102
 
 
  4228              	.LASF70:
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4250              	.LASF60:
  4251 0119 72756E53 		.ascii	"runState\000"
  4251      74617465 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 103
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 103
 
 
  4251      00
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4279      636C6543 
  4279      414E5F47 
  4279      65745458 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 104
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 104
 
 
  4279      4572726F 
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4299      585F5354 
  4299      52554354 
  4300              	.LASF72:
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 105
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 105
 
 
  4301 0284 7278436F 		.ascii	"rxConfig\000"
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4326              	.LASF56:
  4327 032b 56656869 		.ascii	"VehicleCAN_SetEdgeMode\000"
  4327      636C6543 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 106
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 106
 
 
  4327      414E5F53 
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4348      31203230 
  4348      31363036 
  4349 041d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 107
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 107
 
 
  4349      20726576 
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 1
  4371              	.LASF52:
  4372 0501 63666754 		.ascii	"cfgTseg2\000"
  4372      73656732 
-ARM GAS  C:\Users\bchir\AppData\Local\Temp\cc32ml3d.s 			page 108
+ARM GAS  C:\Users\bchir\AppData\Local\Temp\ccREPdU9.s 			page 108
 
 
  4372      00

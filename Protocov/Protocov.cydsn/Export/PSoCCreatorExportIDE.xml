@@ -42,6 +42,7 @@
           <File BuildType="BUILD" Toolchain="">UserButtonControl.c</File>
           <File BuildType="BUILD" Toolchain="">VehicleBatteryVoltage.c</File>
           <File BuildType="BUILD" Toolchain="">SystemMessenger.c</File>
+          <File BuildType="BUILD" Toolchain="">PowerMonitoringAndControl.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
           <File BuildType="BUILD" Toolchain="">CanbusMessageRead.h</File>
           <File BuildType="BUILD" Toolchain="">BluetoothComms.h</File>
@@ -49,6 +50,7 @@
           <File BuildType="BUILD" Toolchain="">UserButtonControl.h</File>
           <File BuildType="BUILD" Toolchain="">VehicleBatteryVoltage.h</File>
           <File BuildType="BUILD" Toolchain="">SystemMessenger.h</File>
+          <File BuildType="BUILD" Toolchain="">PowerMonitoringAndControl.h</File>
           <File BuildType="BUILD" Toolchain="">..\..\..\FreeRTOS\FreeRTOS-Kernel\include\FreeRTOS.h</File>
           <File BuildType="BUILD" Toolchain="">..\..\..\FreeRTOS\FreeRTOS-Kernel\portable\GCC\ARM_CM3\portmacro.h</File>
           <File BuildType="BUILD" Toolchain="">FreeRTOSConfig.h</File>
@@ -201,6 +203,9 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\VehicleBattVoltageAdc_IRQ.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ClockVehicleBattVoltageADC.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ClockVehicleBattVoltageADC.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\BlueLedd_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\BlueLedd.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\BlueLedd.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="E:\GIT Hub Project\protocov\Protocov\Protocov.cydsn\Export\ARM_GCC_Generic">
